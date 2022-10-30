@@ -18,12 +18,17 @@ export default class Donunq {
             scaleX: 5,
             scaleY: 5,
             scaleZ: 5,
-            path: "./public/models/donunq_object.glb"
+            path: "./public/models/donunq_object.glb",
+            ligthPath: "./public/models/fairway.hdr"
         }
     }
 
     createScene() {
         // create scene + camera
+        this.scene = new THREE.Scene();
+        this.camera = new THREE.PerspectiveCamera(75, this.viewport.offsetWidth, 75, this.viewport.offsetHeight, 0.1, 500);
+        this.camera.zoom = 8;
+        this.camera.position.set(0, 0.6, 1);
     }
 
     createDonunq() {
