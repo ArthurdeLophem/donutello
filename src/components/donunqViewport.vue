@@ -12,7 +12,7 @@ const editDonunqFlavour = (flavour) => {
 }
 
 const editDonunqExtra = (extra) => {
-    // console.log(extra)
+    donunq.configureDonunqExtra(extra)
 }
 
 export default {

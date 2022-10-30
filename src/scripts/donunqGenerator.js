@@ -59,7 +59,6 @@ export default class Donunq {
         loader.load(this.donunqData.path, (gltf) => {
             const model = gltf.scene
             model.scale.set(this.donunqData.scaleX, this.donunqData.scaleY, this.donunqData.scaleZ);
-            console.log(model.children[0].children[1].material);
             if (flav === "fraise") {
                 model.children[0].children[1].material = new THREE.MeshStandardMaterial({
                     color: '#bf3030',
@@ -77,6 +76,27 @@ export default class Donunq {
             }
             else {
                 this.createDonunq();
+            }
+        })
+    }
+
+    configureDonunqExtra(extra) {
+        const loader = new GLTFLoader();
+        loader.load(this.donunqData.path, (gltf) => {
+            const model = gltf.scene
+            model.scale.set(this.donunqData.scaleX, this.donunqData.scaleY, this.donunqData.scaleZ);
+            if (extra === "teknodisco") {
+                model.children[0].children[3].material = new THREE.MeshStandardMaterial({
+                    color: '#312d48',
+                    roughness: this.donunqData.roughness,
+                    metalness: this.donunqData.metalness
+                })
+                model.children[0].children[2].material = new THREE.MeshStandardMaterial({
+                    color: '#ffffff',
+                    roughness: this.donunqData.roughness,
+                    metalness: this.donunqData.metalness
+                })
+                this.scene.add(model);
             }
         })
     }
