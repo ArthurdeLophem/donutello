@@ -1,7 +1,11 @@
 import Donunq from "../scripts/donunqGenerator.js"
 const dViewport = document.querySelector(".donunqViewport")
+console.log(dViewport);
 
-generateCanvas = () => {
+const generateCanvas = () => {
     const donunq = new Donunq(dViewport);
     donunq.createScene();
 }
+
+const editDonunq = () => { };
+generateCanvas();
