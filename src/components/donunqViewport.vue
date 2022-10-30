@@ -1,18 +1,27 @@
-<script setup>
-import Donunq from "../scripts/donunqGenerator.js"
-import { onMounted } from 'vue'
+<script>
+import Donunq from "../scripts/donunqGenerator.js";
 
 const generateCanvas = () => {
     const dViewport = document.querySelector(".donunqViewport")
     const donunq = new Donunq(dViewport);
     donunq.createScene();
-};
+}
 
-onMounted(() => {
-    generateCanvas()
-})
+const editDonunq = (flavour) => {
+    console.log(flavour)
+}
 
-// const editDonunq = () => { };
+export default {
+    created() {
+        this.emitter.on('editDonunq', e => {
+            editDonunq(e.eventContent)
+        })
+    },
+
+    mounted() {
+        generateCanvas()
+    }
+}
 </script>
 
 <template>
