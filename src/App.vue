@@ -1,7 +1,4 @@
 <script setup>
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import HelloWorld from './components/HelloWorld.vue'
 import donunqConfigurator from './components/donunqConfigurator.vue'
 import donunqViewport from './components/donunqViewport.vue'
 </script>
@@ -9,7 +6,6 @@ import donunqViewport from './components/donunqViewport.vue'
 <template>
   <donunqConfigurator />
   <donunqViewport />
-  <!-- <HelloWorld msg="Vite + Vue" /> -->
 </template>
 
 <style scoped>
