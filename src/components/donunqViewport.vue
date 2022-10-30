@@ -1,18 +1,18 @@
 <script>
 import Donunq from "../scripts/donunqGenerator.js";
+const donunq = new Donunq();
 
 const generateCanvas = () => {
     const dViewport = document.querySelector(".donunqViewport")
-    const donunq = new Donunq(dViewport);
-    donunq.createScene();
+    donunq.createScene(dViewport);
 }
 
 const editDonunqFlavour = (flavour) => {
-    console.log(flavour)
+    donunq.configureDonunqFlavour(flavour)
 }
 
 const editDonunqExtra = (extra) => {
-    console.log(extra)
+    // console.log(extra)
 }
 
 export default {

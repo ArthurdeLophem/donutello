@@ -4,8 +4,8 @@ import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js"
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js"
 
 export default class Donunq {
-    constructor(viewport) {
-        this.viewport = viewport;
+    constructor() {
+        this.viewport;
 
         this.scene;
         this.camera;
@@ -17,14 +17,16 @@ export default class Donunq {
             scaleX: 5,
             scaleY: 5,
             scaleZ: 5,
-            path: "./models/donunq_object.glb",
+            roughness: 0.2235293984413147,
+            metalness: 0.24705882370471954,
+            path: "./models/donunq_object.gltf",
             lightPath: "./models/fairway.hdr"
         }
     }
 
-    createScene() {
+    createScene(viewport) {
         // create scene + camera
-        console.log("Loading")
+        this.viewport = viewport
         this.scene = new THREE.Scene();
         this.camera = new THREE.PerspectiveCamera(75, this.viewport.offsetWidth / this.viewport.offsetHeight, 0.1, 500);
         this.camera.zoom = 8;
@@ -44,7 +46,7 @@ export default class Donunq {
 
     createDonunq() {
         // load donunq + add to scene
-        console.log("donunq")
+        // console.log("donunq")
         const loader = new GLTFLoader();
         loader.load(this.donunqData.path, (gltf) => {
             gltf.scene.scale.set(this.donunqData.scaleX, this.donunqData.scaleY, this.donunqData.scaleZ);
@@ -52,9 +54,36 @@ export default class Donunq {
         })
     }
 
+    configureDonunqFlavour(flav) {
+        const loader = new GLTFLoader();
+        loader.load(this.donunqData.path, (gltf) => {
+            const model = gltf.scene
+            model.scale.set(this.donunqData.scaleX, this.donunqData.scaleY, this.donunqData.scaleZ);
+            console.log(model.children[0].children[1].material);
+            if (flav === "fraise") {
+                model.children[0].children[1].material = new THREE.MeshStandardMaterial({
+                    color: '#bf3030',
+                    roughness: this.donunqData.roughness,
+                    metalness: this.donunqData.metalness
+                })
+                this.scene.add(model);
+            } else if (flav === "myrtille") {
+                model.children[0].children[1].material = new THREE.MeshStandardMaterial({
+                    color: '#312d48',
+                    roughness: this.donunqData.roughness,
+                    metalness: this.donunqData.metalness
+                })
+                this.scene.add(model);
+            }
+            else {
+                this.createDonunq();
+            }
+        })
+    }
+
     createOrbitctrl() {
         // generate orbit controls (around the world around the world)
-        console.log("orbits")
+        // console.log("orbits")
         this.controls = new OrbitControls(this.camera, this.renderer.domElement)
         this.controls.enableDamping = true;
         this.controls.enableZoom = false;
@@ -74,7 +103,7 @@ export default class Donunq {
 
     lights() {
         // add lights to scene
-        console.log("lights")
+        // console.log("lights")
         const hemi = new THREE.HemisphereLight(0x0000ff, 0x00ff00, 0.6)
         this.scene.add(hemi)
 
