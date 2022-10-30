@@ -33,25 +33,32 @@ export default class Donunq {
         this.renderer = new THREE.WebGLRenderer();
         this.renderer.setSize(this.viewport.offsetWidth, this.viewport.offsetHeight);
         this.viewport.appendChild(this.renderer.domElement);
-        this.renderer.setClearColor(0x000000, 0);
+        // this.renderer.setClearColor(0x000000, 0);
 
+        this.render();
+        this.createOrbitctrl()
         this.lights();
         this.createDonunq();
-        this.render();
+        this.animate();
     }
 
     createDonunq() {
         // load donunq + add to scene
+        console.log("donunq")
         const loader = new GLTFLoader();
         loader.load(this.donunqData.path, (gltf) => {
             gltf.scene.scale.set(this.donunqData.scaleX, this.donunqData.scaleY, this.donunqData.scaleZ);
             this.scene.add(gltf.scene);
         })
-        this.animate();
     }
 
     createOrbitctrl() {
         // generate orbit controls (around the world around the world)
+        console.log("orbits")
+        this.controls = new OrbitControls(this.camera, this.renderer.domElement)
+        this.controls.enableDamping = true;
+        this.controls.enableZoom = false;
+        this.controls.autoRotate = true;
     }
 
     onWindowResize() {
@@ -61,11 +68,16 @@ export default class Donunq {
     animate = () => {
         // function to let the orbitctrl and others to animate
         requestAnimationFrame(this.animate);
+        this.controls.update();
         this.render()
     }
 
     lights() {
         // add lights to scene
+        console.log("lights")
+        const hemi = new THREE.HemisphereLight(0x0000ff, 0x00ff00, 0.6)
+        this.scene.add(hemi)
+
         const rgbeLoader = new RGBELoader();
         rgbeLoader.load(this.donunqData.lightPath, (texture) => {
             texture.mapping = THREE.EquirectangularReflectionMapping;
