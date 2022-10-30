@@ -26,14 +26,14 @@ export default class Donunq {
         // create scene + camera
         console.log("Loading")
         this.scene = new THREE.Scene();
-        this.camera = new THREE.PerspectiveCamera(75, this.viewport.offsetWidth, 75, this.viewport.offsetHeight, 0.1, 500);
+        this.camera = new THREE.PerspectiveCamera(75, this.viewport.offsetWidth / this.viewport.offsetHeight, 0.1, 500);
         this.camera.zoom = 8;
         this.camera.position.set(0, 0.6, 1);
 
         this.renderer = new THREE.WebGLRenderer();
         this.renderer.setSize(this.viewport.offsetWidth, this.viewport.offsetHeight);
         this.viewport.appendChild(this.renderer.domElement);
-        // this.renderer.setClearColor(0x000000, 0);
+        this.renderer.setClearColor(0x000000, 0);
 
         this.render();
         this.createOrbitctrl()
