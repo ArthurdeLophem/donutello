@@ -7,14 +7,22 @@ const generateCanvas = () => {
     donunq.createScene();
 }
 
-const editDonunq = (flavour) => {
+const editDonunqFlavour = (flavour) => {
     console.log(flavour)
+}
+
+const editDonunqExtra = (extra) => {
+    console.log(extra)
 }
 
 export default {
     created() {
-        this.emitter.on('editDonunq', e => {
-            editDonunq(e.eventContent)
+        this.emitter.on('editDonunqFlavour', e => {
+            editDonunqFlavour(e.eventContent)
+        })
+
+        this.emitter.on('editDonunqExtra', e => {
+            editDonunqExtra(e.eventContent)
         })
     },
 
