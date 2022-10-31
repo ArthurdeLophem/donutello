@@ -1,7 +1,11 @@
-# Vue 3 + Vite
+# donunq generator
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+Ever wanted to build your own donut, well here it is. This tool allows you as a business owner to create your Donut, but not just a donut, Your Business Representative DONUNQ.
 
-## Recommended IDE Setup
+![alt text](https://github.com/ArthurdeLophem/donunq-generator/blob/main/src/assets/screenshots/generator_01.png?raw=true)
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
+### under construction
+
+- [ ] add three.loader
+- [ ] more flavours & extra's (or even a business card)
+- [ ] hosting
