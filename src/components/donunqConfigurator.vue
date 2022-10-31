@@ -3,7 +3,7 @@ export default {
     data() {
         return {
             selectedFlavour: 'chocolat',
-            selectedExtra: 'boring'
+            selectedExtra: 'vermicelles'
         }
     },
     methods: {
@@ -34,8 +34,8 @@ export default {
                 <p class="extras__title">want some extras: <strong>{{ selectedExtra }}</strong></p>
                 <select v-model="selectedExtra" v-on:change="emitDonunq" class="extras__selector" name="extras"
                     id="extras">
-                    <option selected value="boring">no I'm Boring</option>
-                    <option value="vermicelles">vermicelles</option>
+                    <option selected value="vermicelles">vermicelles</option>
+                    <option value="boring">no I'm Boring</option>
                     <option value="teknodisco">teknodisco</option>
                 </select>
             </div>
