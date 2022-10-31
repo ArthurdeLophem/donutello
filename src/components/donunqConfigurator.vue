@@ -7,12 +7,8 @@ export default {
         }
     },
     methods: {
-        emitFlavour() {
-            this.emitter.emit('editDonunqFlavour', { 'eventContent': this.selectedFlavour })
-        },
-
-        emitExtra() {
-            this.emitter.emit('editDonunqExtra', { 'eventContent': this.selectedExtra })
+        emitDonunq() {
+            this.emitter.emit('emitDonunq', { 'flavour': this.selectedFlavour, 'extra': this.selectedExtra })
         }
     }
 }
@@ -22,7 +18,7 @@ export default {
     <div class="configurePanel">
         <div class="flavour">
             <p class="flavour__title">choose your flavour: <span style="color:blue">{{ selectedFlavour }}</span></p>
-            <select v-model="selectedFlavour" v-on:change="emitFlavour" class="flavour__selector" name="flavours"
+            <select v-model="selectedFlavour" v-on:change="emitDonunq" class="flavour__selector" name="flavours"
                 id="flavours">
                 <option selected value="chocolat">chocolat</option>
                 <option value="fraise">fraise</option>

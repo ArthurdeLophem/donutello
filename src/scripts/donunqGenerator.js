@@ -54,33 +54,38 @@ export default class Donunq {
         })
     }
 
-    configureDonunqFlavour(flav) {
+    configureDonunq(flav, extra) {
         const loader = new GLTFLoader();
         loader.load(this.donunqData.path, (gltf) => {
             const model = gltf.scene
             model.scale.set(this.donunqData.scaleX, this.donunqData.scaleY, this.donunqData.scaleZ);
+            // flavour
             if (flav === "fraise") {
-                model.children[0].children[1].material = new THREE.MeshStandardMaterial({
-                    color: '#bf3030',
-                    roughness: this.donunqData.roughness,
-                    metalness: this.donunqData.metalness
-                })
+                flav = '#bf3030';
+                this.addFlav(flav, model);
                 this.scene.add(model);
             } else if (flav === "myrtille") {
-                model.children[0].children[1].material = new THREE.MeshStandardMaterial({
-                    color: '#312d48',
-                    roughness: this.donunqData.roughness,
-                    metalness: this.donunqData.metalness
-                })
+                flav = '#312d48';
+                this.addFlav(flav, model);
                 this.scene.add(model);
-            }
-            else {
+            } else {
                 this.createDonunq();
             }
+
+            // extras
         })
     }
 
-    configureDonunqExtra(extra) {
+    addFlav(flav, model) {
+        model.children[0].children[1].material = new THREE.MeshStandardMaterial({
+            color: flav,
+            roughness: this.donunqData.roughness,
+            metalness: this.donunqData.metalness
+        })
+        return model
+    }
+
+    addExtra(extra) {
         const loader = new GLTFLoader();
         loader.load(this.donunqData.path, (gltf) => {
             const model = gltf.scene
