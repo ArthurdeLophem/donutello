@@ -27,7 +27,7 @@ export default {
         </div>
         <div class="extras">
             <p class="extras__title">want some extras: <span style="color:blue">{{ selectedExtra }}</span></p>
-            <select v-model="selectedExtra" v-on:change="emitExtra" class="extras__selector" name="extras" id="extras">
+            <select v-model="selectedExtra" v-on:change="emitDonunq" class="extras__selector" name="extras" id="extras">
                 <option selected value="boring">no I'm Boring</option>
                 <option value="vermicelles">vermicelles</option>
                 <option value="teknodisco">teknodisco</option>

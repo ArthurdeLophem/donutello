@@ -47,33 +47,51 @@ export default class Donunq {
     createDonunq() {
         // load donunq + add to scene
         // console.log("donunq")
+        console.log(this.scene)
         const loader = new GLTFLoader();
         loader.load(this.donunqData.path, (gltf) => {
             gltf.scene.scale.set(this.donunqData.scaleX, this.donunqData.scaleY, this.donunqData.scaleZ);
             this.scene.add(gltf.scene);
         })
+        console.log(this.scene)
     }
 
     configureDonunq(flav, extra) {
+        console.log(this.scene)
+        let extra1, extra2
         const loader = new GLTFLoader();
         loader.load(this.donunqData.path, (gltf) => {
-            const model = gltf.scene
+            let model = gltf.scene
             model.scale.set(this.donunqData.scaleX, this.donunqData.scaleY, this.donunqData.scaleZ);
+
             // flavour
             if (flav === "fraise") {
                 flav = '#bf3030';
                 this.addFlav(flav, model);
-                this.scene.add(model);
+                // this.model.children[0].children[1].material = this.flavour 
             } else if (flav === "myrtille") {
                 flav = '#312d48';
                 this.addFlav(flav, model);
-                this.scene.add(model);
-            } else {
-                this.createDonunq();
+                // this.model.children[0].children[1].material = this.flavour 
             }
 
             // extras
+            if (extra === "teknodisco") {
+                extra1 = '#ffffff';
+                extra2 = '#312d48';
+                this.addExtra(extra1, extra2, model);
+            } else if (extra === "boring") {
+                extra1 = '#ffffff';
+                extra2 = '#ffffff';
+                this.addExtra(extra1, extra2, model);
+            } else if (extra === "vermicelles") {
+                extra1 = '#7B3F00';
+                extra2 = '#7B3F00';
+                this.addExtra(extra1, extra2, model);
+            }
+            this.scene.add(model);
         })
+
     }
 
     addFlav(flav, model) {
@@ -82,28 +100,21 @@ export default class Donunq {
             roughness: this.donunqData.roughness,
             metalness: this.donunqData.metalness
         })
-        return model
+        return model;
     }
 
-    addExtra(extra) {
-        const loader = new GLTFLoader();
-        loader.load(this.donunqData.path, (gltf) => {
-            const model = gltf.scene
-            model.scale.set(this.donunqData.scaleX, this.donunqData.scaleY, this.donunqData.scaleZ);
-            if (extra === "teknodisco") {
-                model.children[0].children[3].material = new THREE.MeshStandardMaterial({
-                    color: '#312d48',
-                    roughness: this.donunqData.roughness,
-                    metalness: this.donunqData.metalness
-                })
-                model.children[0].children[2].material = new THREE.MeshStandardMaterial({
-                    color: '#ffffff',
-                    roughness: this.donunqData.roughness,
-                    metalness: this.donunqData.metalness
-                })
-                this.scene.add(model);
-            }
+    addExtra(extra1, extra2, model) {
+        model.children[0].children[2].material = new THREE.MeshStandardMaterial({
+            color: extra1,
+            roughness: this.donunqData.roughness,
+            metalness: this.donunqData.metalness
         })
+        model.children[0].children[3].material = new THREE.MeshStandardMaterial({
+            color: extra2,
+            roughness: this.donunqData.roughness,
+            metalness: this.donunqData.metalness
+        })
+        return model;
     }
 
     createOrbitctrl() {
