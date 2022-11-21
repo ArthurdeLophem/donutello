@@ -21,7 +21,7 @@
 
 <style scoped>
 .testimonial__container {
-    margin-top: 7em;
+    margin: 7em 0.4em 0em 0.4em;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -34,6 +34,7 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
     gap: 5em;
 }
 
@@ -43,6 +44,7 @@
 
 .testimonial__quote {
     width: 700px;
+    font-weight: 600;
 }
 
 .background__texture--circle {
@@ -54,5 +56,37 @@
     background-color: #F46767;
     opacity: 36%;
     transform: translateX(-60px) translateY(10px);
+}
+
+@media (max-width: 1080px) {
+    .testimonial__quote {
+        width: 60%;
+    }
+}
+
+@media (max-width: 793px) {
+    .testimonial__quote {
+        width: 90%;
+    }
+
+    .testimonial__content {
+        margin: 0% 5%;
+        justify-content: start;
+    }
+
+    .testimonial__portrait {
+        width: 250px;
+    }
+
+    .background__texture--circle {
+        z-index: -1;
+        position: absolute;
+        width: 200px;
+        height: 200px;
+        border-radius: 100%;
+        background-color: #F46767;
+        opacity: 36%;
+        transform: translateX(-60px) translateY(10px);
+    }
 }
 </style>

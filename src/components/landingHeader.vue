@@ -40,5 +40,6 @@
     align-items: center;
     height: 40px;
     width: 86px;
+    color: white;
 }
 </style>

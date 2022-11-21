@@ -37,6 +37,7 @@
     justify-content: center;
     align-items: center;
     gap: 2em;
+    flex-wrap: wrap;
 }
 
 .brand__card {

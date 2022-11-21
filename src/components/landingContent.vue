@@ -16,20 +16,23 @@
                     <img src="/assets/parcel_box.png" alt="3d parcel box">
                 </div>
             </div>
-            <div class="enticing__example">
-                <div class="example__card">
-                    <img class="example__img" src="/assets/shopping_bag.png" alt="3d shopping bag">
-                    <div class="example__info">
-                        <div class="company__info">
-                            <div class="company__logo"></div>
-                            <h3>company name</h3>
-                        </div>
-                        <div class="donut__data">
-                            <p><strong>donut name</strong></p>
-                            <p><strong>1d ago</strong></p>
+            <div class="card__container">
+                <div class="enticing__example">
+                    <div class="example__card">
+                        <img class="example__img" src="/assets/shopping_bag.png" alt="3d shopping bag">
+                        <div class="example__info">
+                            <div class="company__info">
+                                <div class="company__logo"></div>
+                                <h3>company name</h3>
+                            </div>
+                            <div class="donut__data">
+                                <p><strong>donut name</strong></p>
+                                <p><strong>1d ago</strong></p>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <div class="background__texture--circle"></div>
             </div>
         </div>
     </div>
@@ -77,6 +80,9 @@ a {
 
 .content__container {
     margin: 4em 4em 0em 4em;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
 }
 
 .content__enticing {
@@ -84,6 +90,7 @@ a {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    gap: 15em;
 }
 
 .enticing__interaction {
@@ -99,6 +106,17 @@ a {
     color: white;
     display: flex;
     flex-direction: column;
+}
+
+.background__texture--circle {
+    z-index: -2;
+    position: absolute;
+    width: 260px;
+    height: 260px;
+    border-radius: 100%;
+    background-color: #F46767;
+    opacity: 36%;
+    transform: translateX(160px) translateY(-240px);
 }
 
 .example__img {
