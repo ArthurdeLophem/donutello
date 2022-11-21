@@ -2,10 +2,12 @@
 import donunqConfigurator from './components/donunqConfigurator.vue'
 import donunqViewport from './components/donunqViewport.vue'
 import lHeader from './components/landingHeader.vue'
+import lContent from './components/landingContent.vue'
 </script>
 
 <template>
   <lHeader />
+  <lContent />
   <!-- <donunqConfigurator />
   <donunqViewport /> -->
 </template>

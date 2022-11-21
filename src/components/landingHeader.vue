@@ -4,7 +4,7 @@
 <template>
     <div class="header">
         <div class="header__logo">
-            <h1>donutello.ai</h1>
+            <h3>donutello.ai</h3>
         </div>
         <div class="header__interaction">
             <div class="button__signup">
@@ -24,8 +24,6 @@
     flex-direction: row;
     justify-content: space-between;
     height: 70px;
-    width: 100%;
-    color: black;
 }
 
 .header__interaction {
@@ -33,10 +31,6 @@
     flex-direction: row;
     align-items: center;
     gap: 3em;
-}
-
-a {
-    color: black;
 }
 
 .button__login {
