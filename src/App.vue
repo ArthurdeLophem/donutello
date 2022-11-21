@@ -1,11 +1,13 @@
 <script setup>
 import donunqConfigurator from './components/donunqConfigurator.vue'
 import donunqViewport from './components/donunqViewport.vue'
+import lHeader from './components/landingHeader.vue'
 </script>
 
 <template>
-  <donunqConfigurator />
-  <donunqViewport />
+  <lHeader />
+  <!-- <donunqConfigurator />
+  <donunqViewport /> -->
 </template>
 
 <style scoped>

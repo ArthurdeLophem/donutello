@@ -8,7 +8,7 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: white;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -50,7 +50,6 @@ h1 {
   font-family: 'Panchang-Extrabold';
   font-size: 3.2em;
   line-height: 1.1;
-  text-transform: uppercase;
 }
 
 .panelInfo p {
