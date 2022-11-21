@@ -4,12 +4,14 @@ import donunqViewport from './components/donunqViewport.vue'
 import lHeader from './components/landingHeader.vue'
 import lContent from './components/landingContent.vue'
 import lTestimonial from './components/landingTestimonial.vue'
+import lBrands from './components/landingBrands.vue'
 </script>
 
 <template>
   <lHeader />
   <lContent />
   <lTestimonial />
+  <lBrands />
   <!-- <donunqConfigurator />
   <donunqViewport /> -->
 </template>
