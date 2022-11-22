@@ -79,10 +79,9 @@ a {
 }
 
 .content__container {
-    margin: 4em 4em 0em 4em;
     display: flex;
     flex-direction: column;
-    margin: auto;
+    margin: 4em auto auto auto;
 }
 
 .content__enticing {

@@ -1,19 +1,8 @@
 <script setup>
-import donunqConfigurator from './components/donunqConfigurator.vue'
-import donunqViewport from './components/donunqViewport.vue'
-import lHeader from './components/landingHeader.vue'
-import lContent from './components/landingContent.vue'
-import lTestimonial from './components/landingTestimonial.vue'
-import lBrands from './components/landingBrands.vue'
 </script>
 
 <template>
-  <lHeader />
-  <lContent />
-  <lTestimonial />
-  <lBrands />
-  <!-- <donunqConfigurator />
-  <donunqViewport /> -->
+  <router-view />
 </template>
 
 <style scoped>
