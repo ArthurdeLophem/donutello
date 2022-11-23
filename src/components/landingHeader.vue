@@ -11,7 +11,7 @@
                 <a href="">sign up</a>
             </div>
             <div class="button__login">
-                <p>log in</p>
+                <a href="">log in</a>
             </div>
         </div>
     </div>
@@ -40,6 +40,13 @@
     align-items: center;
     height: 40px;
     width: 86px;
+}
+
+.button__login a {
     color: white;
+}
+
+.button__login a:hover {
+    color: #ed2970;
 }
 </style>
