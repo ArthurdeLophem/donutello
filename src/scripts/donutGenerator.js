@@ -124,6 +124,7 @@ export default class Donunq {
         this.controls.enableDamping = true;
         this.controls.enableZoom = false;
         this.controls.autoRotate = true;
+        this.controls.autoRotateSpeed = 0.7;
     }
 
     onWindowResize() {

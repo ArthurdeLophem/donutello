@@ -1,9 +1,9 @@
 <script>
-import Donunq from "../scripts/donunqGenerator.js";
+import Donunq from "../scripts/donutGenerator.js";
 const donunq = new Donunq();
 
 const generateCanvas = () => {
-    const dViewport = document.querySelector(".donunqViewport")
+    const dViewport = document.querySelector(".donutViewport")
     donunq.createScene(dViewport);
 }
 
@@ -25,5 +25,12 @@ export default {
 </script>
 
 <template>
-    <div class="donunqViewport"></div>
+    <div class="donutViewport"></div>
 </template>
+
+<style scoped>
+.donutViewport {
+    height: 100%;
+    width: 100%;
+}
+</style>
