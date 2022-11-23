@@ -49,7 +49,7 @@ p {
 }
 
 span {
-    color: #F46767;
+    color: #ed2970;
 }
 
 a {
@@ -66,7 +66,7 @@ a {
     width: fit-content;
     height: 56px;
     width: 204px;
-    background-color: #F46767;
+    background-color: #ed2970;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -113,7 +113,7 @@ a {
     width: 260px;
     height: 260px;
     border-radius: 100%;
-    background-color: #F46767;
+    background-color: #ed2970;
     opacity: 36%;
     transform: translateX(160px) translateY(-240px);
 }

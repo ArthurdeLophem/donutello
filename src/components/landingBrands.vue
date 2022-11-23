@@ -29,6 +29,7 @@
     justify-content: center;
     align-items: center;
     gap: 2em;
+    padding-bottom: 10em;
 }
 
 .card__container {

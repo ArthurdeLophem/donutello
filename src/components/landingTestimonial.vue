@@ -53,7 +53,7 @@
     width: 260px;
     height: 260px;
     border-radius: 100%;
-    background-color: #F46767;
+    background-color: #ed2970;
     opacity: 36%;
     transform: translateX(-60px) translateY(10px);
 }
