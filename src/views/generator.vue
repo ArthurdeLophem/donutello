@@ -1,13 +1,11 @@
 <script setup>
-import donunqConfigurator from '../components/generatorNav.vue';
-import donunqViewport from '../components/threeViewport.vue';
+import donutConfigurator from '../components/generatorNav.vue';
+import donutViewport from '../components/threeViewport.vue';
+import donutExtras from '../components/donutExtras.vue';
 </script>
 
 <template>
-    <donunqViewport />
-    <donunqConfigurator />
+    <donutViewport />
+    <donutConfigurator />
+    <donutExtras />
 </template>
-
-<style scoped>
-
-</style>
