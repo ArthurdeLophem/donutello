@@ -11,7 +11,3 @@ import lBrands from '../components/landingBrands.vue'
     <lTestimonial />
     <lBrands />
 </template>
-
-<style scoped>
-
-</style>

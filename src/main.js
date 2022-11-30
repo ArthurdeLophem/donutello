@@ -8,5 +8,3 @@ const emitter = mitt();
 const app = createApp(App);
 app.config.globalProperties.emitter = emitter;
 app.use(router).mount('#app');
-
-
