@@ -11,13 +11,8 @@ const generateCanvas = () => {
     donunq.createScene(dViewport);
 }
 
-const editDonunq = (flavour, extra) => {
-    donunq.configureDonunq(flavour, extra)
-}
-
 $mitt.on('emitExtras', e => {
-    // editDonunq(e.flavour, e.extra)
-    console.log("emitted")
+    donunq.configureExtra(e.extraColor);
 })
 
 onMounted(() => {

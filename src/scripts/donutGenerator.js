@@ -46,7 +46,6 @@ export default class Donunq {
 
     createDonunq() {
         // load donunq + add to scene
-        // console.log("donunq")
         console.log(this.scene)
         const loader = new GLTFLoader();
         loader.load(this.donunqData.path, (gltf) => {
@@ -56,42 +55,15 @@ export default class Donunq {
         console.log(this.scene)
     }
 
-    configureDonunq(flav, extra) {
+    configureExtra(extra) {
         console.log(this.scene)
-        let extra1, extra2
         const loader = new GLTFLoader();
         loader.load(this.donunqData.path, (gltf) => {
             let model = gltf.scene
             model.scale.set(this.donunqData.scaleX, this.donunqData.scaleY, this.donunqData.scaleZ);
-
-            // flavour
-            if (flav === "fraise") {
-                flav = '#bf3030';
-                this.addFlav(flav, model);
-                // this.model.children[0].children[1].material = this.flavour 
-            } else if (flav === "myrtille") {
-                flav = '#312d48';
-                this.addFlav(flav, model);
-                // this.model.children[0].children[1].material = this.flavour 
-            }
-
-            // extras
-            if (extra === "teknodisco") {
-                extra1 = '#ffffff';
-                extra2 = '#312d48';
-                this.addExtra(extra1, extra2, model);
-            } else if (extra === "boring") {
-                extra1 = '#ffffff';
-                extra2 = '#ffffff';
-                this.addExtra(extra1, extra2, model);
-            } else if (extra === "vermicelles") {
-                extra1 = '#7B3F00';
-                extra2 = '#7B3F00';
-                this.addExtra(extra1, extra2, model);
-            }
+            this.addExtra(extra, model);
             this.scene.add(model);
         })
-
     }
 
     addFlav(flav, model) {
@@ -103,14 +75,9 @@ export default class Donunq {
         return model;
     }
 
-    addExtra(extra1, extra2, model) {
+    addExtra(extra1, model) {
         model.children[0].children[2].material = new THREE.MeshStandardMaterial({
             color: extra1,
-            roughness: this.donunqData.roughness,
-            metalness: this.donunqData.metalness
-        })
-        model.children[0].children[3].material = new THREE.MeshStandardMaterial({
-            color: extra2,
             roughness: this.donunqData.roughness,
             metalness: this.donunqData.metalness
         })
