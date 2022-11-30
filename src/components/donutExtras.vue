@@ -1,8 +1,6 @@
 <script setup>
 import { ref, reactive, onMounted } from 'vue';
-import mitt from 'mitt';
-
-const emitter = mitt();
+import $mitt from '../scripts/mitt.js';
 
 let extra = ref("chocolat"),
     selector = ref([]);
@@ -33,8 +31,8 @@ const showActive = (event) => {
 
 const emitDonunq = (event) => {
     showActive(event);
-    console.log(event.target.style.backgroundColor);
-    emitter.emit('emitExtras', { 'extra': event.target.style.backgroundColor });
+    const targetObj = extrasData.find(el => el.eName == event.target.nextElementSibling.innerText);
+    $mitt.emit('emitExtras', { 'extraColor': targetObj.color });
 }
 
 </script>
@@ -48,7 +46,7 @@ const emitDonunq = (event) => {
                 <div class="extra__name">{{ extra.eName }}</div>
             </div>
         </div>
-    </div>9
+    </div>
 </template>
 
 <style scoped>

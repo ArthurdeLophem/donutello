@@ -1,5 +1,9 @@
-<script>
+<script setup>
+import { onMounted } from 'vue';
+
 import Donunq from "../scripts/donutGenerator.js";
+import $mitt from '../scripts/mitt.js';
+
 const donunq = new Donunq();
 
 const generateCanvas = () => {
@@ -11,17 +15,16 @@ const editDonunq = (flavour, extra) => {
     donunq.configureDonunq(flavour, extra)
 }
 
-export default {
-    created() {
-        this.emitter.on('emitDonunq', e => {
-            editDonunq(e.flavour, e.extra)
-        })
-    },
+$mitt.on('emitExtras', e => {
+    // editDonunq(e.flavour, e.extra)
+    console.log("emitted")
+})
 
-    mounted() {
-        generateCanvas()
-    }
-}
+onMounted(() => {
+    generateCanvas()
+})
+
+
 </script>
 
 <template>
