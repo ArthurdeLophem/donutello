@@ -1,7 +1,12 @@
 <script setup>
 import { ref, reactive, onMounted } from 'vue';
+import mitt from 'mitt';
 
-let extra = ref("chocolat")
+const emitter = mitt();
+
+let extra = ref("chocolat"),
+    selector = ref([]);
+
 const extrasData = [
     {
         color: "#c51d34",
@@ -17,8 +22,19 @@ const extrasData = [
     }
 ]
 
-const emitDonunq = () => {
-    this.emitter.emit('emitExtras', { 'extra': extra })
+const showActive = (event) => {
+    selector._rawValue.forEach(element => {
+        element.firstElementChild.classList.remove("active");
+        element.lastElementChild.classList.remove("active");
+    });
+    event.target.classList.add("active");
+    event.target.nextElementSibling.classList.add("active");
+}
+
+const emitDonunq = (event) => {
+    showActive(event);
+    console.log(event.target.style.backgroundColor);
+    emitter.emit('emitExtras', { 'extra': event.target.style.backgroundColor });
 }
 
 </script>
@@ -27,7 +43,7 @@ const emitDonunq = () => {
     <div class="choose__container">
         <h3 class="choose__Headline">choose your extras</h3>
         <div class="extras__select">
-            <div class="extra__block" v-for="extra in extrasData">
+            <div class="extra__block" v-for="extra in extrasData" ref="selector">
                 <div class="extra__color" v-on:click="emitDonunq" v-bind:style="{ backgroundColor: extra.color }"></div>
                 <div class="extra__name">{{ extra.eName }}</div>
             </div>
@@ -62,10 +78,12 @@ strong {
     display: none;
 }
 
-.extra__block:hover .extra__name {
+.extra__block:hover .extra__name,
+.active {
     display: block;
     color: red;
 }
+
 
 .extras__select {
     display: flex;
