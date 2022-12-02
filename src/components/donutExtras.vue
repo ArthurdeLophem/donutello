@@ -3,7 +3,8 @@ import { ref, reactive, onMounted } from 'vue';
 import $mitt from '../scripts/mitt.js';
 
 let extra = ref("chocolat"),
-    selector = ref([]);
+    selector = ref([]),
+    extra__container = ref();
 
 const extrasData = [
     {
@@ -34,14 +35,24 @@ const emitDonunq = (event) => {
     const targetObj = extrasData.find(el => el.eName == event.target.nextElementSibling.innerText);
     $mitt.emit('emitExtras', { 'extraColor': targetObj.color });
 }
+
+$mitt.on('emitExtraPanel', e => {
+    extra__container.value.style.transform = "translateX(0px)"
+})
+
+const closePanel = () => {
+    extra__container.value.style.transform = "translateX(1000px)"
+}
+
 </script>
 
 <template>
-    <div class="choose__container">
+    <div class="choose__container" ref="extra__container">
+        <div class="close" @click="closePanel">X</div>
         <h3 class="choose__Headline">choose your extras</h3>
         <div class="extras__select">
             <div class="extra__block" v-for="extra in extrasData" ref="selector">
-                <div class="extra__color" v-on:click="emitDonunq" v-bind:style="{ backgroundColor: extra.color }"></div>
+                <div class="extra__color" @click="emitDonunq" v-bind:style="{ backgroundColor: extra.color }"></div>
                 <div class="extra__name">{{ extra.eName }}</div>
             </div>
         </div>
@@ -53,6 +64,14 @@ strong {
     color: #ed2970;
 }
 
+.close {
+    cursor: pointer;
+    font-weight: 800;
+    position: absolute;
+    right: 1em;
+    top: 1em;
+}
+
 .choose__Headline {
     margin-top: 0;
 }
@@ -62,6 +81,8 @@ strong {
     right: 0;
     margin: 1em 3em;
     padding: 3em 2em;
+    transition: all 250ms;
+    transform: translateX(1000px);
 }
 
 .extra__color {

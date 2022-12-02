@@ -11,6 +11,18 @@ const generateCanvas = () => {
     donunq.createScene(dViewport);
 }
 
+const checkObject = (e) => {
+    let targetObj = donunq.raycaster(e);
+    console.log(targetObj);
+    if (targetObj === "Torus003") {
+        $mitt.emit('emitBasePanel', { 'targetObj': "base" });
+    } else if (targetObj === "Torus003_2") {
+        $mitt.emit('emitExtraPanel', { 'targetObj': "extras" });
+    } else if (targetObj === "Torus003_1") {
+        $mitt.emit('emitToppingPanel', { 'targetObj': "topping" });
+    }
+}
+
 $mitt.on('emitExtras', e => {
     donunq.configureExtra(e.extraColor);
 })
@@ -25,7 +37,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <div class="donutViewport"></div>
+    <div class="donutViewport" @mouseup="checkObject"></div>
 </template>
 
 <style scoped>

@@ -1,4 +1,5 @@
 import * as THREE from "three";
+// import { Raycaster } from "three/src/core/Raycaster.js";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
@@ -21,9 +22,6 @@ export default class Donunq {
             basePosY: 0,
             glazePosY: 0.03,
             extraPosY: 0.06,
-            baseUrl: 1,
-            glazeUrl: ``,
-            extraUrl: 3,
             roughness: 0.2235293984413147,
             metalness: 0.24705882370471954,
             path: "./models/donunq_object.gltf",
@@ -36,7 +34,7 @@ export default class Donunq {
         this.viewport = viewport
         this.scene = new THREE.Scene();
         this.camera = new THREE.PerspectiveCamera(75, this.viewport.offsetWidth / this.viewport.offsetHeight, 0.1, 500);
-        this.camera.zoom = 8;
+        this.camera.zoom = 7;
         this.camera.position.set(0, 0.6, 1);
 
         this.renderer = new THREE.WebGLRenderer();
@@ -84,6 +82,20 @@ export default class Donunq {
             metalness: this.donunqData.metalness
         })
         console.log(this.model)
+    }
+
+    raycaster(e) {
+        const raycaster = new THREE.Raycaster();
+        const pointer = new THREE.Vector2();
+        pointer.x = (e.clientX / window.innerWidth) * 2 - 1;
+        pointer.y = - (e.clientY / window.innerHeight) * 2 + 1;
+        raycaster.setFromCamera(pointer, this.camera);
+        const intersects = raycaster.intersectObjects(this.scene.children);
+        const targetObj = intersects[0].object.name;
+        console.log(targetObj)
+        if (targetObj !== null) {
+            return targetObj
+        }
     }
 
     createOrbitctrl() {

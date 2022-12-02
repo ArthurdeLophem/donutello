@@ -3,7 +3,8 @@ import { ref, reactive, onMounted } from 'vue';
 import $mitt from '../scripts/mitt.js';
 
 let topping = ref("chocolat"),
-    selector = ref([]);
+    selector = ref([]),
+    topping__container = ref();
 
 const toppingsData = [
     {
@@ -34,10 +35,20 @@ const emitDonunq = (event) => {
     const targetObj = toppingsData.find(el => el.eName == event.target.nextElementSibling.innerText);
     $mitt.emit('emitTopping', { 'toppingColor': targetObj.color });
 }
+
+$mitt.on('emitToppingPanel', e => {
+    topping__container.value.style.transform = "translateX(0px)"
+})
+
+const closePanel = () => {
+    topping__container.value.style.transform = "translateX(1000px)"
+}
+
 </script>
 
 <template>
-    <div class="choose__container">
+    <div class="choose__container" ref="topping__container">
+        <div class="close" @click="closePanel">X</div>
         <h3 class="choose__Headline">choose your topping</h3>
         <div class="toppings__select">
             <div class="topping__block" v-for="topping in toppingsData" ref="selector">
@@ -54,6 +65,14 @@ strong {
     color: #ed2970;
 }
 
+.close {
+    cursor: pointer;
+    font-weight: 800;
+    position: absolute;
+    right: 1em;
+    top: 1em;
+}
+
 .choose__Headline {
     margin-top: 0;
 }
@@ -63,6 +82,8 @@ strong {
     right: 0;
     margin: 1em 3em;
     padding: 3em 2em;
+    transition: all 250ms;
+    transform: translateX(1000px);
 }
 
 .topping__color {
