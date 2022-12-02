@@ -11,12 +11,19 @@ export default class Donunq {
         this.camera;
         this.renderer;
         this.donunq;
+        this.model;
 
         this.donunqData = {
             title: "donunq",
             scaleX: 5,
             scaleY: 5,
             scaleZ: 5,
+            basePosY: 0,
+            glazePosY: 0.03,
+            extraPosY: 0.06,
+            baseUrl: 1,
+            glazeUrl: ``,
+            extraUrl: 3,
             roughness: 0.2235293984413147,
             metalness: 0.24705882370471954,
             path: "./models/donunq_object.gltf",
@@ -49,50 +56,34 @@ export default class Donunq {
         console.log(this.scene)
         const loader = new GLTFLoader();
         loader.load(this.donunqData.path, (gltf) => {
+            this.model = gltf.scene
             gltf.scene.scale.set(this.donunqData.scaleX, this.donunqData.scaleY, this.donunqData.scaleZ);
+            gltf.scene.children[0].children[1].position.set(0, this.donunqData.glazePosY, 0)
+            gltf.scene.children[0].children[2].position.set(0, this.donunqData.extraPosY, 0)
+            gltf.scene.children[0].children[3].position.set(0, this.donunqData.extraPosY, 0)
+            this.model.children[0].children[1].material = this.model.children[0].children[1].material.clone();
+            this.model.children[0].children[2].material = this.model.children[0].children[2].material.clone();
             this.scene.add(gltf.scene);
         })
-        console.log(this.scene)
+        console.log(this.model)
     }
 
     configureExtra(extra) {
-        console.log(this.scene)
-        const loader = new GLTFLoader();
-        loader.load(this.donunqData.path, (gltf) => {
-            let model = gltf.scene
-            model.scale.set(this.donunqData.scaleX, this.donunqData.scaleY, this.donunqData.scaleZ);
-            this.addExtra(extra, model);
-            this.scene.add(model);
-        })
-    }
-
-    addExtra(extra1, model) {
-        model.children[0].children[2].material = new THREE.MeshStandardMaterial({
-            color: extra1,
+        this.model.children[0].children[2].material = new THREE.MeshStandardMaterial({
+            color: extra,
             roughness: this.donunqData.roughness,
             metalness: this.donunqData.metalness
         })
-        return model;
+        console.log(this.model)
     }
 
     configureTopping(topping) {
-        console.log(this.scene)
-        const loader = new GLTFLoader();
-        loader.load(this.donunqData.path, (gltf) => {
-            let model = gltf.scene
-            model.scale.set(this.donunqData.scaleX, this.donunqData.scaleY, this.donunqData.scaleZ);
-            this.addTopping(topping, model);
-            this.scene.add(model);
-        })
-    }
-
-    addTopping(topping, model) {
-        model.children[0].children[1].material = new THREE.MeshStandardMaterial({
+        this.model.children[0].children[1].material = new THREE.MeshStandardMaterial({
             color: topping,
             roughness: this.donunqData.roughness,
             metalness: this.donunqData.metalness
         })
-        return model;
+        console.log(this.model)
     }
 
     createOrbitctrl() {
