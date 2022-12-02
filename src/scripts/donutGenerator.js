@@ -1,7 +1,7 @@
 import * as THREE from "three";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js"
-import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js"
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js"
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 
 export default class Donunq {
     constructor() {
@@ -66,18 +66,29 @@ export default class Donunq {
         })
     }
 
-    addFlav(flav, model) {
-        model.children[0].children[1].material = new THREE.MeshStandardMaterial({
-            color: flav,
+    addExtra(extra1, model) {
+        model.children[0].children[2].material = new THREE.MeshStandardMaterial({
+            color: extra1,
             roughness: this.donunqData.roughness,
             metalness: this.donunqData.metalness
         })
         return model;
     }
 
-    addExtra(extra1, model) {
-        model.children[0].children[2].material = new THREE.MeshStandardMaterial({
-            color: extra1,
+    configureTopping(topping) {
+        console.log(this.scene)
+        const loader = new GLTFLoader();
+        loader.load(this.donunqData.path, (gltf) => {
+            let model = gltf.scene
+            model.scale.set(this.donunqData.scaleX, this.donunqData.scaleY, this.donunqData.scaleZ);
+            this.addTopping(topping, model);
+            this.scene.add(model);
+        })
+    }
+
+    addTopping(topping, model) {
+        model.children[0].children[1].material = new THREE.MeshStandardMaterial({
+            color: topping,
             roughness: this.donunqData.roughness,
             metalness: this.donunqData.metalness
         })

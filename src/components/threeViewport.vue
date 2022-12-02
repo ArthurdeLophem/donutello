@@ -15,11 +15,13 @@ $mitt.on('emitExtras', e => {
     donunq.configureExtra(e.extraColor);
 })
 
+$mitt.on('emitTopping', e => {
+    donunq.configureTopping(e.toppingColor);
+})
+
 onMounted(() => {
     generateCanvas()
 })
-
-
 </script>
 
 <template>

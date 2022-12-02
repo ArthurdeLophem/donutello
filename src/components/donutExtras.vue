@@ -34,7 +34,6 @@ const emitDonunq = (event) => {
     const targetObj = extrasData.find(el => el.eName == event.target.nextElementSibling.innerText);
     $mitt.emit('emitExtras', { 'extraColor': targetObj.color });
 }
-
 </script>
 
 <template>
@@ -59,7 +58,6 @@ strong {
 }
 
 .choose__container {
-    position: absolute;
     background-color: whitesmoke;
     right: 0;
     margin: 1em 3em;
