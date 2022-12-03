@@ -11,7 +11,7 @@
                 <a href="">sign up</a>
             </div>
             <div class="button__login">
-                <a href="">log in</a>
+                <router-link to="/login">log in</router-link>
             </div>
         </div>
     </div>
