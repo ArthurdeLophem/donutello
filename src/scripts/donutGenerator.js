@@ -13,6 +13,8 @@ export default class Donunq {
         this.renderer;
         this.donunq;
         this.model;
+        this.raycaster;
+        this.pointer;
 
         this.donunqData = {
             title: "donunq",
@@ -85,6 +87,32 @@ export default class Donunq {
     }
 
     raycaster(e) {
+        const raycaster = new THREE.Raycaster();
+        const pointer = new THREE.Vector2();
+        const defHex = 0x000000;
+        let intersectObject = [];
+
+        pointer.x = (e.clientX / window.innerWidth) * 2 - 1;
+        pointer.y = - (e.clientY / window.innerHeight) * 2 + 1;
+        raycaster.setFromCamera(pointer, this.camera);
+        const intersects = raycaster.intersectObjects(this.scene.children, true);
+
+        if (!intersects) {
+            console.warn("No intersection")
+
+        } else if (intersects.length > 0) {
+            intersectObject.push(intersects[0].object);
+            intersectObject.forEach(el => {
+                el.material.emissive.setHex(0xff0000);
+            });
+        } else if (intersectObject.length === 0) {
+            this.model.children[0].children.forEach(el => {
+                el.material.emissive.setHex(defHex);
+            })
+        }
+    }
+
+    intersectObj(e) {
         const raycaster = new THREE.Raycaster();
         const pointer = new THREE.Vector2();
         pointer.x = (e.clientX / window.innerWidth) * 2 - 1;

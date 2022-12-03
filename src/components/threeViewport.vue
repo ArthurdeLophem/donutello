@@ -11,9 +11,12 @@ const generateCanvas = () => {
     donunq.createScene(dViewport);
 }
 
+const checkIntersects = (e) => {
+    donunq.raycaster(e);
+}
+
 const checkObject = (e) => {
-    let targetObj = donunq.raycaster(e);
-    console.log(targetObj);
+    const targetObj = donunq.intersectObj(e);
     if (targetObj === "Torus003") {
         $mitt.emit('emitBasePanel', { 'targetObj': "base" });
     } else if (targetObj === "Torus003_2") {
@@ -37,7 +40,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <div class="donutViewport" @mouseup="checkObject"></div>
+    <div class="donutViewport" @mousemove="checkIntersects" @mouseup="checkObject"></div>
 </template>
 
 <style scoped>
