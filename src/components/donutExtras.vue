@@ -39,6 +39,9 @@ const emitDonunq = (event) => {
 $mitt.on('emitExtraPanel', e => {
     extra__container.value.style.transform = "translateX(0px)"
 })
+$mitt.on('emitToppingPanel', e => {
+    extra__container.value.style.transform = "translateX(1000px)"
+})
 
 const closePanel = () => {
     extra__container.value.style.transform = "translateX(1000px)"
@@ -78,6 +81,8 @@ strong {
 
 .choose__container {
     background-color: whitesmoke;
+    position: absolute;
+    top: 0;
     right: 0;
     margin: 1em 3em;
     padding: 3em 2em;

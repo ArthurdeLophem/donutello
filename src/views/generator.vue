@@ -19,7 +19,5 @@ import donutToppings from '../components/donutToppings.vue';
     right: 0;
     position: absolute;
     height: 100vh;
-    display: flex;
-    flex-direction: column;
 }
 </style>
