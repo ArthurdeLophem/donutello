@@ -91,19 +91,17 @@ export default class Donunq {
         const pointer = new THREE.Vector2();
         const defHex = 0x000000;
         let intersectObject = [];
-
-        pointer.x = (e.clientX / window.innerWidth) * 2 - 1;
-        pointer.y = - (e.clientY / window.innerHeight) * 2 + 1;
+        pointer.x = (e.clientX / this.viewport.offsetWidth) * 2 - 1;
+        pointer.y = - (e.clientY / this.viewport.offsetHeight) * 2 + 1;
         raycaster.setFromCamera(pointer, this.camera);
         const intersects = raycaster.intersectObjects(this.scene.children, true);
 
         if (!intersects) {
             console.warn("No intersection")
-
         } else if (intersects.length > 0) {
             intersectObject.push(intersects[0].object);
             intersectObject.forEach(el => {
-                el.material.emissive.setHex(0xff0000);
+                el.material.emissive.setHex(0xed2970);
             });
         } else if (intersectObject.length === 0) {
             this.model.children[0].children.forEach(el => {
@@ -115,8 +113,8 @@ export default class Donunq {
     intersectObj(e) {
         const raycaster = new THREE.Raycaster();
         const pointer = new THREE.Vector2();
-        pointer.x = (e.clientX / window.innerWidth) * 2 - 1;
-        pointer.y = - (e.clientY / window.innerHeight) * 2 + 1;
+        pointer.x = (e.clientX / this.viewport.offsetWidth) * 2 - 1;
+        pointer.y = - (e.clientY / this.viewport.offsetHeight) * 2 + 1;
         raycaster.setFromCamera(pointer, this.camera);
         const intersects = raycaster.intersectObjects(this.scene.children);
         const targetObj = intersects[0].object.name;
