@@ -3,9 +3,7 @@
 
 <template>
     <div class="header">
-        <div class="header__logo">
-            <h3>donutello.ai</h3>
-        </div>
+        <h3 class="header__logo">donutello.ai</h3>
         <div class="header__interaction">
             <div class="button__password">
                 <router-link to="/change-password">change password</router-link>
@@ -23,7 +21,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    height: 70px;
+    height: 6vh;
     background-color: white;
     box-shadow: 0px 5px 7px -2px rgba(0,0,0,0.25);
     z-index: 1;
@@ -41,8 +39,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 40px;
-    width: 86px;
+    height: 2.5rem;
+    width: 5rem;
+}
+
+.header__logo {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .button__login a {
