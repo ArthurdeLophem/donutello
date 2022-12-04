@@ -1,5 +1,4 @@
 import * as THREE from "three";
-// import { Raycaster } from "three/src/core/Raycaster.js";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
@@ -36,8 +35,7 @@ export default class Donunq {
         this.viewport = viewport
         this.scene = new THREE.Scene();
         this.camera = new THREE.PerspectiveCamera(75, this.viewport.offsetWidth / this.viewport.offsetHeight, 0.1, 500);
-        this.camera.zoom = 7;
-        this.camera.position.set(0, 0.6, 1);
+        this.camera.position.set(0, 0.4, 1.2);
 
         this.renderer = new THREE.WebGLRenderer();
         this.renderer.setSize(this.viewport.offsetWidth, this.viewport.offsetHeight);
@@ -129,9 +127,11 @@ export default class Donunq {
         // console.log("orbits")
         this.controls = new OrbitControls(this.camera, this.renderer.domElement)
         this.controls.enableDamping = true;
+        this.controls.dampingFactor = 0.07;
         this.controls.enableZoom = false;
         this.controls.autoRotate = true;
         this.controls.autoRotateSpeed = 0.7;
+        this.controls.maxPolarAngle = Math.PI / 1.8;
     }
 
     onWindowResize() {
