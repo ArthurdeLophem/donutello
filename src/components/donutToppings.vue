@@ -39,6 +39,9 @@ const emitDonunq = (event) => {
 $mitt.on('emitToppingPanel', e => {
     topping__container.value.style.transform = "translateX(0px)"
 })
+$mitt.on('emitVermiPanel', e => {
+    topping__container.value.style.transform = "translateX(1000px)"
+})
 $mitt.on('emitExtraPanel', e => {
     topping__container.value.style.transform = "translateX(1000px)"
 })
@@ -46,7 +49,6 @@ $mitt.on('emitExtraPanel', e => {
 const closePanel = () => {
     topping__container.value.style.transform = "translateX(1000px)"
 }
-
 </script>
 
 <template>

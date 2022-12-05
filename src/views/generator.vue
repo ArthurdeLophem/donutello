@@ -1,16 +1,18 @@
 <script setup>
 import donutConfigurator from '../components/generatorNav.vue';
 import donutViewport from '../components/threeViewport.vue';
-import donutExtras from '../components/donutExtras.vue';
+import donutVermi from '../components/donutVermi.vue';
 import donutToppings from '../components/donutToppings.vue';
+import donutExtras from '../components/donutExtras.vue';
 </script>
 
 <template>
     <donutViewport />
     <donutConfigurator />
     <div class="interactive__panel">
-        <donutExtras />
+        <donutVermi />
         <donutToppings />
+        <donutExtras />
     </div>
 </template>
 

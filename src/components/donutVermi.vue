@@ -4,24 +4,20 @@ import $mitt from '../scripts/mitt.js';
 
 let extra = ref("chocolat"),
     selector = ref([]),
-    extra__container = ref();
+    vermi__container = ref();
 
-const extrasData = [
+const vermisData = [
     {
         color: "#c51d34",
-        eName: "maltesers"
+        eName: "framboos"
     },
     {
         color: "#d2691e",
-        eName: "twix"
+        eName: "choco"
     },
     {
         color: "#000000",
-        eName: "snickers"
-    },
-    {
-        color: "#000000",
-        eName: "leo"
+        eName: "darkk"
     }
 ]
 
@@ -36,35 +32,35 @@ const showActive = (event) => {
 
 const emitDonunq = (event) => {
     showActive(event);
-    const targetObj = extrasData.find(el => el.eName == event.target.nextElementSibling.innerText);
-    $mitt.emit('emitExtras', { 'extraColor': targetObj.color });
+    const targetObj = vermisData.find(el => el.eName == event.target.nextElementSibling.innerText);
+    $mitt.emit('emitvermis', { 'vermiColor': targetObj.color });
 }
 
-$mitt.on('emitExtraPanel', e => {
-    console.log(e, extra__container)
-    extra__container.value.style.transform = "translateX(0px)";
+$mitt.on('emitVermiPanel', e => {
+    console.log(e, vermi__container)
+    vermi__container.value.style.transform = "translateX(0px)";
 })
 $mitt.on('emitToppingPanel', e => {
-    extra__container.value.style.transform = "translateX(1000px)"
+    vermi__container.value.style.transform = "translateX(1000px)"
 })
-$mitt.on('emitVermiPanel', e => {
-    extra__container.value.style.transform = "translateX(1000px)"
+$mitt.on('emitvermiPanel', e => {
+    vermi__container.value.style.transform = "translateX(1000px)"
 })
 
 const closePanel = () => {
-    extra__container.value.style.transform = "translateX(1000px)"
+    vermi__container.value.style.transform = "translateX(1000px)"
 }
 
 </script>
 
 <template>
-    <div class="choose__container" ref="extra__container">
+    <div class="choose__container" ref="vermi__container">
         <div class="close" @click="closePanel">X</div>
-        <h3 class="choose__Headline">choose your extras</h3>
-        <div class="extras__select">
-            <div class="extra__block" v-for="extra in extrasData" ref="selector">
-                <div class="extra__color" @click="emitDonunq" v-bind:style="{ backgroundColor: extra.color }"></div>
-                <div class="extra__name">{{ extra.eName }}</div>
+        <h3 class="choose__Headline">choose your vermis</h3>
+        <div class="vermis__select">
+            <div class="vermi__block" v-for="vermi in vermisData" ref="selector">
+                <div class="vermi__color" @click="emitDonunq" v-bind:style="{ backgroundColor: vermi.color }"></div>
+                <div class="vermi__name">{{ vermi.eName }}</div>
             </div>
         </div>
     </div>
@@ -98,24 +94,24 @@ strong {
     transform: translateX(1000px);
 }
 
-.extra__color {
+.vermi__color {
     width: 3em;
     height: 1.5em;
     border-radius: 0.3em;
 }
 
-.extra__name {
+.vermi__name {
     display: none;
 }
 
-.extra__block:hover .extra__name,
+.vermi__block:hover .vermi__name,
 .active {
     display: block;
     color: red;
 }
 
 
-.extras__select {
+.vermis__select {
     display: flex;
     flex-direction: row;
     gap: 1em;
