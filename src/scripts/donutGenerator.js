@@ -107,6 +107,28 @@ export default class Donunq {
         })
     }
 
+    configureExtras(extra) {
+        console.log('configuring extra')
+        switch (extra) {
+            case "twix":
+                this.snickerObj.visible = this.malteserObj.visible = this.leoObj.visible = false;
+                this.twixObj.visible = true;
+                break;
+            case "leo":
+                this.snickerObj.visible = this.malteserObj.visible = this.twixObj.visible = false;
+                this.leoObj.visible = true;
+                break;
+            case "snickers":
+                this.leoObj.visible = this.malteserObj.visible = this.twixObj.visible = false;
+                this.snickerObj.visible = true;
+                break;
+            case "maltesers":
+                this.leoObj.visible = this.snickerObj.visible = this.twixObj.visible = false;
+                this.malteserObj.visible = true;
+                break;
+        }
+    }
+
     raycaster(e) {
         const raycaster = new THREE.Raycaster();
         const pointer = new THREE.Vector2();
