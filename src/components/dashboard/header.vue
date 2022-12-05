@@ -6,7 +6,7 @@
         <h3 class="header__logo">donutello.ai</h3>
         <div class="header__interaction">
             <div class="button__password">
-                <router-link to="/change-password">change password</router-link>
+                <a href="">change password</a>   
             </div>
             <div class="button__login">
                 <router-link to="/">log out</router-link>
