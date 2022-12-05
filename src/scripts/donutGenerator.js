@@ -91,7 +91,7 @@ export default class Donunq {
         })
     }
 
-    configureExtra(extra) {
+    configureVermi(extra) {
         this.vermiObj.material = new THREE.MeshStandardMaterial({
             color: extra,
             roughness: this.donunqData.roughness,

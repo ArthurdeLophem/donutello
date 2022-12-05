@@ -37,7 +37,7 @@ const showActive = (event) => {
 const emitDonunq = (event) => {
     showActive(event);
     const targetObj = extrasData.find(el => el.eName == event.target.nextElementSibling.innerText);
-    $mitt.emit('emitExtras', { 'extraColor': targetObj.color });
+    $mitt.emit('emitExtras', { 'extraType': targetObj.eName });
 }
 
 $mitt.on('emitExtraPanel', e => {

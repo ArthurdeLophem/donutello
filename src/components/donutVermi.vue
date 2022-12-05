@@ -33,7 +33,7 @@ const showActive = (event) => {
 const emitDonunq = (event) => {
     showActive(event);
     const targetObj = vermisData.find(el => el.eName == event.target.nextElementSibling.innerText);
-    $mitt.emit('emitvermis', { 'vermiColor': targetObj.color });
+    $mitt.emit('emitVermis', { 'vermiColor': targetObj.color });
 }
 
 $mitt.on('emitVermiPanel', e => {
