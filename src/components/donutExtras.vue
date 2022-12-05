@@ -55,6 +55,20 @@ const closePanel = () => {
     extra__container.value.style.transform = "translateX(1000px)"
 }
 
+const defaultActive = () => {
+    let defaultExtra;
+    selector._rawValue.forEach(el => {
+        if (el.children[1].innerHTML === "maltesers") {
+            defaultExtra = el
+        }
+    })
+    defaultExtra.classList.add("active")
+}
+
+onMounted(() => {
+    defaultActive();
+})
+
 </script>
 
 <template>
