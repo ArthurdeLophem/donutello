@@ -22,12 +22,23 @@ export default class Donunq {
             scaleZ: 5,
             basePosY: 0,
             glazePosY: 0.03,
-            extraPosY: 0.06,
+            vermiPosY: 0.06,
+            extraPosY: 0.08,
             roughness: 0.2235293984413147,
             metalness: 0.24705882370471954,
-            path: "./models/donunq_object.gltf",
+            path: "./models/donunqello.glb",
             lightPath: "./models/fairway.hdr"
         }
+
+        this.vermiObj;
+        this.malteserObj;
+        this.snickerObj;
+        this.twixObj;
+        this.leoObj;
+        this.glazeObj;
+        this.baseObj;
+
+        this.customizables = []
     }
 
     createScene(viewport) {
@@ -51,37 +62,49 @@ export default class Donunq {
 
     createDonunq() {
         // load donunq + add to scene
-        console.log(this.scene)
         const loader = new GLTFLoader();
         loader.load(this.donunqData.path, (gltf) => {
             this.model = gltf.scene
             gltf.scene.scale.set(this.donunqData.scaleX, this.donunqData.scaleY, this.donunqData.scaleZ);
-            gltf.scene.children[0].children[1].position.set(0, this.donunqData.glazePosY, 0)
-            gltf.scene.children[0].children[2].position.set(0, this.donunqData.extraPosY, 0)
-            gltf.scene.children[0].children[3].position.set(0, this.donunqData.extraPosY, 0)
-            this.model.children[0].children[1].material = this.model.children[0].children[1].material.clone();
-            this.model.children[0].children[2].material = this.model.children[0].children[2].material.clone();
+            console.log(this.model)
+            this.customizables.push(this.malteserObj = this.model.children[0].children[0])
+            this.customizables.push(this.snickerObj = this.model.children[0].children[3])
+            this.customizables.push(this.twixObj = this.model.children[0].children[4])
+            this.customizables.push(this.leoObj = this.model.children[0].children[5])
+            this.customizables.push(this.vermiObj = this.model.children[0].children[1])
+            this.customizables.push(this.glazeObj = this.model.children[0].children[6])
+            this.customizables.push(this.baseObj = this.model.children[0].children[2])
+
+            for (let i = 0; i <= this.customizables.length - 3; i++) {
+                const el = this.customizables[i];
+                el.position.set(0, this.donunqData.extraPosY, 0)
+            }
+            this.vermiObj.position.set(0, this.donunqData.vermiPosY, 0)
+            this.glazeObj.position.set(0, this.donunqData.glazePosY, 0)
+
+            this.customizables.forEach(el => {
+                el.material.clone();
+            })
+
+            this.snickerObj.visible = this.twixObj.visible = this.leoObj.visible = false;
             this.scene.add(gltf.scene);
         })
-        console.log(this.model)
     }
 
     configureExtra(extra) {
-        this.model.children[0].children[2].material = new THREE.MeshStandardMaterial({
+        this.vermiObj.material = new THREE.MeshStandardMaterial({
             color: extra,
             roughness: this.donunqData.roughness,
             metalness: this.donunqData.metalness
         })
-        console.log(this.model)
     }
 
     configureTopping(topping) {
-        this.model.children[0].children[1].material = new THREE.MeshStandardMaterial({
+        this.glazeObj.material = new THREE.MeshStandardMaterial({
             color: topping,
             roughness: this.donunqData.roughness,
             metalness: this.donunqData.metalness
         })
-        console.log(this.model)
     }
 
     raycaster(e) {
@@ -94,15 +117,13 @@ export default class Donunq {
         raycaster.setFromCamera(pointer, this.camera);
         const intersects = raycaster.intersectObjects(this.scene.children, true);
 
-        if (!intersects) {
-            console.warn("No intersection")
-        } else if (intersects.length > 0) {
+        if (intersects.length > 0) {
             intersectObject.push(intersects[0].object);
             intersectObject.forEach(el => {
                 el.material.emissive.setHex(0xed2970);
             });
         } else if (intersectObject.length === 0) {
-            this.model.children[0].children.forEach(el => {
+            this.customizables.forEach(el => {
                 el.material.emissive.setHex(defHex);
             })
         }
@@ -116,15 +137,14 @@ export default class Donunq {
         raycaster.setFromCamera(pointer, this.camera);
         const intersects = raycaster.intersectObjects(this.scene.children);
         const targetObj = intersects[0].object.name;
-        console.log(targetObj)
         if (targetObj !== null) {
+            console.log(targetObj);
             return targetObj
         }
     }
 
     createOrbitctrl() {
         // generate orbit controls (around the world around the world)
-        // console.log("orbits")
         this.controls = new OrbitControls(this.camera, this.renderer.domElement)
         this.controls.enableDamping = true;
         this.controls.dampingFactor = 0.07;
@@ -147,10 +167,6 @@ export default class Donunq {
 
     lights() {
         // add lights to scene
-        // console.log("lights")
-        const hemi = new THREE.HemisphereLight(0x0000ff, 0x00ff00, 0.6)
-        this.scene.add(hemi)
-
         const rgbeLoader = new RGBELoader();
         rgbeLoader.load(this.donunqData.lightPath, (texture) => {
             texture.mapping = THREE.EquirectangularReflectionMapping;

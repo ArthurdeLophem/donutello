@@ -17,11 +17,12 @@ const checkIntersects = (e) => {
 
 const checkObject = (e) => {
     const targetObj = donunq.intersectObj(e);
-    if (targetObj === "Torus003") {
-        $mitt.emit('emitBasePanel', { 'targetObj': "base" });
-    } else if (targetObj === "Torus003_2") {
+    if (targetObj === "donutLayer_1") {
+        $mitt.emit('emitVermiPanel', { 'targetObj': "vermi" });
+    }
+    else if (targetObj === "donutLayer" || targetObj === "donutLayer_3" || targetObj === "donutLayer_4" || targetObj === "donutLayer_5") {
         $mitt.emit('emitExtraPanel', { 'targetObj': "extras" });
-    } else if (targetObj === "Torus003_1") {
+    } else if (targetObj === "donutLayer_6") {
         $mitt.emit('emitToppingPanel', { 'targetObj': "topping" });
     }
 }
