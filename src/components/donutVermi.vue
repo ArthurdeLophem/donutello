@@ -4,7 +4,9 @@ import $mitt from '../scripts/mitt.js';
 
 let extra = ref("chocolat"),
     selector = ref([]),
-    vermi__container = ref();
+    vermi__container = ref(),
+    targetObj;
+
 
 const vermisData = [
     {
@@ -21,6 +23,7 @@ const vermisData = [
     }
 ]
 
+
 const showActive = (event) => {
     selector._rawValue.forEach(element => {
         element.firstElementChild.classList.remove("active");
@@ -32,7 +35,7 @@ const showActive = (event) => {
 
 const emitDonunq = (event) => {
     showActive(event);
-    const targetObj = vermisData.find(el => el.eName == event.target.nextElementSibling.innerText);
+    targetObj = vermisData.find(el => el.eName == event.target.nextElementSibling.innerText);
     $mitt.emit('emitVermis', { 'vermiColor': targetObj.color });
 }
 
@@ -46,11 +49,27 @@ $mitt.on('emitToppingPanel', e => {
 $mitt.on('emitExtraPanel', e => {
     vermi__container.value.style.transform = "translateX(1000px)"
 })
+$mitt.on('requestingDonutData', () => {
+    $mitt.emit('vermi__data', { 'vermi__data': targetObj.color });
+})
 
 const closePanel = () => {
     vermi__container.value.style.transform = "translateX(1000px)"
 }
 
+const defaultActive = () => {
+    let defaultVermi;
+    selector._rawValue.forEach(el => {
+        if (el.children[1].innerHTML === "choco") {
+            targetObj = defaultVermi = el
+        }
+    })
+    defaultVermi.classList.add("active")
+}
+
+onMounted(() => {
+    defaultActive();
+})
 </script>
 
 <template>

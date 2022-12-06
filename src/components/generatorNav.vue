@@ -1,17 +1,23 @@
-<script>
-// export default {
-//     data() {
-//         return {
-//             selectedFlavour: 'chocolat',
-//             selectedExtra: 'vermicelles'
-//         }
-//     },
-//     methods: {
-//         emitDonunq() {
-//             this.emitter.emit('emitDonunq', { 'flavour': this.selectedFlavour, 'extra': this.selectedExtra })
-//         }
-//     }
-// }
+<script setup>
+import $mitt from '../scripts/mitt';
+
+
+const submitDonut = (e) => {
+    e.preventDefault();
+
+    const donutData = {};
+    $mitt.emit('requestingDonutData');
+    $mitt.on('vermi__data', (e) => {
+        console.log(e)
+    });
+    $mitt.on('extra__data', (e) => {
+        console.log(e)
+    });
+    $mitt.on('topping__data', (e) => {
+        console.log(e)
+    });
+    // window.localStorage.setItem('donuts', stringify(donutData));
+}
 </script>
 
 <template>
@@ -32,7 +38,7 @@
                 <p class="price__amount">$5</p>
                 <p class="price__quantity">/donut</p>
             </div>
-            <div class="btn__primary">
+            <div class="btn__primary" @click="submitDonut">
                 <a class="btn__text" href="">go to order</a>
             </div>
         </div>

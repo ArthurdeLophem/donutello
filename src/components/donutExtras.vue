@@ -4,7 +4,8 @@ import $mitt from '../scripts/mitt.js';
 
 let extra = ref("chocolat"),
     selector = ref([]),
-    extra__container = ref();
+    extra__container = ref(),
+    targetObj;
 
 const extrasData = [
     {
@@ -36,7 +37,7 @@ const showActive = (event) => {
 
 const emitDonunq = (event) => {
     showActive(event);
-    const targetObj = extrasData.find(el => el.eName == event.target.nextElementSibling.innerText);
+    targetObj = extrasData.find(el => el.eName == event.target.nextElementSibling.innerText);
     $mitt.emit('emitExtras', { 'extraType': targetObj.eName });
 }
 
@@ -50,6 +51,9 @@ $mitt.on('emitToppingPanel', e => {
 $mitt.on('emitVermiPanel', e => {
     extra__container.value.style.transform = "translateX(1000px)"
 })
+$mitt.on('requestingDonutData', (e) => {
+    $mitt.emit('extra__data', { 'extra__data': targetObj.eName });
+})
 
 const closePanel = () => {
     extra__container.value.style.transform = "translateX(1000px)"
@@ -59,9 +63,10 @@ const defaultActive = () => {
     let defaultExtra;
     selector._rawValue.forEach(el => {
         if (el.children[1].innerHTML === "maltesers") {
-            defaultExtra = el
+            targetObj = defaultExtra = el
         }
     })
+    console.log(targetObj)
     defaultExtra.classList.add("active")
 }
 

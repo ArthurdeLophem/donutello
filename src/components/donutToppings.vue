@@ -4,7 +4,8 @@ import $mitt from '../scripts/mitt.js';
 
 let topping = ref("chocolat"),
     selector = ref([]),
-    topping__container = ref();
+    topping__container = ref(),
+    targetObj
 
 const toppingsData = [
     {
@@ -32,7 +33,7 @@ const showActive = (event) => {
 
 const emitDonunq = (event) => {
     showActive(event);
-    const targetObj = toppingsData.find(el => el.eName == event.target.nextElementSibling.innerText);
+    targetObj = toppingsData.find(el => el.eName == event.target.nextElementSibling.innerText);
     $mitt.emit('emitTopping', { 'toppingColor': targetObj.color });
 }
 
@@ -45,10 +46,27 @@ $mitt.on('emitVermiPanel', e => {
 $mitt.on('emitExtraPanel', e => {
     topping__container.value.style.transform = "translateX(1000px)"
 })
+$mitt.on('requestingDonutData', () => {
+    $mitt.emit('topping__data', { 'topping__data': targetObj.color });
+})
 
 const closePanel = () => {
     topping__container.value.style.transform = "translateX(1000px)"
 }
+
+const defaultActive = () => {
+    let defaultTopping;
+    selector._rawValue.forEach(el => {
+        if (el.children[1].innerHTML === "choco") {
+            targetObj = defaultTopping = el
+        }
+    })
+    defaultTopping.classList.add("active")
+}
+
+onMounted(() => {
+    defaultActive();
+})
 </script>
 
 <template>
