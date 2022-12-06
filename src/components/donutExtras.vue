@@ -42,7 +42,6 @@ const emitDonunq = (event) => {
 }
 
 $mitt.on('emitExtraPanel', e => {
-    console.log(e, extra__container)
     extra__container.value.style.transform = "translateX(0px)";
 })
 $mitt.on('emitToppingPanel', e => {
@@ -62,11 +61,10 @@ const closePanel = () => {
 const defaultActive = () => {
     let defaultExtra;
     selector._rawValue.forEach(el => {
-        if (el.children[1].innerHTML === "maltesers") {
-            targetObj = defaultExtra = el
+        if (el.children[1].innerHTML == "maltesers") {
+            targetObj = defaultExtra = el.children[1]
         }
     })
-    console.log(targetObj)
     defaultExtra.classList.add("active")
 }
 
@@ -127,12 +125,15 @@ strong {
     display: none;
 }
 
-.extra__block:hover .extra__name,
-.active {
+.extra__block:hover .extra__name {
     display: block;
     color: red;
 }
 
+.active {
+    display: block;
+    color: red;
+}
 
 .extras__select {
     display: flex;

@@ -61,7 +61,7 @@ const defaultActive = () => {
     let defaultVermi;
     selector._rawValue.forEach(el => {
         if (el.children[1].innerHTML === "choco") {
-            targetObj = defaultVermi = el
+            targetObj = defaultVermi = el.children[1]
         }
     })
     defaultVermi.classList.add("active")

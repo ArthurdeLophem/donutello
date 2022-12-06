@@ -58,7 +58,7 @@ const defaultActive = () => {
     let defaultTopping;
     selector._rawValue.forEach(el => {
         if (el.children[1].innerHTML === "choco") {
-            targetObj = defaultTopping = el
+            targetObj = defaultTopping = el.children[1]
         }
     })
     defaultTopping.classList.add("active")
