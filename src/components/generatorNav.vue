@@ -116,6 +116,7 @@ strong {
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
 
 .btn__text {

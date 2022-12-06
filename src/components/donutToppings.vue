@@ -47,7 +47,11 @@ $mitt.on('emitExtraPanel', e => {
     topping__container.value.style.transform = "translateX(1000px)"
 })
 $mitt.on('requestingDonutData', () => {
-    $mitt.emit('topping__data', { 'topping__data': targetObj.color });
+    if (typeof targetObj === "object") {
+        $mitt.emit('topping__data', { 'topping__data': targetObj.eName });
+    } else {
+        $mitt.emit('topping__data', { 'topping__data': targetObj });
+    }
 })
 
 const closePanel = () => {
@@ -56,9 +60,10 @@ const closePanel = () => {
 
 const defaultActive = () => {
     let defaultTopping;
+    targetObj = "choco"
     selector._rawValue.forEach(el => {
-        if (el.children[1].innerHTML === "choco") {
-            targetObj = defaultTopping = el.children[1]
+        if (el.children[1].innerHTML === targetObj) {
+            defaultTopping = el.children[1]
         }
     })
     defaultTopping.classList.add("active")

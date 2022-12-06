@@ -51,7 +51,11 @@ $mitt.on('emitVermiPanel', e => {
     extra__container.value.style.transform = "translateX(1000px)"
 })
 $mitt.on('requestingDonutData', (e) => {
-    $mitt.emit('extra__data', { 'extra__data': targetObj.eName });
+    if (typeof targetObj === "object") {
+        $mitt.emit('extra__data', { 'extra__data': targetObj.eName });
+    } else {
+        $mitt.emit('extra__data', { 'extra__data': targetObj });
+    }
 })
 
 const closePanel = () => {
@@ -60,9 +64,10 @@ const closePanel = () => {
 
 const defaultActive = () => {
     let defaultExtra;
+    targetObj = "maltesers"
     selector._rawValue.forEach(el => {
-        if (el.children[1].innerHTML == "maltesers") {
-            targetObj = defaultExtra = el.children[1]
+        if (el.children[1].innerHTML == targetObj) {
+            defaultExtra = el.children[1]
         }
     })
     defaultExtra.classList.add("active")
