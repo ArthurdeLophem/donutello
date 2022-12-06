@@ -43,7 +43,7 @@ $mitt.on('emitVermiPanel', e => {
 $mitt.on('emitToppingPanel', e => {
     vermi__container.value.style.transform = "translateX(1000px)"
 })
-$mitt.on('emitvermiPanel', e => {
+$mitt.on('emitExtraPanel', e => {
     vermi__container.value.style.transform = "translateX(1000px)"
 })
 
