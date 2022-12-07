@@ -13,7 +13,7 @@ const logout = () => {
         <h3 class="header__logo">donutello.ai</h3>
         <div class="header__interaction">
             <div class="button__password">
-                <a href="">change password</a>   
+                <router-link to="/change-password">change password</router-link>   
             </div>
             <div class="button__logout">
                 <div @click="logout" class="logout__btn">log out</div>
