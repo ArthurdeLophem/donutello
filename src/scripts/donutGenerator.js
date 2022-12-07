@@ -6,7 +6,6 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 export default class Donunq {
     constructor() {
         this.viewport;
-
         this.scene;
         this.camera;
         this.renderer;
@@ -37,7 +36,6 @@ export default class Donunq {
         this.leoObj;
         this.glazeObj;
         this.baseObj;
-
         this.customizables = []
     }
 
@@ -67,13 +65,15 @@ export default class Donunq {
             this.model = gltf.scene
             gltf.scene.scale.set(this.donunqData.scaleX, this.donunqData.scaleY, this.donunqData.scaleZ);
             console.log(this.model)
-            this.customizables.push(this.malteserObj = this.model.children[0].children[0])
-            this.customizables.push(this.snickerObj = this.model.children[0].children[3])
-            this.customizables.push(this.twixObj = this.model.children[0].children[4])
-            this.customizables.push(this.leoObj = this.model.children[0].children[5])
-            this.customizables.push(this.vermiObj = this.model.children[0].children[1])
-            this.customizables.push(this.glazeObj = this.model.children[0].children[6])
-            this.customizables.push(this.baseObj = this.model.children[0].children[2])
+            this.customizables.push(
+                this.malteserObj = this.model.children[0].children[0],
+                this.snickerObj = this.model.children[0].children[3],
+                this.twixObj = this.model.children[0].children[4],
+                this.leoObj = this.model.children[0].children[5],
+                this.vermiObj = this.model.children[0].children[1],
+                this.glazeObj = this.model.children[0].children[6],
+                this.baseObj = this.model.children[0].children[2]
+            )
 
             for (let i = 0; i <= this.customizables.length - 3; i++) {
                 const el = this.customizables[i];
@@ -92,6 +92,7 @@ export default class Donunq {
     }
 
     configureVermi(extra) {
+        console.log(this.model)
         this.vermiObj.material = new THREE.MeshStandardMaterial({
             color: extra,
             roughness: this.donunqData.roughness,
@@ -108,7 +109,6 @@ export default class Donunq {
     }
 
     configureExtras(extra) {
-        console.log('configuring extra')
         switch (extra) {
             case "twix":
                 this.snickerObj.visible = this.malteserObj.visible = this.leoObj.visible = false;

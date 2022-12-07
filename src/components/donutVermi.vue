@@ -78,7 +78,7 @@ onMounted(() => {
 <template>
     <div class="choose__container" ref="vermi__container">
         <div class="close" @click="closePanel">X</div>
-        <h3 class="choose__Headline">choose your vermis</h3>
+        <h3 class="choose__Headline">choose your sprinkles</h3>
         <div class="vermis__select">
             <div class="vermi__block" v-for="vermi in vermisData" ref="selector">
                 <div class="vermi__color" @click="emitDonunq" v-bind:style="{ backgroundColor: vermi.color }"></div>

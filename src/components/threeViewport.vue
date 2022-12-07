@@ -1,6 +1,5 @@
 <script setup>
 import { onMounted } from 'vue';
-
 import Donunq from "../scripts/donutGenerator.js";
 import $mitt from '../scripts/mitt.js';
 

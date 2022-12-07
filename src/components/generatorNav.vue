@@ -3,7 +3,6 @@ import $mitt from '../scripts/mitt';
 
 const submitDonut = (e) => {
     e.preventDefault();
-
     const donutData = { vermiData: "", extraData: "", toppingData: "" };
     $mitt.emit('requestingDonutData');
     $mitt.on('vermi__data', (e) => {
