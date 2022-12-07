@@ -7,9 +7,6 @@
             <h3>donutello.ai</h3>
         </div>
         <div class="header__interaction">
-            <div class="button__signup">
-                <a href="">sign up</a>
-            </div>
             <div class="button__login">
                 <router-link to="/login">log in</router-link>
             </div>
