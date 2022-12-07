@@ -1,4 +1,62 @@
 <script setup>
+
+import { ref, onMounted } from 'vue'
+
+let Oldpassword = ref('');
+let Newpassword = ref('');
+let Repeatpassword = ref('');
+
+onMounted(() => {
+    const authUrl = 'http://localhost:3000/api/v1/users/auth'
+fetch(authUrl, {
+    method: 'POST',
+    headers: {
+       "Authorization" : "Bearer " + localStorage.getItem('token'),
+    }
+})
+.then(res => {
+
+if(res.status == 401) {
+    window.location.href = '/login';
+ }
+   
+}).catch(error => {
+    console.log(error)
+});
+
+})
+
+const submit = () => {
+    
+    if(Oldpassword.value != Newpassword.value && Newpassword.value == Repeatpassword.value) {
+       const apiUrl = 'http://localhost:3000/api/v1/users/update'
+         fetch(apiUrl, {
+              method: 'PUT',
+              headers: {
+                'Content-Type': 'application/json',
+                "Authorization" : "Bearer " + localStorage.getItem('token')
+              },
+              body: JSON.stringify({
+                password: Oldpassword.value,
+                newPassword: Newpassword.value
+              })
+         }).then(res => {
+             res.json({}).
+                then(data => {
+                    if(data.status === "success") {
+                        console.log("password changed");
+                    }
+                    else {
+                        console.log("password not changed");
+                    }
+                })
+         })
+         .catch(error => {
+             console.log(error)
+         })
+}
+}
+
 </script>
 <template>
     <div class="login">
