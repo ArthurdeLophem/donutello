@@ -1,11 +1,13 @@
 <script setup>
-
+import { ref, reactive, onMounted } from 'vue';
+let donuts = JSON.parse(window.localStorage.getItem('donuts'))
+console.log(donuts)
 </script>
 
 <template>
     <div class="summary__container" ref="extra__container">
         <div class="summary__list">
-            <div class="donut__block" ref="selector">
+            <div class="donut__block" v-for="donut in donuts" ref="selector">
                 <div class="donut__position">
                     <p>1.</p>
                 </div>

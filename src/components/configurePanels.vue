@@ -1,0 +1,201 @@
+<script setup>
+import { ref, onMounted } from 'vue';
+import { extrasData, toppingsData, vermisData } from '../configs/donuttelloData'
+import $mitt from '../scripts/mitt.js';
+
+let selector = ref([]),
+    vermi__container = ref(),
+    topping__container = ref(),
+    extra__container = ref(),
+    vermi__name = ref(),
+    topping__name = ref(),
+    extra__name = ref(),
+    targetObj, activePanel;
+
+const showActiveSelect = (e) => {
+    switch (activePanel) {
+        case "extra":
+            extra__name._rawValue.forEach(el => {
+                el.classList.remove("active")
+            })
+            e.target.nextElementSibling.classList.add("active")
+            break;
+        case "topping":
+            topping__name._rawValue.forEach(el => {
+                el.classList.remove("active")
+            })
+            e.target.nextElementSibling.classList.add("active")
+            break;
+        case "vermi":
+            vermi__name._rawValue.forEach(el => {
+                el.classList.remove("active")
+            })
+            e.target.nextElementSibling.classList.add("active")
+            break;
+    }
+}
+
+const emitDonunq = (e) => {
+    showActiveSelect(e);
+    switch (activePanel) {
+        case "extra":
+            targetObj = extrasData.find(el => el.eName == e.target.nextElementSibling.innerText);
+            $mitt.emit('emitExtras', { 'extraType': targetObj.eName });
+            break;
+        case "topping":
+            targetObj = toppingsData.find(el => el.eName == e.target.nextElementSibling.innerText);
+            $mitt.emit('emitToppings', { 'toppingColor': targetObj.color });
+            break;
+        case "vermi":
+            targetObj = vermisData.find(el => el.eName == e.target.nextElementSibling.innerText);
+            $mitt.emit('emitVermis', { 'vermiColor': targetObj.color });
+            break;
+    }
+}
+
+$mitt.on('emitExtraPanel', () => {
+    extra__container.value.style.transform = "translateX(0px)";
+    vermi__container.value.style.transform = "translateX(1000px)";
+    topping__container.value.style.transform = "translateX(1000px)";
+    activePanel = "extra";
+})
+$mitt.on('emitToppingPanel', () => {
+    topping__container.value.style.transform = "translateX(0px)";
+    extra__container.value.style.transform = "translateX(1000px)";
+    vermi__container.value.style.transform = "translateX(1000px)";
+    activePanel = "topping";
+})
+$mitt.on('emitVermiPanel', () => {
+    vermi__container.value.style.transform = "translateX(0px)";
+    topping__container.value.style.transform = "translateX(1000px)";
+    extra__container.value.style.transform = "translateX(1000px)";
+    activePanel = "vermi";
+})
+
+const closePanel = (e) => {
+    e.target.parentElement.style.transform = "translateX(1000px)"
+}
+
+const defaultActive = () => {
+    targetObj = { extra: "maltesers", topping: "choco", vermi: "choco" }
+    selector._rawValue.forEach(el => {
+        if (el.children[1].innerHTML == targetObj.extra) {
+            el.children[1].classList.add("active")
+        }
+        if (el.children[1].innerHTML == targetObj.topping) {
+            el.children[1].classList.add("active")
+        }
+        if (el.children[1].innerHTML == targetObj.vermi) {
+            el.children[1].classList.add("active")
+        }
+    })
+}
+
+onMounted(() => {
+    defaultActive();
+})
+</script>
+
+<template>
+    <div class="interactive__panel">
+        <div class="choose__container" ref="extra__container">
+            <div class="close" @click="closePanel">X</div>
+            <h3 class="choose__Headline">choose your extras</h3>
+            <div class="select__container">
+                <div class="select__block" v-for="extra in extrasData" ref="selector">
+                    <div class="select__color" @click="emitDonunq" v-bind:style="{ backgroundColor: extra.color }">
+                    </div>
+                    <div class="select__name" ref="extra__name">{{ extra.eName }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="choose__container" ref="topping__container">
+            <div class="close" @click="closePanel">X</div>
+            <h3 class="choose__Headline">choose your topping</h3>
+            <div class="select__container">
+                <div class="select__block" v-for="topping in toppingsData" ref="selector">
+                    <div class="select__color" v-on:click="emitDonunq"
+                        v-bind:style="{ backgroundColor: topping.color }">
+                    </div>
+                    <div class="select__name" ref="topping__name">{{ topping.eName }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="choose__container" ref="vermi__container">
+            <div class="close" @click="closePanel">X</div>
+            <h3 class="choose__Headline">choose your sprinkles</h3>
+            <div class="select__container">
+                <div class="select__block" v-for="vermi in vermisData" ref="selector">
+                    <div class="select__color" @click="emitDonunq" v-bind:style="{ backgroundColor: vermi.color }">
+                    </div>
+                    <div class="select__name" ref="vermi__name">{{ vermi.eName }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<style scoped>
+.interactive__panel {
+    right: 0;
+    height: 100vh;
+    position: absolute;
+}
+
+strong {
+    color: #ed2970;
+}
+
+.close {
+    cursor: pointer;
+    font-weight: 800;
+    position: absolute;
+    right: 1em;
+    top: 1em;
+}
+
+.choose__Headline {
+    margin-top: 0;
+}
+
+.choose__container {
+    background-color: whitesmoke;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 1em 3em;
+    padding: 3em 2em;
+    transition: all 250ms;
+    transform: translateX(1000px);
+}
+
+.select__color {
+    width: 3em;
+    height: 1.5em;
+    border-radius: 0.3em;
+}
+
+.select__name {
+    display: none;
+}
+
+.select__block:hover .select__name {
+    display: block;
+    color: red;
+}
+
+.active {
+    display: block;
+    color: red;
+}
+
+.select__container {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+}
+
+#active {
+    border: blue 1px solid;
+}
+</style>
