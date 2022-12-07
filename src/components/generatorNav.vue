@@ -1,22 +1,21 @@
 <script setup>
 import $mitt from '../scripts/mitt';
 
-
 const submitDonut = (e) => {
     e.preventDefault();
 
-    const donutData = {};
+    const donutData = { vermiData: "", extraData: "", toppingData: "" };
     $mitt.emit('requestingDonutData');
     $mitt.on('vermi__data', (e) => {
-        console.log(e)
+        donutData.vermiData = e.vermi__data;
     });
     $mitt.on('extra__data', (e) => {
-        console.log(e)
+        donutData.extraData = e.extra__data;
     });
     $mitt.on('topping__data', (e) => {
-        console.log(e)
+        donutData.toppingData = e.topping__data;
+        window.localStorage.setItem('donuts', JSON.stringify(donutData));
     });
-    // window.localStorage.setItem('donuts', stringify(donutData));
 }
 </script>
 

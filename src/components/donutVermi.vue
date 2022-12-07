@@ -7,7 +7,6 @@ let extra = ref("chocolat"),
     vermi__container = ref(),
     targetObj;
 
-
 const vermisData = [
     {
         color: "#c51d34",
@@ -22,7 +21,6 @@ const vermisData = [
         eName: "darkk"
     }
 ]
-
 
 const showActive = (event) => {
     selector._rawValue.forEach(element => {

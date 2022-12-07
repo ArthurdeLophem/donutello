@@ -30,11 +30,9 @@ const checkObject = (e) => {
 $mitt.on('emitVermis', e => {
     donunq.configureVermi(e.vermiColor);
 })
-
 $mitt.on('emitTopping', e => {
     donunq.configureTopping(e.toppingColor);
 })
-
 $mitt.on('emitExtras', e => {
     donunq.configureExtras(e.extraType);
 })
