@@ -1,4 +1,38 @@
-<script></script>
+<script setup>
+import { ref, onMounted } from 'vue'
+
+let username = ref('');
+let password = ref('');
+
+const submit = () => {
+    
+    const apiUrl = 'http://localhost:3000/api/v1/users/login'
+    fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            username: username.value,
+            password: password.value
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+
+        if(data.status === 'success') {
+
+        localStorage.setItem('token', data.token);
+        window.location.href = '/dashboard';
+
+    } else {
+        console.log(data);
+    }
+       
+    }).catch(error => console.log(error));
+
+}
+</script>
 <template>
     <div class="login">
         <div class="login__image"></div>
@@ -12,16 +46,16 @@
                 </h1>
                 <form class="container__form container__form--padding">
                     <div class="form__field form__field--padding">
-                        <input class="field__input" type="email" id="email" placeholder="username" />
+                        <input class="field__input" v-model="username" type="username" id="username" placeholder="username" />
                     </div>
                     <div class="form__field form__field--padding">
-                        <input class="field__input" type="password" id="password" placeholder="password" />
+                        <input class="field__input" v-model="password" type="password" id="password" placeholder="password" />
                     </div>
                     <div class="form__forget form__forget--padding">
                         <router-link to="/forgot-password">forgot password</router-link>
                     </div>
-                    <div class="form__button">
-                        <router-link to="/dashboard" class="button__login">log in</router-link>
+                    <div class="form__button" @click="submit">
+                        <span class="button__login" >log in</span>
                     </div>
                 </form>
             </div>
