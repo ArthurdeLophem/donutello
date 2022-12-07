@@ -1,4 +1,11 @@
-<script>
+<script setup>
+
+
+const logout = () => {
+    localStorage.removeItem('token');
+    window.location.href = '/login';
+}
+
 </script>
 
 <template>
@@ -8,8 +15,8 @@
             <div class="button__password">
                 <a href="">change password</a>   
             </div>
-            <div class="button__login">
-                <router-link to="/">log out</router-link>
+            <div class="button__logout">
+                <div @click="logout" class="logout__btn">log out</div>
             </div>
         </div>
     </div>
@@ -34,7 +41,7 @@
     gap: 3em;
 }
 
-.button__login {
+.button__logout {
     background-color: black;
     display: flex;
     justify-content: center;
@@ -52,11 +59,12 @@
     justify-content: center;
 }
 
-.button__login a {
+.logout__btn  {
     color: white;
+    font-weight: 600;
 }
 
-.button__login a:hover {
+.logout__btn:hover {
     color: #ed2970;
 }
 </style>
