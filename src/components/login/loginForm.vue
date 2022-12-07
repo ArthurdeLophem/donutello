@@ -4,6 +4,30 @@ import { ref, onMounted } from 'vue'
 let username = ref('');
 let password = ref('');
 
+onMounted(() => {
+    const authUrl = 'http://localhost:3000/api/v1/users/auth'
+
+    if(localStorage.getItem('token')) {
+        fetch(authUrl, {
+            method: 'POST',
+            headers: {
+            "Authorization" : "Bearer " + localStorage.getItem('token'),
+            }
+        })
+        .then(res => {
+
+        if(res.status == 200) {
+            window.location.href = '/dashboard';
+        }
+        
+        }).catch(error => {
+            console.log(error)
+        });
+        
+    }
+
+})
+
 const submit = () => {
     
     const apiUrl = 'http://localhost:3000/api/v1/users/login'
