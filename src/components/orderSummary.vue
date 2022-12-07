@@ -4,7 +4,6 @@
 
 <template>
     <div class="summary__container" ref="extra__container">
-        <h2 class="summary__Headline"><strong>Your</strong> Donuts</h2>
         <div class="summary__list">
             <div class="donut__block" ref="selector">
                 <div class="donut__position">
