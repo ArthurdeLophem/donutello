@@ -7,25 +7,6 @@ let extra = ref("chocolat"),
     extra__container = ref(),
     targetObj;
 
-const extrasData = [
-    {
-        color: "#c51d34",
-        eName: "maltesers"
-    },
-    {
-        color: "#d2691e",
-        eName: "twix"
-    },
-    {
-        color: "#000000",
-        eName: "snickers"
-    },
-    {
-        color: "#000000",
-        eName: "leo"
-    }
-]
-
 const showActive = (event) => {
     selector._rawValue.forEach(element => {
         element.firstElementChild.classList.remove("active");

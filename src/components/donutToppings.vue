@@ -7,21 +7,6 @@ let topping = ref("chocolat"),
     topping__container = ref(),
     targetObj
 
-const toppingsData = [
-    {
-        color: "#c51d34",
-        eName: "framboos"
-    },
-    {
-        color: "#d2691e",
-        eName: "choco"
-    },
-    {
-        color: "#000000",
-        eName: "darkk"
-    }
-]
-
 const showActive = (event) => {
     selector._rawValue.forEach(element => {
         element.firstElementChild.classList.remove("active");
