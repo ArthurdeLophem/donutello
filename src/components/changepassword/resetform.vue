@@ -1,61 +1,62 @@
 <script setup>
+
 import { ref, onMounted } from 'vue'
 
-let username = ref('');
-let password = ref('');
+let Oldpassword = ref('');
+let Newpassword = ref('');
+let Repeatpassword = ref('');
 
 onMounted(() => {
     const authUrl = 'http://localhost:3000/api/v1/users/auth'
-
-    if(localStorage.getItem('token')) {
-        fetch(authUrl, {
-            method: 'POST',
-            headers: {
-            "Authorization" : "Bearer " + localStorage.getItem('token'),
-            }
-        })
-        .then(res => {
-
-        if(res.status == 200) {
-            window.location.href = '/dashboard';
-        }
-        
-        }).catch(error => {
-            console.log(error)
-        });
-        
+fetch(authUrl, {
+    method: 'POST',
+    headers: {
+       "Authorization" : "Bearer " + localStorage.getItem('token'),
     }
+})
+.then(res => {
+
+if(res.status == 401) {
+    window.location.href = '/login';
+ }
+   
+}).catch(error => {
+    console.log(error)
+});
 
 })
 
 const submit = () => {
     
-    const apiUrl = 'http://localhost:3000/api/v1/users/login'
-    fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            username: username.value,
-            password: password.value
-        })
-    })
-    .then(res => res.json())
-    .then(data => {
-
-        if(data.status === 'success') {
-
-        localStorage.setItem('token', data.token);
-        window.location.href = '/dashboard';
-
-    } else {
-        console.log(data);
-    }
-       
-    }).catch(error => console.log(error));
-
+    if(Oldpassword.value != Newpassword.value && Newpassword.value == Repeatpassword.value) {
+       const apiUrl = 'http://localhost:3000/api/v1/users/update'
+         fetch(apiUrl, {
+              method: 'PUT',
+              headers: {
+                'Content-Type': 'application/json',
+                "Authorization" : "Bearer " + localStorage.getItem('token')
+              },
+              body: JSON.stringify({
+                password: Oldpassword.value,
+                newPassword: Newpassword.value
+              })
+         }).then(res => {
+             res.json({}).
+                then(data => {
+                    if(data.status === "success") {
+                        console.log("password changed");
+                    }
+                    else {
+                        console.log("password not changed");
+                    }
+                })
+         })
+         .catch(error => {
+             console.log(error)
+         })
 }
+}
+
 </script>
 <template>
     <div class="login">
@@ -66,20 +67,20 @@ const submit = () => {
                     Donutello.ai
                 </h2>
                 <h1 class="container__title container__title--padding">
-                    Welcome <span class="title__pink">back</span>
+                    Change <span class="title__pink">password</span>
                 </h1>
                 <form class="container__form container__form--padding">
                     <div class="form__field form__field--padding">
-                        <input class="field__input" v-model="username" type="username" id="username" placeholder="username" />
+                        <input class="field__input" v-model="Oldpassword" type="password" placeholder="old password" />
                     </div>
                     <div class="form__field form__field--padding">
-                        <input class="field__input" v-model="password" type="password" id="password" placeholder="password" />
+                        <input class="field__input" v-model="Newpassword" type="password" placeholder="new password" />
                     </div>
-                    <div class="form__forget form__forget--padding">
-                        <router-link to="/forgot-password">forgot password</router-link>
+                    <div class="form__field form__field--padding">
+                        <input class="field__input" v-model="Repeatpassword" type="password" placeholder="repeat password" />
                     </div>
-                    <div class="form__button" @click="submit">
-                        <span class="button__login" >log in</span>
+                    <div class="form__button">
+                        <span class="button__login" @click="submit">change password</span>
                     </div>
                 </form>
             </div>
@@ -145,19 +146,20 @@ const submit = () => {
 
 .form__button {
     background-color: #ed2970;
-    width: 7rem;
+    width: 15rem;
     height: 2.5rem;
     font-size: 1.5em;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 1rem;
 }
 
 .button__login {
     color: white;
 }
 
-.container__form--padding, .container__title--padding, .container__brand--padding, .form_field--padding, .form__forget--padding{
+.container__form--padding, .container__title--padding, .container__brand--padding, .form_field--padding {
     padding: 1rem 0;
 }
 

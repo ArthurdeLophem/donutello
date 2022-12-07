@@ -4,6 +4,7 @@ import Generator from './views/generator.vue'
 import OrderPanel from './views/orderPanel.vue'
 import Login from './views/login.vue'
 import Dashboard from './views/dashboard.vue'
+import ChangePassword from './views/changePassword.vue'
 
 const routes = [
     { path: "/", name: "Home", component: Home },
@@ -11,6 +12,8 @@ const routes = [
     { path: "/order", name: "order", component: OrderPanel },
     { path: "/login", name: "Login", component: Login },
     { path: "/dashboard", name: "Dashboard", component: Dashboard },
+    { path: "/change-password", name: "ChangePassword", component: ChangePassword },
+
 ]
 
 //router constructor
