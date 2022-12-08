@@ -73,7 +73,14 @@ $mitt.on('emitVermiPanel', () => {
     activePanel = "vermi";
 })
 $mitt.on('saveToStorage', () => {
-    console.log(donutData)
+    const donuts = []
+    if (window.localStorage.getItem('donuts')) {
+        let donutArr = (JSON.parse(window.localStorage.getItem('donuts')))
+        donutArr.forEach(el => donuts.push(el))
+    }
+    donuts.push(donutData)
+    window.localStorage.setItem('donuts', JSON.stringify(donuts))
+    console.log(donuts)
     setTimeout(() => {
         $mitt.all.clear();
         router.push({ name: 'order' })
