@@ -1,7 +1,5 @@
 <script setup>
-import { ref, reactive, onMounted } from 'vue';
 let donuts = JSON.parse(window.localStorage.getItem('donuts'))
-console.log(donuts)
 </script>
 
 <template>
@@ -15,17 +13,17 @@ console.log(donuts)
                     <div class="card__col">
                         <div class="data__container">
                             <p>topping</p>
-                            <p><strong>marshmallow</strong></p>
+                            <p><strong>{{ donut.topping }}</strong></p>
                         </div>
                         <div class="data__container">
                             <p>extra</p>
-                            <p><strong>marshmallow</strong></p>
+                            <p><strong>{{ donut.extra }}</strong></p>
                         </div>
                     </div>
                     <div class="card__col">
                         <div class="data__container">
                             <p>sprinkles</p>
-                            <p><strong>marshmallow</strong></p>
+                            <p><strong>{{ donut.vermi }}</strong></p>
                         </div>
                         <div class="data__container">
                             <p>campaign size</p>
