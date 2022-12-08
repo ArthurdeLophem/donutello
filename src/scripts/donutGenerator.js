@@ -25,7 +25,7 @@ export default class Donunq {
             extraPosY: 0.08,
             roughness: 0.2235293984413147,
             metalness: 0.24705882370471954,
-            path: "./models/donunqello.glb",
+            path: "./models/donunqello2.glb",
             lightPath: "./models/fairway.hdr"
         }
 
