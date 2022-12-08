@@ -5,9 +5,9 @@ let donuts = JSON.parse(window.localStorage.getItem('donuts'))
 <template>
     <div class="summary__container" ref="extra__container">
         <div class="summary__list">
-            <div class="donut__block" v-for="donut in donuts" ref="selector">
+            <div class="donut__block" v-for="(donut, index) in donuts" ref="selector">
                 <div class="donut__position">
-                    <p>1.</p>
+                    <p>{{ (index + 1) }}.</p>
                 </div>
                 <div class="donut__card">
                     <div class="card__col">
