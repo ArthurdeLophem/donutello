@@ -1,20 +1,10 @@
 <script setup>
+import { onBeforeUnmount, onMounted } from 'vue';
 import $mitt from '../scripts/mitt';
 
 const submitDonut = (e) => {
     e.preventDefault();
-    const donutData = { vermiData: "", extraData: "", toppingData: "" };
-    $mitt.emit('requestingDonutData');
-    $mitt.on('vermi__data', (e) => {
-        donutData.vermiData = e.vermi__data;
-    });
-    $mitt.on('extra__data', (e) => {
-        donutData.extraData = e.extra__data;
-    });
-    $mitt.on('topping__data', (e) => {
-        donutData.toppingData = e.topping__data;
-        window.localStorage.setItem('donuts', JSON.stringify(donutData));
-    });
+    $mitt.emit('saveToStorage');
 }
 </script>
 
@@ -37,7 +27,7 @@ const submitDonut = (e) => {
                 <p class="price__quantity">/donut</p>
             </div>
             <div class="btn__primary" @click="submitDonut">
-                <a class="btn__text" href="">go to order</a>
+                <p class="btn__text">go to order</p>
             </div>
         </div>
     </div>

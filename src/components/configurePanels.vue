@@ -1,6 +1,7 @@
 <script setup>
-import { ref, onMounted } from 'vue';
-import { extrasData, toppingsData, vermisData } from '../configs/donuttelloData'
+import { ref, onMounted, onBeforeUnmount } from 'vue';
+import { extrasData, toppingsData, vermisData } from '../configs/donuttelloData';
+import router from './../router';
 import $mitt from '../scripts/mitt.js';
 
 let selector = ref([]),
@@ -10,7 +11,7 @@ let selector = ref([]),
     vermi__name = ref(),
     topping__name = ref(),
     extra__name = ref(),
-    targetObj, activePanel;
+    targetObj, activePanel, donutData = { extra: "maltesers", topping: "choco", vermi: "choco" };
 
 const showActiveSelect = (e) => {
     switch (activePanel) {
@@ -71,6 +72,13 @@ $mitt.on('emitVermiPanel', () => {
     extra__container.value.style.transform = "translateX(1000px)";
     activePanel = "vermi";
 })
+$mitt.on('saveToStorage', () => {
+    console.log(donutData)
+    setTimeout(() => {
+        $mitt.all.clear();
+        router.push({ name: 'order' })
+    }, 1000)
+})
 
 const closePanel = (e) => {
     e.target.parentElement.style.transform = "translateX(1000px)"
@@ -94,6 +102,10 @@ const defaultActive = () => {
 onMounted(() => {
     defaultActive();
 })
+
+// onBeforeUnmount(() => {
+//     $mitt.off('getDonutData');
+// })
 </script>
 
 <template>
