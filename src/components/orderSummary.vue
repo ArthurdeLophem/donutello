@@ -45,9 +45,14 @@ p {
     font-weight: bold;
 }
 
+.summary__container {
+    width: 45%;
+}
+
 .summary__list {
-    width: 50%;
-    margin-left: 2em;
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
 }
 
 .summary__Headline {
@@ -61,12 +66,13 @@ p {
     flex-direction: row;
     padding: 1em 4em;
     justify-content: space-around;
-    gap: 3em;
+    gap: 4em;
 }
 
 .donut__block {
     display: flex;
     flex-direction: row;
+    justify-content: center;
     gap: 2em;
 }
 

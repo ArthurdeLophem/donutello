@@ -19,6 +19,6 @@ import lHeader from '../components/landingHeader.vue'
 .content__container {
     display: flex;
     flex-direction: row;
-    gap: 3em;
+    justify-content: space-around;
 }
 </style>

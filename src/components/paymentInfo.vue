@@ -22,14 +22,17 @@ p {
 }
 
 .payment__info {
-    width: 35%;
+    position: sticky;
+    top: 3em;
+    width: 30%;
     display: flex;
     flex-wrap: wrap;
     gap: 1em;
     background-color: #EBEBEB;
     border-radius: 5px;
-    padding: 1em 4em;
+    padding: 3em 2em;
     justify-content: space-around;
+    height: fit-content;
 }
 
 .payment__info input {
