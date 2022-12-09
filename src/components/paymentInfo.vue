@@ -13,6 +13,22 @@
 </template>
 
 <style scoped>
+input {
+    padding: 0.5em 1em;
+    background-color: #99999b;
+    border: none;
+    color: black;
+    font-weight: 600;
+    border-radius: 3px;
+    transition: all 250ms;
+}
+
+input:focus {
+    outline: none !important;
+    border: 2px solid #ed2970;
+    box-shadow: 0 0 5px #ed2970;
+}
+
 strong {
     color: #ed2970;
 }
