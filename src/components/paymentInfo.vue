@@ -3,16 +3,23 @@
 </script>
 
 <template>
-    <div class="payment__info">
-        <input v-model="email" placeholder="email" />
-        <input v-model="gsm" placeholder="gsm" />
-        <input v-model="bedrijfsnaam" placeholder="bedrijfsnaam" />
-        <input v-model="adress" placeholder="adress" />
-        <input v-model="stad" placeholder="stad" />
+    <div class="payment__container">
+        <h3>leave us <strong>your</strong> info behind!</h3>
+        <div class="payment__info">
+            <input v-model="email" placeholder="email" />
+            <input v-model="gsm" placeholder="gsm" />
+            <input v-model="bedrijfsnaam" placeholder="bedrijfsnaam" />
+            <input v-model="adress" placeholder="adress" />
+            <input v-model="stad" placeholder="stad" />
+        </div>
     </div>
 </template>
 
 <style scoped>
+h3 {
+    margin: 0;
+}
+
 input {
     padding: 0.5em 1em;
     background-color: #99999b;
@@ -37,16 +44,25 @@ p {
     font-weight: bold;
 }
 
-.payment__info {
+.payment__container {
     position: sticky;
     top: 3em;
     width: 30%;
     display: flex;
-    flex-wrap: wrap;
-    gap: 1em;
+    flex-direction: column;
+    gap: 3em;
     background-color: #EBEBEB;
     border-radius: 5px;
     padding: 3em 2em;
+    height: fit-content;
+}
+
+.payment__info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1em;
+    border-radius: 5px;
+    padding: 0 2em;
     justify-content: space-around;
     height: fit-content;
 }
