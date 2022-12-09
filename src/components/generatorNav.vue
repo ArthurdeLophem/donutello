@@ -95,20 +95,4 @@ strong {
 .price__quantity {
     font-weight: bold;
 }
-
-.btn__primary {
-    width: fit-content;
-    height: 56px;
-    width: 204px;
-    background-color: #ed2970;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-}
-
-.btn__text {
-    color: white;
-    font-weight: bold;
-}
 </style>

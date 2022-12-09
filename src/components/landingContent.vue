@@ -10,7 +10,7 @@
         <div class="content__enticing">
             <div class="enticing__interaction">
                 <p>create your business donut marketing online and get it shipped and delivered at your door</p>
-                <div class="enticing__cta">
+                <div class="btn__primary">
                     <router-link to="/generator">start yours now</router-link>
                 </div>
                 <div class="enticing__assets">
@@ -64,14 +64,7 @@ a {
     font-size: 1.2em;
 }
 
-.enticing__cta {
-    width: fit-content;
-    height: 56px;
-    width: 204px;
-    background-color: #ed2970;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.btn__primary {
     margin-left: 2em;
 }
 

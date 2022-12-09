@@ -12,6 +12,9 @@
             <input v-model="adress" placeholder="adress" />
             <input v-model="stad" placeholder="stad" />
         </div>
+        <div class="btn__primary" @click="submitDonut">
+            <p class="btn__text">go to order</p>
+        </div>
     </div>
 </template>
 
@@ -34,6 +37,10 @@ input:focus {
     outline: none !important;
     border: 2px solid #ed2970;
     box-shadow: 0 0 5px #ed2970;
+}
+
+.btn__primary {
+    align-self: flex-end;
 }
 
 strong {
