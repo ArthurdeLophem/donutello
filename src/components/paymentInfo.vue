@@ -1,5 +1,15 @@
 <script setup>
+import { ref } from 'vue';
+const email = ref();
+const gsm = ref();
+const bedrijfsnaam = ref();
+const adress = ref();
+const stad = ref();
 
+const businessData = ref({ email: email, gsm: gsm, bedrijfsnaam: bedrijfsnaam, adress: adress, stad: stad });
+const placeOrder = () => {
+    console.log(businessData._rawValue)
+}
 </script>
 
 <template>
@@ -12,7 +22,7 @@
             <input v-model="adress" placeholder="adress" />
             <input v-model="stad" placeholder="stad" />
         </div>
-        <div class="btn__primary" @click="submitDonut">
+        <div class="btn__primary" @click="placeOrder">
             <p class="btn__text">go to order</p>
         </div>
     </div>
