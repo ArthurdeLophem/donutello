@@ -1,108 +1,96 @@
 <script setup>
-
+import router from '../../router';
 import { ref, onMounted } from 'vue'
 
-let Oldpassword = ref('');
-let Newpassword = ref('');
-let Repeatpassword = ref('');
+let Oldpassword = ref(''),
+    Newpassword = ref(''),
+    Repeatpassword = ref(''),
+    form__success = ref(''),
+    form__error = ref(''),
+    form__failed = ref(''),
+    oldPwError = ref(''),
+    newPwError = ref('');
 
 onMounted(() => {
     const authUrl = 'http://localhost:3000/api/v1/users/auth'
-fetch(authUrl, {
-    method: 'POST',
-    headers: {
-       "Authorization" : "Bearer " + localStorage.getItem('token'),
-    }
-})
-.then(res => {
-
-if(res.status == 401) {
-    window.location.href = '/login';
- }
-   
-}).catch(error => {
-    console.log(error)
-});
-
+    fetch(authUrl, {
+        method: 'POST',
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem('token'),
+        }
+    }).then(res => {
+        if (res.status == 401) {
+            router.push({ name: 'Login' })
+        }
+    }).catch(error => {
+        console.log(error)
+    });
 })
 
 const submit = () => {
-    
-    if(Oldpassword.value != Newpassword.value) {
-        if(Newpassword.value == Repeatpassword.value) {
-       const apiUrl = 'http://localhost:3000/api/v1/users/update'
-         fetch(apiUrl, {
-              method: 'PUT',
-              headers: {
-                'Content-Type': 'application/json',
-                "Authorization" : "Bearer " + localStorage.getItem('token')
-              },
-              body: JSON.stringify({
+    if (Oldpassword.value != Newpassword.value) {
+        if (Newpassword.value == Repeatpassword.value) {
+            console.log(JSON.stringify({
                 password: Oldpassword.value,
                 newPassword: Newpassword.value
-              })
-         }).then(res => {
-             res.json({}).
-                then(data => {
-                    if(data.status === "success") {
-                        let success = document.querySelector('.form__success');
-                        success.classList.remove('form__success--hidden');
-                        let error = document.querySelector('.form__error');
-                        if (!error.classList.contains('form__error--hidden')) {
-                            error.classList.add('form__error--hidden');
-                        }
-                        let failed = document.querySelector('.form__failed');
-                        if (!failed.classList.contains('form__failed--hidden')) {
-                            failed.classList.add('form__failed--hidden');
-                        }
-                    }
-                    else {
-                        let failed = document.querySelector('.form__failed');
-                        failed.classList.remove('form__failed--hidden');
-                        let success = document.querySelector('.form__success');
-                        if (!success.classList.contains('form__success--hidden')) {
-                            success.classList.add('form__success--hidden');
-                        }
-                    }
+            }))
+            const apiUrl = 'http://localhost:3000/api/v1/users/update'
+            fetch(apiUrl, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    "Authorization": "Bearer " + localStorage.getItem('token')
+                },
+                body: JSON.stringify({
+                    password: Oldpassword.value,
+                    newPassword: Newpassword.value
                 })
-         })
-         .catch(error => {
-             console.log(error)
-         })
+            }).then(res => {
+                res.json({}).
+                    then(data => {
+                        if (data.status === "success") {
+                            form__success.value.classList.remove('form__success--hidden');
+                            if (!form__error.value.classList.contains('form__error--hidden')) {
+                                form__error.value.classList.add('form__error--hidden');
+                            }
+                            if (!form__failed.value.classList.contains('form__failed--hidden')) {
+                                form__failed.value.classList.add('form__failed--hidden');
+                            }
+                        }
+                        else {
+                            form__failed.value.classList.remove('form__failed--hidden');
+                            if (!form__success.value.classList.contains('form__success--hidden')) {
+                                form__success.value.classList.add('form__success--hidden');
+                            }
+                        }
+                    })
+            }).catch(error => {
+                console.log(error)
+            })
         }
         else {
-            let success = document.querySelector('.form__success');
-            if (!success.classList.contains('form__success--hidden')) {
-                success.classList.add('form__success--hidden');
+            if (!form__success.value.classList.contains('form__success--hidden')) {
+                form__success.value.classList.add('form__success--hidden');
             }
-            let error = document.querySelector('.form__error');
-                error.classList.remove('form__error--hidden');
-            let oldP = document.querySelector('.error__old');
-            let newP = document.querySelector('.error__new');
-                newP.classList.remove('error__new--hidden');
-            if(!oldP.classList.contains('error__old--hidden')) {
-                oldP.classList.add('error__old--hidden');
+            form__error.value.classList.remove('form__error--hidden');
+            newPwError.value.classList.remove('error__new--hidden');
+            if (!oldPwError.value.classList.contains('error__old--hidden')) {
+                oldPwError.value.classList.add('error__old--hidden');
             }
         }
-
     } else {
-        let success = document.querySelector('.form__success');
-        if (!success.classList.contains('form__success--hidden')) {
-            success.classList.add('form__success--hidden');
+        if (!form__success.value.classList.contains('form__success--hidden')) {
+            form__success.value.classList.add('form__success--hidden');
         }
-        let error = document.querySelector('.form__error');
-        error.classList.remove('form__error--hidden');
-        let oldP = document.querySelector('.error__old');
-        let newP = document.querySelector('.error__new');
-        oldP.classList.remove('error__old--hidden');
-        if(!newP.classList.contains('error__new--hidden')) {
-            newP.classList.add('error__new--hidden');
+        form__error.value.classList.remove('form__error--hidden');
+        oldPwError.value.classList.remove('error__old--hidden');
+        if (!newPwError.value.classList.contains('error__new--hidden')) {
+            newPwError.value.classList.add('error__new--hidden');
         }
     }
-
 }
-
 </script>
+
 <template>
     <div class="login">
         <div class="login__image"></div>
@@ -122,16 +110,19 @@ const submit = () => {
                         <input class="field__input" v-model="Newpassword" type="password" placeholder="new password" />
                     </div>
                     <div class="form__field form__field--padding">
-                        <input class="field__input" v-model="Repeatpassword" type="password" placeholder="repeat password" />
+                        <input class="field__input" v-model="Repeatpassword" type="password"
+                            placeholder="repeat password" />
                     </div>
-                    <div class="form__error form__error--hidden">
-                        <p class="error__old error__old--hidden">Old password can not match new password</p>
-                        <p class="error__new error__new--hidden">New password and repeat password do not match</p>
+                    <div class="form__error form__error--hidden" ref="form__error">
+                        <p class="error__old error__old--hidden" ref="oldPwError">Old password can not match new
+                            password</p>
+                        <p class="error__new error__new--hidden" ref="newPwError">New password and repeat password do
+                            not match</p>
                     </div>
-                    <div class="form__success form__success--hidden">
+                    <div class="form__success form__success--hidden" ref="form__success">
                         <p class="success__text">Password changed successfully</p>
                     </div>
-                    <div class="form__failed form__failed--hidden">
+                    <div class="form__failed form__failed--hidden" ref="form__failed">
                         <p class="failed__text">Old password is incorrect</p>
                     </div>
                     <div class="form__button">
@@ -154,7 +145,7 @@ const submit = () => {
 }
 
 .login__image {
-    width: 60vw; 
+    width: 60vw;
     height: 100vh;
     background-image: url('https://donuttello.com/photos/shares/donuts/sinterklaas/sint_2022.jpg');
     background-repeat: no-repeat;
@@ -178,7 +169,8 @@ const submit = () => {
 .container__form {
     width: 100%;
 }
-.form__field{
+
+.form__field {
     width: 100%;
 }
 
@@ -208,13 +200,17 @@ const submit = () => {
     justify-content: center;
     align-items: center;
     margin-top: 1rem;
+    cursor: pointer;
 }
 
 .button__login {
     color: white;
 }
 
-.container__form--padding, .container__title--padding, .container__brand--padding, .form_field--padding {
+.container__form--padding,
+.container__title--padding,
+.container__brand--padding,
+.form_field--padding {
     padding: 1rem 0;
 }
 
@@ -239,8 +235,10 @@ const submit = () => {
     font-weight: 600;
 }
 
-.form__error--hidden, .error__old--hidden, .error__new--hidden {
-    display: none; 
+.form__error--hidden,
+.error__old--hidden,
+.error__new--hidden {
+    display: none;
 }
 
 .form__success {
@@ -250,7 +248,7 @@ const submit = () => {
 }
 
 .form__success--hidden {
-    display: none; 
+    display: none;
 }
 
 .form__failed {
@@ -260,51 +258,55 @@ const submit = () => {
 }
 
 .form__failed--hidden {
-    display: none; 
+    display: none;
 }
 
 
 /* mobile */
 @media only screen and (max-width: 1000px) {
 
-.login__image {
-    display: none;
-}
+    .login__image {
+        display: none;
+    }
 
-.login {
-    background-image: url('https://donuttello.com/photos/shares/donuts/sinterklaas/sint_2022.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-}
+    .login {
+        background-image: url('https://donuttello.com/photos/shares/donuts/sinterklaas/sint_2022.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
 
-.login__section {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 65vh;
-    width: 60vw;
-    border-radius: 20px;
-    
-}
+    .login__section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 65vh;
+        width: 60vw;
+        border-radius: 20px;
 
-.form__button {
-    width: 100%;
-}
+    }
 
-.container__title {
-    font-size: clamp(1.75rem, 5vw, 3rem);
-    font-weight: 600;
-}
+    .form__button {
+        width: 100%;
+    }
 
-.container__brand {
-    font-size: clamp(1.5rem, 2.5vw, 2rem);
-    font-weight: 700;
-    line-height: normal;
-}
+    .container__title {
+        font-size: clamp(1.75rem, 5vw, 3rem);
+        font-weight: 600;
+    }
 
-.container__form--padding, .container__title--padding, .container__brand--padding, .form_field--padding, .form__forget--padding{
-    padding: .5rem 0;
-}
+    .container__brand {
+        font-size: clamp(1.5rem, 2.5vw, 2rem);
+        font-weight: 700;
+        line-height: normal;
+    }
+
+    .container__form--padding,
+    .container__title--padding,
+    .container__brand--padding,
+    .form_field--padding,
+    .form__forget--padding {
+        padding: .5rem 0;
+    }
 
 }
 
@@ -314,14 +316,17 @@ const submit = () => {
     }
 
     .form__button {
-    height: 2rem;
-    font-size: 1em;
-}
+        height: 2rem;
+        font-size: 1em;
+    }
 
-.container__form--padding, .container__title--padding, .container__brand--padding, .form_field--padding, .form__forget--padding{
-    padding: 0.1rem 0;
-}
+    .container__form--padding,
+    .container__title--padding,
+    .container__brand--padding,
+    .form_field--padding,
+    .form__forget--padding {
+        padding: 0.1rem 0;
+    }
 
 }
-
 </style>   

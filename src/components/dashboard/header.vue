@@ -1,11 +1,10 @@
 <script setup>
-
+import router from '../../router';
 
 const logout = () => {
     localStorage.removeItem('token');
-    window.location.href = '/login';
+    router.push({ name: 'Login' })
 }
-
 </script>
 
 <template>
@@ -13,7 +12,7 @@ const logout = () => {
         <router-link to="/" class="header__logo">donutello.ai</router-link>
         <div class="header__interaction">
             <div class="button__password">
-                <router-link to="/change-password">change password</router-link>   
+                <router-link to="/change-password">change password</router-link>
             </div>
             <div class="button__logout">
                 <div @click="logout" class="logout__btn">log out</div>
@@ -30,7 +29,7 @@ const logout = () => {
     justify-content: space-between;
     height: 6vh;
     background-color: white;
-    box-shadow: 0px 5px 7px -2px rgba(0,0,0,0.25);
+    box-shadow: 0px 5px 7px -2px rgba(0, 0, 0, 0.25);
     z-index: 1;
 }
 
@@ -59,7 +58,7 @@ const logout = () => {
     justify-content: center;
 }
 
-.logout__btn  {
+.logout__btn {
     color: white;
     font-weight: 600;
 }
