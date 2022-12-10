@@ -27,7 +27,7 @@ let donuts = JSON.parse(window.localStorage.getItem('donuts'))
                         </div>
                         <div class="data__container">
                             <p>campaign size</p>
-                            <p><strong>50</strong></p>
+                            <p><strong>{{ donut.quantity }}</strong></p>
                         </div>
                     </div>
                 </div>

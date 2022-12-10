@@ -82,6 +82,7 @@ $mitt.on('saveToStorage', () => {
         donutArr.forEach(el => donuts.push(el))
     }
     donuts.push(donutData)
+    donuts.forEach(el => el.quantity = 50)
     window.localStorage.setItem('donuts', JSON.stringify(donuts))
     console.log(donuts)
     setTimeout(() => {
