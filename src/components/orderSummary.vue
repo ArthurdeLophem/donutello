@@ -1,13 +1,27 @@
 <script setup>
-let donuts = JSON.parse(window.localStorage.getItem('donuts'))
+import { ref } from 'vue';
+
+let donuts = JSON.parse(window.localStorage.getItem('donuts')),
+    donutBlock = ref();
+
+const deleteDonut = (index) => {
+    donutBlock.value[index].style.transform = "translateX(-1000px)";
+    setTimeout(() => {
+        donutBlock.value[index].style.display = "none";
+        donuts.splice(index, 1);
+        donutBlock.value.splice(index, 1);
+        window.localStorage.removeItem('donuts')
+        window.localStorage.setItem('donuts', JSON.stringify(donuts))
+    }, 700)
+}
 </script>
 
 <template>
     <div class="summary__container" ref="extra__container">
         <div class="summary__list">
-            <div class="donut__block" v-for="(donut, index) in donuts" ref="selector">
+            <div class="donut__block" v-for="(donut, index) in donuts" ref="donutBlock">
                 <div class="donut__position">
-                    <p>{{ (index + 1) }}.</p>
+                    <p ref="index">{{ (index + 1) }}.</p>
                 </div>
                 <div class="donut__card">
                     <div class="card__col">
@@ -30,7 +44,7 @@ let donuts = JSON.parse(window.localStorage.getItem('donuts'))
                             <p><strong>{{ donut.quantity }}</strong></p>
                         </div>
                     </div>
-                    <div class="button__rounded">
+                    <div class="button__rounded" @click="deleteDonut(index)">
                         <img src="../../assets/delete__btn.svg" alt="delete donut button">
                     </div>
                 </div>
@@ -49,6 +63,7 @@ p {
 }
 
 .button__rounded {
+    cursor: pointer;
     position: absolute;
     height: 50px;
     width: 50px;
@@ -89,6 +104,7 @@ p {
 }
 
 .donut__block {
+    transition: all 500ms ease-in;
     display: flex;
     flex-direction: row;
     justify-content: center;
