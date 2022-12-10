@@ -42,14 +42,17 @@ const emitDonunq = (e) => {
         case "extra":
             targetObj = extrasData.find(el => el.eName == e.target.nextElementSibling.innerText);
             $mitt.emit('emitExtras', { 'extraType': targetObj.eName });
+            donutData.extra = targetObj.eName;
             break;
         case "glaze":
             targetObj = glazesData.find(el => el.eName == e.target.nextElementSibling.innerText);
             $mitt.emit('emitGlazes', { 'glazeColor': targetObj.color });
+            donutData.glaze = targetObj.eName;
             break;
         case "topping":
             targetObj = toppingsData.find(el => el.eName == e.target.nextElementSibling.innerText);
             $mitt.emit('emitToppings', { 'toppingColor': targetObj.color });
+            donutData.glaze = targetObj.eName;
             break;
     }
 }
