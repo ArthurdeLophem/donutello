@@ -10,19 +10,30 @@ const email = ref(),
 let donuts,
     business;
 
-const businessData = ref({ email: email, gsm: gsm, bedrijfsnaam: bedrijfsnaam, adress: adress, stad: stad });
+const businessData = ref({ mail: email, phone: gsm, name: bedrijfsnaam, address: adress, city: stad });
 const placeOrder = () => {
-    donuts = JSON.parse(window.localStorage.getItem('donuts'));
-    business = businessData.value;
-    console.log(baseDonutUrl)
-    // fetch(baseDonutUrl, {
-    //     method: 'POST',
-    // }).then(res => {
-    //     if (res.status == 200) {
-    //     }
-    // }).catch(error => {
-    //     console.log(error)
-    // });
+    const formData = {
+        "contact":
+            businessData.value
+        ,
+        "donuts": JSON.parse(window.localStorage.getItem('donuts')),
+        "card": {
+            "shape": "square",
+            "url": "https://logo.png/"
+        }
+    }
+    console.log(JSON.stringify(formData))
+    fetch(baseDonutUrl, {
+        method: 'POST',
+        body: JSON.stringify(formData)
+    }).then(res => {
+        console.log(res);
+        if (res.status == 200) {
+            console.log(baseDonutUrl)
+        }
+    }).catch(error => {
+        console.log(error)
+    });
 }
 </script>
 
