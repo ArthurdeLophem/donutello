@@ -32,7 +32,7 @@ export const toppingsData = [
     },
     {
         color: "#adf802",
-        eName: "green lemon"
+        eName: "glemon"
     },
     {
         color: "#ddd0be",
@@ -75,7 +75,7 @@ export const vermisData = [
     },
     {
         color: "#adf802",
-        eName: "green lemon"
+        eName: "glemon"
     },
     {
         color: "#6c3b1e",
@@ -87,7 +87,7 @@ export const vermisData = [
     },
     {
         color: "#1b1811",
-        eName: "black choco"
+        eName: "bchoco"
     },
     {
         color: "#ede9e0",
@@ -95,7 +95,7 @@ export const vermisData = [
     },
     {
         color: "#f0e3c7",
-        eName: "white choco"
+        eName: "wchoco"
     },
     {
         color: "#f89c37",
@@ -103,7 +103,7 @@ export const vermisData = [
     },
     {
         color: "#f89c37",
-        eName: "salted caramel"
+        eName: "salt caramel"
     },
     {
         color: "#8c766d",
