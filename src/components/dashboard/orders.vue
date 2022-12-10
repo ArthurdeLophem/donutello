@@ -23,6 +23,10 @@ onMounted(() => {
     
 
 
+});
+
+const sliceDate = ((date) => {
+    return date.slice(0, 10);
 })
 
 
@@ -42,7 +46,7 @@ onMounted(() => {
                 <span class="card__text">Order:</span>
                 <h3 class="card__title">{{order.contact.name}}</h3>
                 <span class="card__text">Request Date:</span>
-                <span class="card__text card__text--pink">{{order.contact.orderdate}}</span>
+                <span class="card__text card__text--pink">{{sliceDate(order.contact.orderdate)}}</span>
                 <router-link :to="('/generator?orderid=' + order._id)" class="card__btn">details</router-link>
             </div>
         </div>
