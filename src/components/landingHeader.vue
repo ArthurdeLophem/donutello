@@ -1,14 +1,38 @@
-<script>
-</script>
+<script setup>
+import { ref, reactive, onMounted } from 'vue';
 
+onMounted(() => {
+    if(localStorage.getItem('token')) {
+        let logout = document.querySelector('.button__logout');
+        logout.classList.remove('button__logout--hidden');
+        let login = document.querySelector('.button__login');
+        login.classList.add('button__login--hidden');
+        let dashboard = document.querySelector('.button__dashboard');
+        dashboard.classList.remove('button__dashboard--hidden');
+    }
+})
+
+const logout = () => {
+    localStorage.removeItem('token');
+    /* force reload */
+    window.location.href = '/';
+}
+
+</script>
 <template>
     <div class="header">
         <div class="header__logo">
             <h3>donutello.ai</h3>
         </div>
         <div class="header__interaction">
+            <div class="button__dashboard button__dashboard--hidden">
+                <router-link to="/dashboard">dashboard</router-link>
+            </div>
             <div class="button__login">
                 <router-link to="/login">log in</router-link>
+            </div>
+            <div class="button__logout button__logout--hidden">
+                <div @click="logout" class="logout__btn">log out</div>
             </div>
         </div>
     </div>
@@ -46,4 +70,35 @@
 .button__login a:hover {
     color: #ed2970;
 }
+
+.button__logout {
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 2.5rem;
+    width: 5rem;
+}
+
+.logout__btn  {
+    color: white;
+    font-weight: 600;
+}
+
+.logout__btn:hover {
+    color: #ed2970;
+}
+
+.button__logout--hidden {
+    display: none;
+}
+
+.button__login--hidden {
+    display: none;
+}
+
+.button__dashboard--hidden {
+    display: none;
+}
+
 </style>
