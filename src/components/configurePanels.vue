@@ -109,10 +109,6 @@ const defaultActive = () => {
 onMounted(() => {
     defaultActive();
 })
-
-// onBeforeUnmount(() => {
-//     $mitt.off('getDonutData');
-// })
 </script>
 
 <template>
@@ -195,26 +191,30 @@ strong {
 }
 
 .select__name {
-    display: none;
+    /* display: none; */
+    opacity: 0;
+    position: absolute;
+    font-weight: 600;
 }
 
 .select__block:hover .select__name {
-    display: block;
+    /* display: block; */
+    opacity: 1;
     color: red;
 }
 
 .active {
-    display: block;
+    opacity: 1;
     color: red;
 }
 
 .select__container {
+    width: 300px;
     display: flex;
     flex-direction: row;
-    gap: 1em;
-}
-
-#active {
-    border: blue 1px solid;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    row-gap: 2em;
+    column-gap: 1em;
 }
 </style>
