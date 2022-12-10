@@ -17,7 +17,7 @@ export const extrasData = [
     }
 ]
 
-export const toppingsData = [
+export const glazesData = [
     {
         color: "#6c3b1e",
         eName: "choco"
@@ -64,7 +64,7 @@ export const toppingsData = [
     }
 ]
 
-export const vermisData = [
+export const toppingsData = [
     {
         color: "#d2691e",
         eName: "choco"

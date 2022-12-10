@@ -1,17 +1,17 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue';
-import { extrasData, toppingsData, vermisData } from '../configs/donuttelloData';
+import { extrasData, glazesData, toppingsData } from '../configs/donuttelloData';
 import router from './../router';
 import $mitt from '../scripts/mitt.js';
 
 let selector = ref([]),
-    vermi__container = ref(),
     topping__container = ref(),
+    glaze__container = ref(),
     extra__container = ref(),
-    vermi__name = ref(),
     topping__name = ref(),
+    glaze__name = ref(),
     extra__name = ref(),
-    targetObj, activePanel, donutData = { extra: "maltesers", topping: "choco", vermi: "choco" };
+    targetObj, activePanel, donutData = { extra: "maltesers", glaze: "choco", topping: "choco" };
 
 const showActiveSelect = (e) => {
     switch (activePanel) {
@@ -21,14 +21,14 @@ const showActiveSelect = (e) => {
             })
             e.target.nextElementSibling.classList.add("active")
             break;
-        case "topping":
-            topping__name.value.forEach(el => {
+        case "glaze":
+            glaze__name.value.forEach(el => {
                 el.classList.remove("active")
             })
             e.target.nextElementSibling.classList.add("active")
             break;
-        case "vermi":
-            vermi__name.value.forEach(el => {
+        case "topping":
+            topping__name.value.forEach(el => {
                 el.classList.remove("active")
             })
             e.target.nextElementSibling.classList.add("active")
@@ -43,34 +43,34 @@ const emitDonunq = (e) => {
             targetObj = extrasData.find(el => el.eName == e.target.nextElementSibling.innerText);
             $mitt.emit('emitExtras', { 'extraType': targetObj.eName });
             break;
+        case "glaze":
+            targetObj = glazesData.find(el => el.eName == e.target.nextElementSibling.innerText);
+            $mitt.emit('emitGlazes', { 'glazeColor': targetObj.color });
+            break;
         case "topping":
             targetObj = toppingsData.find(el => el.eName == e.target.nextElementSibling.innerText);
             $mitt.emit('emitToppings', { 'toppingColor': targetObj.color });
-            break;
-        case "vermi":
-            targetObj = vermisData.find(el => el.eName == e.target.nextElementSibling.innerText);
-            $mitt.emit('emitVermis', { 'vermiColor': targetObj.color });
             break;
     }
 }
 
 $mitt.on('emitExtraPanel', () => {
     extra__container.value.style.transform = "translateX(0px)";
-    vermi__container.value.style.transform = "translateX(1000px)";
     topping__container.value.style.transform = "translateX(1000px)";
+    glaze__container.value.style.transform = "translateX(1000px)";
     activePanel = "extra";
+})
+$mitt.on('emitGlazePanel', () => {
+    glaze__container.value.style.transform = "translateX(0px)";
+    extra__container.value.style.transform = "translateX(1000px)";
+    topping__container.value.style.transform = "translateX(1000px)";
+    activePanel = "glaze";
 })
 $mitt.on('emitToppingPanel', () => {
     topping__container.value.style.transform = "translateX(0px)";
+    glaze__container.value.style.transform = "translateX(1000px)";
     extra__container.value.style.transform = "translateX(1000px)";
-    vermi__container.value.style.transform = "translateX(1000px)";
     activePanel = "topping";
-})
-$mitt.on('emitVermiPanel', () => {
-    vermi__container.value.style.transform = "translateX(0px)";
-    topping__container.value.style.transform = "translateX(1000px)";
-    extra__container.value.style.transform = "translateX(1000px)";
-    activePanel = "vermi";
 })
 $mitt.on('saveToStorage', () => {
     const donuts = []
@@ -92,15 +92,15 @@ const closePanel = (e) => {
 }
 
 const defaultActive = () => {
-    targetObj = { extra: "maltesers", topping: "choco", vermi: "choco" }
+    targetObj = { extra: "maltesers", glaze: "choco", topping: "choco" }
     selector.value.forEach(el => {
         if (el.children[1].innerHTML == targetObj.extra) {
             el.children[1].classList.add("active")
         }
-        if (el.children[1].innerHTML == targetObj.topping) {
+        if (el.children[1].innerHTML == targetObj.glaze) {
             el.children[1].classList.add("active")
         }
-        if (el.children[1].innerHTML == targetObj.vermi) {
+        if (el.children[1].innerHTML == targetObj.topping) {
             el.children[1].classList.add("active")
         }
     })
@@ -124,26 +124,25 @@ onMounted(() => {
                 </div>
             </div>
         </div>
-        <div class="choose__container" ref="topping__container">
+        <div class="choose__container" ref="glaze__container">
             <div class="close" @click="closePanel">X</div>
-            <h3 class="choose__Headline">choose your topping</h3>
+            <h3 class="choose__Headline">choose your glaze</h3>
             <div class="select__container">
-                <div class="select__block" v-for="topping in toppingsData" ref="selector">
-                    <div class="select__color" v-on:click="emitDonunq"
-                        v-bind:style="{ backgroundColor: topping.color }">
+                <div class="select__block" v-for="glaze in glazesData" ref="selector">
+                    <div class="select__color" v-on:click="emitDonunq" v-bind:style="{ backgroundColor: glaze.color }">
                     </div>
-                    <div class="select__name" ref="topping__name">{{ topping.eName }}</div>
+                    <div class="select__name" ref="glaze__name">{{ glaze.eName }}</div>
                 </div>
             </div>
         </div>
-        <div class="choose__container" ref="vermi__container">
+        <div class="choose__container" ref="topping__container">
             <div class="close" @click="closePanel">X</div>
             <h3 class="choose__Headline">choose your sprinkles</h3>
             <div class="select__container">
-                <div class="select__block" v-for="vermi in vermisData" ref="selector">
-                    <div class="select__color" @click="emitDonunq" v-bind:style="{ backgroundColor: vermi.color }">
+                <div class="select__block" v-for="topping in toppingsData" ref="selector">
+                    <div class="select__color" @click="emitDonunq" v-bind:style="{ backgroundColor: topping.color }">
                     </div>
-                    <div class="select__name" ref="vermi__name">{{ vermi.eName }}</div>
+                    <div class="select__name" ref="topping__name">{{ topping.eName }}</div>
                 </div>
             </div>
         </div>

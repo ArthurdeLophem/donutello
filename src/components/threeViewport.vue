@@ -17,20 +17,20 @@ const checkIntersects = (e) => {
 const checkObject = (e) => {
     const targetObj = donunq.intersectObj(e);
     if (targetObj === "donutLayer_1") {
-        $mitt.emit('emitVermiPanel', { 'targetObj': "vermi" });
+        $mitt.emit('emitToppingPanel', { 'targetObj': "topping" });
     }
     else if (targetObj === "donutLayer" || targetObj === "donutLayer_3" || targetObj === "donutLayer_4" || targetObj === "donutLayer_5") {
         $mitt.emit('emitExtraPanel', { 'targetObj': "extras" });
     } else if (targetObj === "donutLayer_6") {
-        $mitt.emit('emitToppingPanel', { 'targetObj': "topping" });
+        $mitt.emit('emitGlazePanel', { 'targetObj': "glaze" });
     }
 }
 
-$mitt.on('emitVermis', e => {
-    donunq.configureVermi(e.vermiColor);
-})
 $mitt.on('emitToppings', e => {
-    donunq.configureTopping(e.toppingColor);
+    donunq.configureVermi(e.toppingColor);
+})
+$mitt.on('emitGlazes', e => {
+    donunq.configureTopping(e.glazeColor);
 })
 $mitt.on('emitExtras', e => {
     donunq.configureExtras(e.extraType);

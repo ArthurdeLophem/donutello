@@ -12,7 +12,7 @@ let donuts = JSON.parse(window.localStorage.getItem('donuts'))
                 <div class="donut__card">
                     <div class="card__col">
                         <div class="data__container">
-                            <p>topping</p>
+                            <p>sprinkles</p>
                             <p><strong>{{ donut.topping }}</strong></p>
                         </div>
                         <div class="data__container">
@@ -22,8 +22,8 @@ let donuts = JSON.parse(window.localStorage.getItem('donuts'))
                     </div>
                     <div class="card__col">
                         <div class="data__container">
-                            <p>sprinkles</p>
-                            <p><strong>{{ donut.vermi }}</strong></p>
+                            <p>glaze</p>
+                            <p><strong>{{ donut.glaze }}</strong></p>
                         </div>
                         <div class="data__container">
                             <p>campaign size</p>
