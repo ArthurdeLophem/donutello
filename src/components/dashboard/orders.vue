@@ -1,11 +1,11 @@
 <script setup>
 import { ref, reactive, onMounted } from 'vue';
+import { baseDonutUrl } from '../../configs/config';
 
 let orders = reactive({ data: [] });
 
 onMounted(() => {
-    const apiUrl = "http://localhost:3000/api/v1/donut"
-    fetch(apiUrl, {
+    fetch(baseDonutUrl, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',

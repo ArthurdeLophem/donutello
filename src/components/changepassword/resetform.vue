@@ -1,6 +1,8 @@
 <script setup>
 import router from '../../router';
-import { ref, onMounted } from 'vue'
+import { ref, onMounted } from 'vue';
+import { authUrl, updateUrl } from '../../configs/config';
+
 
 let Oldpassword = ref(''),
     Newpassword = ref(''),
@@ -12,7 +14,6 @@ let Oldpassword = ref(''),
     newPwError = ref('');
 
 onMounted(() => {
-    const authUrl = 'http://localhost:3000/api/v1/users/auth'
     fetch(authUrl, {
         method: 'POST',
         headers: {
@@ -34,8 +35,7 @@ const submit = () => {
                 password: Oldpassword.value,
                 newPassword: Newpassword.value
             }))
-            const apiUrl = 'http://localhost:3000/api/v1/users/update'
-            fetch(apiUrl, {
+            fetch(updateUrl, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

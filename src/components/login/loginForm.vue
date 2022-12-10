@@ -1,13 +1,13 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted } from 'vue';
 import router from '../../router';
+import { loginUrl, authUrl } from '../../configs/config';
 
 let username = ref(''),
     password = ref(''),
     form__error = ref('');
 
 onMounted(() => {
-    const authUrl = 'http://localhost:3000/api/v1/users/auth'
     if (localStorage.getItem('token')) {
         fetch(authUrl, {
             method: 'POST',
@@ -25,8 +25,7 @@ onMounted(() => {
 })
 
 const submit = () => {
-    const apiUrl = 'http://localhost:3000/api/v1/users/login'
-    fetch(apiUrl, {
+    fetch(loginUrl, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
