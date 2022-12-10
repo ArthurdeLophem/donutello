@@ -1,14 +1,28 @@
 <script setup>
 import { ref } from 'vue';
-const email = ref();
-const gsm = ref();
-const bedrijfsnaam = ref();
-const adress = ref();
-const stad = ref();
+import { baseDonutUrl } from '../configs/config';
+
+const email = ref(),
+    gsm = ref(),
+    bedrijfsnaam = ref(),
+    adress = ref(),
+    stad = ref();
+let donuts,
+    business;
 
 const businessData = ref({ email: email, gsm: gsm, bedrijfsnaam: bedrijfsnaam, adress: adress, stad: stad });
 const placeOrder = () => {
-    console.log(businessData._rawValue)
+    donuts = JSON.parse(window.localStorage.getItem('donuts'));
+    business = businessData._rawValue;
+    console.log(baseDonutUrl)
+    // fetch(baseDonutUrl, {
+    //     method: 'POST',
+    // }).then(res => {
+    //     if (res.status == 200) {
+    //     }
+    // }).catch(error => {
+    //     console.log(error)
+    // });
 }
 </script>
 
