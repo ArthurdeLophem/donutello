@@ -13,7 +13,7 @@ let donuts,
 const businessData = ref({ email: email, gsm: gsm, bedrijfsnaam: bedrijfsnaam, adress: adress, stad: stad });
 const placeOrder = () => {
     donuts = JSON.parse(window.localStorage.getItem('donuts'));
-    business = businessData._rawValue;
+    business = businessData.value;
     console.log(baseDonutUrl)
     // fetch(baseDonutUrl, {
     //     method: 'POST',

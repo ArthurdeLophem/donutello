@@ -16,19 +16,19 @@ let selector = ref([]),
 const showActiveSelect = (e) => {
     switch (activePanel) {
         case "extra":
-            extra__name._rawValue.forEach(el => {
+            extra__name.value.forEach(el => {
                 el.classList.remove("active")
             })
             e.target.nextElementSibling.classList.add("active")
             break;
         case "topping":
-            topping__name._rawValue.forEach(el => {
+            topping__name.value.forEach(el => {
                 el.classList.remove("active")
             })
             e.target.nextElementSibling.classList.add("active")
             break;
         case "vermi":
-            vermi__name._rawValue.forEach(el => {
+            vermi__name.value.forEach(el => {
                 el.classList.remove("active")
             })
             e.target.nextElementSibling.classList.add("active")
@@ -83,7 +83,7 @@ $mitt.on('saveToStorage', () => {
     console.log(donuts)
     setTimeout(() => {
         $mitt.all.clear();
-        router.push({ name: 'order' })
+        router.push({ name: 'Order' })
     }, 1000)
 })
 
@@ -93,7 +93,7 @@ const closePanel = (e) => {
 
 const defaultActive = () => {
     targetObj = { extra: "maltesers", topping: "choco", vermi: "choco" }
-    selector._rawValue.forEach(el => {
+    selector.value.forEach(el => {
         if (el.children[1].innerHTML == targetObj.extra) {
             el.children[1].classList.add("active")
         }

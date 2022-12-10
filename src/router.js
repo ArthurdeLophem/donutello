@@ -9,7 +9,7 @@ import ChangePassword from './views/changePassword.vue'
 const routes = [
     { path: "/", name: "Home", component: Home },
     { path: "/generator", name: "Generator", component: Generator },
-    { path: "/order", name: "order", component: OrderPanel },
+    { path: "/order", name: "Order", component: OrderPanel },
     { path: "/login", name: "Login", component: Login },
     { path: "/dashboard", name: "Dashboard", component: Dashboard },
     { path: "/change-password", name: "ChangePassword", component: ChangePassword },

@@ -1,13 +1,13 @@
 <script setup>
-import { onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 import Donunq from "../scripts/donutGenerator.js";
 import $mitt from '../scripts/mitt.js';
 
-const donunq = new Donunq();
+const donutViewport = ref(""),
+    donunq = new Donunq();
 
 const generateCanvas = () => {
-    const dViewport = document.querySelector(".donutViewport")
-    donunq.createScene(dViewport);
+    donunq.createScene(donutViewport.value);
 }
 
 const checkIntersects = (e) => {
@@ -42,7 +42,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <div class="donutViewport" @mousemove="checkIntersects" @mouseup="checkObject"></div>
+    <div class="donutViewport" ref="donutViewport" @mousemove="checkIntersects" @mouseup="checkObject"></div>
 </template>
 
 <style scoped>

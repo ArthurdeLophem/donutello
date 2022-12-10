@@ -1,35 +1,30 @@
 <script setup>
 import { ref, onMounted } from 'vue'
+import router from '../../router';
 
-let username = ref('');
-let password = ref('');
+let username = ref(''),
+    password = ref(''),
+    form__error = ref('');
 
 onMounted(() => {
     const authUrl = 'http://localhost:3000/api/v1/users/auth'
-
-    if(localStorage.getItem('token')) {
+    if (localStorage.getItem('token')) {
         fetch(authUrl, {
             method: 'POST',
             headers: {
-            "Authorization" : "Bearer " + localStorage.getItem('token'),
+                "Authorization": "Bearer " + localStorage.getItem('token'),
             }
-        })
-        .then(res => {
-
-        if(res.status == 200) {
-            window.location.href = '/dashboard';
-        }
-        
+        }).then(res => {
+            if (res.status == 200) {
+                router.push({ name: 'Dashboard' })
+            }
         }).catch(error => {
             console.log(error)
         });
-        
     }
-
 })
 
 const submit = () => {
-    
     const apiUrl = 'http://localhost:3000/api/v1/users/login'
     fetch(apiUrl, {
         method: 'POST',
@@ -40,22 +35,15 @@ const submit = () => {
             username: username.value,
             password: password.value
         })
-    })
-    .then(res => res.json())
-    .then(data => {
-
-        if(data.status === 'success') {
-
-        localStorage.setItem('token', data.token);
-        window.location.href = '/dashboard';
-
-    } else if(data.status === 'failed'){
-        let error = document.querySelector('.form__error');
-        error.classList.remove('form__error--hidden');
-    }
-       
-    }).catch(error => console.log(error));
-
+    }).then(res => res.json())
+        .then(data => {
+            if (data.status === 'success') {
+                localStorage.setItem('token', data.token);
+                router.push({ name: 'Dashboard' })
+            } else if (data.status === 'failed') {
+                form__error.value.classList.remove('form__error--hidden');
+            }
+        }).catch(error => console.log(error));
 }
 </script>
 <template>
@@ -71,16 +59,18 @@ const submit = () => {
                 </h1>
                 <form class="container__form container__form--padding">
                     <div class="form__field form__field--padding">
-                        <input class="field__input" v-model="username" type="username" id="username" placeholder="username" />
+                        <input class="field__input" v-model="username" type="username" id="username"
+                            placeholder="username" />
                     </div>
                     <div class="form__field form__field--padding">
-                        <input class="field__input" v-model="password" type="password" id="password" placeholder="password" />
+                        <input class="field__input" v-model="password" type="password" id="password"
+                            placeholder="password" />
                     </div>
-                    <div class="form__error form__error--hidden">
+                    <div class="form__error form__error--hidden" ref="form__error">
                         <p class="error__text">Invalid username or password</p>
                     </div>
                     <div class="form__button" @click="submit">
-                        <span class="button__login" >log in</span>
+                        <span class="button__login">log in</span>
                     </div>
                 </form>
             </div>
@@ -99,7 +89,7 @@ const submit = () => {
 }
 
 .login__image {
-    width: 60vw; 
+    width: 60vw;
     height: 100vh;
     background-image: url('https://donuttello.com/photos/shares/donuts/sinterklaas/sint_2022.jpg');
     background-repeat: no-repeat;
@@ -123,7 +113,8 @@ const submit = () => {
 .container__form {
     width: 100%;
 }
-.form__field{
+
+.form__field {
     width: 100%;
 }
 
@@ -153,13 +144,18 @@ const submit = () => {
     justify-content: center;
     align-items: center;
     margin-top: 2rem;
+    cursor: pointer;
 }
 
 .button__login {
     color: white;
 }
 
-.container__form--padding, .container__title--padding, .container__brand--padding, .form_field--padding, .form__forget--padding{
+.container__form--padding,
+.container__title--padding,
+.container__brand--padding,
+.form_field--padding,
+.form__forget--padding {
     padding: 1rem 0;
 }
 
@@ -189,50 +185,54 @@ const submit = () => {
 }
 
 .form__error--hidden {
-    display: none; 
+    display: none;
 }
 
 /* mobile */
 @media only screen and (max-width: 1000px) {
 
-.login__image {
-    display: none;
-}
+    .login__image {
+        display: none;
+    }
 
-.login {
-    background-image: url('https://donuttello.com/photos/shares/donuts/sinterklaas/sint_2022.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-}
+    .login {
+        background-image: url('https://donuttello.com/photos/shares/donuts/sinterklaas/sint_2022.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
 
-.login__section {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 65vh;
-    width: 60vw;
-    border-radius: 20px;
-    
-}
+    .login__section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 65vh;
+        width: 60vw;
+        border-radius: 20px;
 
-.form__button {
-    width: 100%;
-}
+    }
 
-.container__title {
-    font-size: clamp(1.75rem, 5vw, 3rem);
-    font-weight: 600;
-}
+    .form__button {
+        width: 100%;
+    }
 
-.container__brand {
-    font-size: clamp(1.5rem, 2.5vw, 2rem);
-    font-weight: 700;
-    line-height: normal;
-}
+    .container__title {
+        font-size: clamp(1.75rem, 5vw, 3rem);
+        font-weight: 600;
+    }
 
-.container__form--padding, .container__title--padding, .container__brand--padding, .form_field--padding, .form__forget--padding{
-    padding: .5rem 0;
-}
+    .container__brand {
+        font-size: clamp(1.5rem, 2.5vw, 2rem);
+        font-weight: 700;
+        line-height: normal;
+    }
+
+    .container__form--padding,
+    .container__title--padding,
+    .container__brand--padding,
+    .form_field--padding,
+    .form__forget--padding {
+        padding: .5rem 0;
+    }
 
 }
 
@@ -242,14 +242,17 @@ const submit = () => {
     }
 
     .form__button {
-    height: 2rem;
-    font-size: 1em;
-}
+        height: 2rem;
+        font-size: 1em;
+    }
 
-.container__form--padding, .container__title--padding, .container__brand--padding, .form_field--padding, .form__forget--padding{
-    padding: 0.1rem 0;
-}
+    .container__form--padding,
+    .container__title--padding,
+    .container__brand--padding,
+    .form_field--padding,
+    .form__forget--padding {
+        padding: 0.1rem 0;
+    }
 
 }
-
 </style>   
