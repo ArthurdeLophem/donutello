@@ -49,8 +49,9 @@ const submit = () => {
         localStorage.setItem('token', data.token);
         window.location.href = '/dashboard';
 
-    } else {
-        console.log(data);
+    } else if(data.status === 'failed'){
+        let error = document.querySelector('.form__error');
+        error.classList.remove('form__error--hidden');
     }
        
     }).catch(error => console.log(error));
@@ -77,6 +78,9 @@ const submit = () => {
                     </div>
                     <div class="form__forget form__forget--padding">
                         <router-link to="/forgot-password">forgot password</router-link>
+                    </div>
+                    <div class="form__error form__error--hidden">
+                        <p class="error__text">Invalid username or password</p>
                     </div>
                     <div class="form__button" @click="submit">
                         <span class="button__login" >log in</span>
@@ -174,6 +178,20 @@ const submit = () => {
 .container__title {
     font-size: clamp(3rem, 10vw, 4rem);
     font-weight: 600;
+}
+
+.form__error {
+    color: red;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.error__text {
+    margin-top: 0;
+}
+
+.form__error--hidden {
+    display: none; 
 }
 
 /* mobile */
