@@ -76,9 +76,6 @@ const submit = () => {
                     <div class="form__field form__field--padding">
                         <input class="field__input" v-model="password" type="password" id="password" placeholder="password" />
                     </div>
-                    <div class="form__forget form__forget--padding">
-                        <router-link to="/forgot-password">forgot password</router-link>
-                    </div>
                     <div class="form__error form__error--hidden">
                         <p class="error__text">Invalid username or password</p>
                     </div>
@@ -155,6 +152,7 @@ const submit = () => {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 2rem;
 }
 
 .button__login {
