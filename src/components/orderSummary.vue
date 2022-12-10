@@ -30,6 +30,9 @@ let donuts = JSON.parse(window.localStorage.getItem('donuts'))
                             <p><strong>{{ donut.quantity }}</strong></p>
                         </div>
                     </div>
+                    <div class="button__rounded">
+                        <img src="../../assets/delete__btn.svg" alt="delete donut button">
+                    </div>
                 </div>
             </div>
         </div>
@@ -43,6 +46,22 @@ strong {
 
 p {
     font-weight: bold;
+}
+
+.button__rounded {
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    border-radius: 100%;
+    background-color: #ed2970;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateX(230px) translateY(90px);
+}
+
+.button__rounded img {
+    transform: translateX(-2px);
 }
 
 .summary__container {
@@ -64,7 +83,7 @@ p {
     border-radius: 5px;
     display: flex;
     flex-direction: row;
-    padding: 1em 4em;
+    padding: 1em 3em;
     justify-content: space-around;
     gap: 4em;
 }
