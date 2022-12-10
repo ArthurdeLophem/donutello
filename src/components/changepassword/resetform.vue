@@ -28,7 +28,8 @@ if(res.status == 401) {
 
 const submit = () => {
     
-    if(Oldpassword.value != Newpassword.value && Newpassword.value == Repeatpassword.value) {
+    if(Oldpassword.value != Newpassword.value) {
+        if(Newpassword.value == Repeatpassword.value) {
        const apiUrl = 'http://localhost:3000/api/v1/users/update'
          fetch(apiUrl, {
               method: 'PUT',
@@ -44,17 +45,61 @@ const submit = () => {
              res.json({}).
                 then(data => {
                     if(data.status === "success") {
-                        console.log("password changed");
+                        let success = document.querySelector('.form__success');
+                        success.classList.remove('form__success--hidden');
+                        let error = document.querySelector('.form__error');
+                        if (!error.classList.contains('form__error--hidden')) {
+                            error.classList.add('form__error--hidden');
+                        }
+                        let failed = document.querySelector('.form__failed');
+                        if (!failed.classList.contains('form__failed--hidden')) {
+                            failed.classList.add('form__failed--hidden');
+                        }
                     }
                     else {
-                        console.log("password not changed");
+                        let failed = document.querySelector('.form__failed');
+                        failed.classList.remove('form__failed--hidden');
+                        let success = document.querySelector('.form__success');
+                        if (!success.classList.contains('form__success--hidden')) {
+                            success.classList.add('form__success--hidden');
+                        }
                     }
                 })
          })
          .catch(error => {
              console.log(error)
          })
-}
+        }
+        else {
+            let success = document.querySelector('.form__success');
+            if (!success.classList.contains('form__success--hidden')) {
+                success.classList.add('form__success--hidden');
+            }
+            let error = document.querySelector('.form__error');
+                error.classList.remove('form__error--hidden');
+            let oldP = document.querySelector('.error__old');
+            let newP = document.querySelector('.error__new');
+                newP.classList.remove('error__new--hidden');
+            if(!oldP.classList.contains('error__old--hidden')) {
+                oldP.classList.add('error__old--hidden');
+            }
+        }
+
+    } else {
+        let success = document.querySelector('.form__success');
+        if (!success.classList.contains('form__success--hidden')) {
+            success.classList.add('form__success--hidden');
+        }
+        let error = document.querySelector('.form__error');
+        error.classList.remove('form__error--hidden');
+        let oldP = document.querySelector('.error__old');
+        let newP = document.querySelector('.error__new');
+        oldP.classList.remove('error__old--hidden');
+        if(!newP.classList.contains('error__new--hidden')) {
+            newP.classList.add('error__new--hidden');
+        }
+    }
+
 }
 
 </script>
@@ -78,6 +123,16 @@ const submit = () => {
                     </div>
                     <div class="form__field form__field--padding">
                         <input class="field__input" v-model="Repeatpassword" type="password" placeholder="repeat password" />
+                    </div>
+                    <div class="form__error form__error--hidden">
+                        <p class="error__old error__old--hidden">Old password can not match new password</p>
+                        <p class="error__new error__new--hidden">New password and repeat password do not match</p>
+                    </div>
+                    <div class="form__success form__success--hidden">
+                        <p class="success__text">Password changed successfully</p>
+                    </div>
+                    <div class="form__failed form__failed--hidden">
+                        <p class="failed__text">Old password is incorrect</p>
                     </div>
                     <div class="form__button">
                         <span class="button__login" @click="submit">change password</span>
@@ -177,6 +232,37 @@ const submit = () => {
     font-size: clamp(3rem, 10vw, 4rem);
     font-weight: 600;
 }
+
+.form__error {
+    color: red;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.form__error--hidden, .error__old--hidden, .error__new--hidden {
+    display: none; 
+}
+
+.form__success {
+    color: green;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.form__success--hidden {
+    display: none; 
+}
+
+.form__failed {
+    color: red;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.form__failed--hidden {
+    display: none; 
+}
+
 
 /* mobile */
 @media only screen and (max-width: 1000px) {
