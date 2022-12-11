@@ -96,7 +96,14 @@ const closePanel = (e) => {
 }
 
 const defaultActive = () => {
-    targetObj = { extra: "maltesers", glaze: "choco", topping: "choco" }
+    if (!$mitt.on("editor")) {
+        targetObj = { extra: "maltesers", glaze: "choco", topping: "choco" }
+    }
+    else {
+        $mitt.on("editor", (e) => {
+            targetObj = { extra: e.extra, glaze: e.glaze, topping: e.topping }
+        })
+    }
     selector.value.forEach(el => {
         if (el.children[1].innerHTML == targetObj.extra) {
             el.children[1].classList.add("active")
