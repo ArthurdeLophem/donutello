@@ -1,6 +1,6 @@
 <script setup>
 import { ref, reactive, onMounted } from 'vue';
-import { baseDonutUrl } from '../../configs/config';
+import { baseDonutUrl } from '../../../config';
 
 let orders = reactive({ data: [] });
 
