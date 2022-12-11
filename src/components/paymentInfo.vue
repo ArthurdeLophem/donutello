@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue';
+import { cloud, cloudPreset, baseDonutUrl } from '../../config';
 
 const email = ref(),
     gsm = ref(),
@@ -9,22 +10,91 @@ const email = ref(),
 let donuts,
     business;
 
+const apiUrl = cloud;
+const unsignedUploadPreset = cloudPreset;     
 
 
+ const toggleLogo = () => {
+    let logo = document.querySelector('.logo__content');
+    if (logo.classList.contains('logo__content--hidden')) {
+        logo.classList.remove('logo__content--hidden');
+    }
+    else {
+        logo.classList.add('logo__content--hidden');
+    }
+ }
 const businessData = ref({ mail: email, phone: gsm, name: bedrijfsnaam, address: adress, city: stad });
 const placeOrder = () => {
-    const formData = {
+
+    let logo = document.querySelector('.logo__content');
+    if (logo.classList.contains('logo__content--hidden') == false) {
+        if (document.querySelector("[type=file]").files.length == 0) {
+            let error = document.querySelector('.logo__error');
+            error.classList.remove('logo__error--hidden');
+            return;
+        }
+        let file = document.querySelector("[type=file]").files;
+
+        
+        let uploadData = new FormData();
+        uploadData.append("file", file[0]);
+        uploadData.append("upload_preset", unsignedUploadPreset);
+
+            fetch(apiUrl, {
+                method: 'POST',
+                body: uploadData
+            })
+            .then(response => response.json())
+            .then(data => {
+                let url = data.secure_url;
+                
+                const formData = {
+                    "contact": {
+                        "mail": businessData.value.mail,
+                        "phone": businessData.value.phone,
+                        "name": businessData.value.name,
+                        "address": businessData.value.address,
+                        "city": businessData.value.city
+                    },   
+                    "donuts": JSON.parse(window.localStorage.getItem('donuts')),
+                    "card": {
+                            "shape": "square",
+                            "url": url
+                    }
+                }
+                /* console.log(JSON.stringify(formData)) */
+
+                fetch(baseDonutUrl, {
+                    method: 'POST',
+                    body: JSON.stringify(formData)
+                }).then(response => response.json())
+                .then(data => {
+                    console.log(body);
+                    if (data.status == 200) {
+                        console.log(body);
+                    }
+                }).catch(error => {
+                    console.log(error)
+                });
+
+
+
+            }).catch((error) => {
+            console.log(error);
+            }
+        );
+    } 
+    else {
+
+        const formData = {
         "contact":
             businessData.value
         ,
-        "donuts": JSON.parse(window.localStorage.getItem('donuts')),
-        "card": {
-            "shape": "square",
-            "url": "https://logo.png/"
-        }
+        "donuts": JSON.parse(window.localStorage.getItem('donuts'))
     }
     console.log(JSON.stringify(formData))
-    fetch(baseDonutUrl, {
+
+    /*    fetch(baseDonutUrl, {
         method: 'POST',
         body: JSON.stringify(formData)
     }).then(res => {
@@ -34,7 +104,10 @@ const placeOrder = () => {
         }
     }).catch(error => {
         console.log(error)
-    });
+    }); */
+    }
+
+   
 }
 </script>
 <template>
@@ -51,11 +124,11 @@ const placeOrder = () => {
             <div class="logo__title">
                 <h3 class="title__text">Company logo</h3>
                 <div class="title__checkbox">
-                    <input class="checkbox__box" type="checkbox" name="check">
+                    <input @click="toggleLogo" class="checkbox__box" type="checkbox" name="check">
                     <label class="checkbox__text" for="check">This will add your company logo to all the donuts</label>
                 </div>  
             </div>
-            <div class="logo__content">
+            <div class="logo__content logo__content--hidden">
                 <span class="content__text content__text--semibold">Shape:</span>
                 <div class="content__checkbox">
                     <span class="checkbox__text">Square</span>
@@ -66,6 +139,7 @@ const placeOrder = () => {
                     <input class="checkbox__box" type="checkbox" name="round">
                 </div>
                 <span class="content__text content__text--semibold">Logo:</span>
+                <span class="content__error content__error--hidden">Please add a logo file</span>
                 <div class="content__upload">
                     <input class="upload__btn" type="file" name="logo">
                     <span class="upload__text">logo.png</span>
@@ -88,6 +162,12 @@ const placeOrder = () => {
     flex-direction: column;
     width: 100%;
     margin-top: 2rem;
+}
+
+.logo__content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }
 
 .info__field {
@@ -156,5 +236,18 @@ const placeOrder = () => {
     margin-left: 5rem;
 }
 
+.logo__content--hidden {
+    display: none;
+}
+
+.content__error {
+    font-weight: 500;
+    color: #ed2970;
+    margin-top: 1rem;
+}
+
+.content__error--hidden {
+    display: none;
+}
 
 </style>
