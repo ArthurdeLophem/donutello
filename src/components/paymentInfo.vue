@@ -66,16 +66,17 @@ const placeOrder = () => {
 
                 fetch(baseDonutUrl, {
                     method: 'POST',
-                    body: JSON.stringify(formData)
-                }).then(response => response.json())
-                .then(data => {
-                    console.log(body);
-                    if (data.status == 200) {
-                        console.log(body);
-                    }
-                }).catch(error => {
-                    console.log(error)
-                });
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData) 
+                }).then(res => {
+                        if (res.status == 200) {
+                            console.log("success")
+                        }
+                    }).catch(error => {
+                        console.log(error)
+                    });
 
 
 
@@ -94,17 +95,19 @@ const placeOrder = () => {
     }
     console.log(JSON.stringify(formData))
 
-    /*    fetch(baseDonutUrl, {
+   fetch(baseDonutUrl, {
         method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
         body: JSON.stringify(formData)
     }).then(res => {
-        console.log(res);
         if (res.status == 200) {
-            console.log(baseDonutUrl)
+            console.log("success")
         }
     }).catch(error => {
         console.log(error)
-    }); */
+    }); 
     }
 
    
