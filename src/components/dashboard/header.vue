@@ -29,7 +29,6 @@ const logout = () => {
     justify-content: space-between;
     height: 6vh;
     background-color: white;
-    box-shadow: 0px 5px 7px -2px rgba(0, 0, 0, 0.25);
     z-index: 1;
 }
 
