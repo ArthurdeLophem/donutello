@@ -2,6 +2,8 @@
 import { onBeforeUnmount, onMounted } from 'vue';
 import $mitt from '../scripts/mitt';
 
+const openCampaign = (e) => { }
+
 const submitDonut = (e) => {
     e.preventDefault();
     window.localStorage.removeItem("editing")
@@ -27,8 +29,21 @@ const submitDonut = (e) => {
                 <p class="price__amount">$5</p>
                 <p class="price__quantity">/donut</p>
             </div>
-            <div class="btn__primary" @click="submitDonut">
+            <div class="btn__primary" @click="openCampaign">
                 <p class="btn__text">go to order</p>
+            </div>
+            <div class="campaign__container">
+                <div class="campaign__header">
+                    <h3><strong>campaign</strong> size:</h3>
+                    <p>X</p>
+                </div>
+                <div class="campaign__interactive">
+                    <input type="number" step="5" name="campaign" inputmode="numeric" min="20" value="20" max="150"
+                        id="" required>
+                    <div class="btn__primary" @click="submitDonut">
+                        <p class="btn__text">go to order</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -37,6 +52,75 @@ const submitDonut = (e) => {
 <style scoped>
 strong {
     color: #ed2970;
+}
+
+.campaign__container {
+    height: 200px;
+    width: 400px;
+    position: fixed;
+    background-color: #EBEBEB;
+    transform: translatex(-1em) translateY(-3em);
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    justify-content: space-around;
+}
+
+.campaign__header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 1em;
+    height: auto;
+}
+
+.campaign__header h3,
+.campaign__header p {
+    margin: 0;
+}
+
+.campaign__header p {
+    font-weight: 800;
+    cursor: pointer;
+}
+
+
+.campaign__interactive {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 3em;
+}
+
+input {
+    padding: 0.5em 1em;
+    background-color: #99999b;
+    border: none;
+    color: black;
+    font-weight: 600;
+    font-size: 1.5em;
+    border-radius: 3px;
+    transition: all 250ms;
+    width: 50px;
+    height: 50px;
+    align-self: center;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+input:focus {
+    outline: none !important;
+    border: 2px solid #ed2970;
+    box-shadow: 0 0 5px #ed2970;
 }
 
 .generator__heading {
