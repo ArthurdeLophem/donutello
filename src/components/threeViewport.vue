@@ -1,13 +1,27 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, onBeforeMount } from 'vue';
 import Donunq from "../scripts/donutGenerator.js";
 import $mitt from '../scripts/mitt.js';
 
 const donutViewport = ref(""),
-    donunq = new Donunq();
+    donunq = new Donunq(),
+    editDonut = JSON.parse(window.localStorage.getItem("editor"));
 
-const generateCanvas = () => {
+const generateCanvas = async () => {
     donunq.createScene(donutViewport.value);
+    donunq.createDonunq();
+    return true;
+}
+
+const editor = async () => {
+    let res = await generateCanvas();
+    if (res == true && editDonut) {
+        setTimeout(() => {
+            donunq.configureExtras(editDonut.extraObj.eName);
+            donunq.configureGlaze(editDonut.glazeObj.color);
+            donunq.configureTopping(editDonut.toppingObj.color);
+        }, 1000);
+    }
 }
 
 const checkIntersects = (e) => {
@@ -27,17 +41,17 @@ const checkObject = (e) => {
 }
 
 $mitt.on('emitToppings', e => {
-    donunq.configureVermi(e.toppingColor);
+    donunq.configureTopping(e.toppingColor);
 })
 $mitt.on('emitGlazes', e => {
-    donunq.configureTopping(e.glazeColor);
+    donunq.configureGlaze(e.glazeColor);
 })
 $mitt.on('emitExtras', e => {
     donunq.configureExtras(e.extraType);
 })
 
 onMounted(() => {
-    generateCanvas()
+    editor()
 })
 </script>
 

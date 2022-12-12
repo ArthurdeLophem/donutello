@@ -1,9 +1,13 @@
 <script setup>
 import { ref } from 'vue';
+import { extrasData, glazesData, toppingsData } from '../configs/donuttelloData';
+import router from './../router';
+import $mitt from '../scripts/mitt';
 
 let donuts = JSON.parse(window.localStorage.getItem('donuts')),
     donutBlock = ref(),
-    modal = ref();
+    modal = ref(),
+    extraObj, glazeObj, toppingObj, donutData
 
 const deleteDonut = (index) => {
     donutBlock.value[index].style.transform = "translateX(-1000px)";
@@ -20,10 +24,19 @@ const deleteDonut = (index) => {
 }
 
 const editDonut = (index) => {
+    window.localStorage.removeItem("editing")
     modal.value.classList.add('active');
     modal.value.innerHTML = "configuring editor...";
+    extraObj = extrasData.find(el => el.eName == donuts[index].extra);
+    glazeObj = glazesData.find(el => el.eName == donuts[index].glaze);
+    toppingObj = toppingsData.find(el => el.eName == donuts[index].topping);
+    donutData = { extraObj, glazeObj, toppingObj }
+    window.localStorage.setItem("editor", JSON.stringify(donutData))
     setTimeout(() => {
-        modal.value.classList.remove('active');
+        donuts.splice(index, 1);
+        window.localStorage.removeItem('donuts');
+        window.localStorage.setItem('donuts', JSON.stringify(donuts));
+        router.push({ name: 'Generator' })
     }, 1000);
 }
 </script>

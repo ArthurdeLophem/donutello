@@ -11,7 +11,8 @@ let selector = ref([]),
     topping__name = ref(),
     glaze__name = ref(),
     extra__name = ref(),
-    targetObj, activePanel, donutData = { extra: "maltesers", glaze: "choco", topping: "choco" };
+    targetObj, activePanel, donutData = { extra: "maltesers", glaze: "choco", topping: "choco" },
+    editorData = JSON.parse(window.localStorage.getItem("editor"));
 
 const showActiveSelect = (e) => {
     switch (activePanel) {
@@ -96,13 +97,13 @@ const closePanel = (e) => {
 }
 
 const defaultActive = () => {
-    if (!$mitt.on("editor")) {
+    if (!editorData) {
         targetObj = { extra: "maltesers", glaze: "choco", topping: "choco" }
+        console.log(targetObj)
     }
     else {
-        $mitt.on("editor", (e) => {
-            targetObj = { extra: e.extra, glaze: e.glaze, topping: e.topping }
-        })
+        targetObj = { extra: editorData.extraObj.eName, glaze: editorData.glazeObj.eName, topping: editorData.toppingObj.eName }
+        console.log(targetObj)
     }
     selector.value.forEach(el => {
         if (el.children[1].innerHTML == targetObj.extra) {
