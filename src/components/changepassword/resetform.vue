@@ -1,7 +1,7 @@
 <script setup>
 import router from '../../router';
 import { ref, onMounted } from 'vue';
-import { authUrl, updateUrl } from '../../configs/config';
+import { authUrl, updateUrl } from '../../../config';
 
 
 let Oldpassword = ref(''),

@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import router from '../../router';
-import { loginUrl, authUrl } from '../../configs/config';
+import { loginUrl, authUrl } from '../../../config';
 
 let username = ref(''),
     password = ref(''),

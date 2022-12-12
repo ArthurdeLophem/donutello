@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-import { baseDonutUrl } from '../configs/config';
+import { cloud, cloudPreset, baseDonutUrl } from '../../config';
 
 const email = ref(),
     gsm = ref(),
@@ -10,106 +10,247 @@ const email = ref(),
 let donuts,
     business;
 
+const apiUrl = cloud;
+const unsignedUploadPreset = cloudPreset;     
+
+
+ const toggleLogo = () => {
+    let logo = document.querySelector('.logo__content');
+    if (logo.classList.contains('logo__content--hidden')) {
+        logo.classList.remove('logo__content--hidden');
+    }
+    else {
+        logo.classList.add('logo__content--hidden');
+    }
+ }
 const businessData = ref({ mail: email, phone: gsm, name: bedrijfsnaam, address: adress, city: stad });
 const placeOrder = () => {
-    const formData = {
+
+    let logo = document.querySelector('.logo__content');
+    if (logo.classList.contains('logo__content--hidden') == false) {
+        if (document.querySelector("[type=file]").files.length == 0) {
+            let error = document.querySelector('.logo__error');
+            error.classList.remove('logo__error--hidden');
+            return;
+        }
+        let file = document.querySelector("[type=file]").files;
+
+        
+        let uploadData = new FormData();
+        uploadData.append("file", file[0]);
+        uploadData.append("upload_preset", unsignedUploadPreset);
+
+            fetch(apiUrl, {
+                method: 'POST',
+                body: uploadData
+            })
+            .then(response => response.json())
+            .then(data => {
+                let url = data.secure_url;
+                
+                const formData = {
+                    "contact": {
+                        "mail": businessData.value.mail,
+                        "phone": businessData.value.phone,
+                        "name": businessData.value.name,
+                        "address": businessData.value.address,
+                        "city": businessData.value.city
+                    },   
+                    "donuts": JSON.parse(window.localStorage.getItem('donuts')),
+                    "card": {
+                            "shape": "square",
+                            "url": url
+                    }
+                }
+                /* console.log(JSON.stringify(formData)) */
+
+                fetch(baseDonutUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData) 
+                }).then(res => {
+                        if (res.status == 200) {
+                            console.log("success")
+                        }
+                    }).catch(error => {
+                        console.log(error)
+                    });
+
+
+
+            }).catch((error) => {
+            console.log(error);
+            }
+        );
+    } 
+    else {
+
+        const formData = {
         "contact":
             businessData.value
         ,
-        "donuts": JSON.parse(window.localStorage.getItem('donuts')),
-        "card": {
-            "shape": "square",
-            "url": "https://logo.png/"
-        }
+        "donuts": JSON.parse(window.localStorage.getItem('donuts'))
     }
     console.log(JSON.stringify(formData))
-    fetch(baseDonutUrl, {
+
+   fetch(baseDonutUrl, {
         method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
         body: JSON.stringify(formData)
     }).then(res => {
-        console.log(res);
         if (res.status == 200) {
-            console.log(baseDonutUrl)
+            console.log("success")
         }
     }).catch(error => {
         console.log(error)
-    });
+    }); 
+    }
+
+   
 }
 </script>
-
 <template>
-    <div class="payment__container">
-        <h3>leave us <strong>your</strong> info behind!</h3>
+    <div class="payment">
+        <h2 class="payment__title">Order summary</h2>
         <div class="payment__info">
-            <input v-model="email" placeholder="email" />
-            <input v-model="gsm" placeholder="gsm" />
-            <input v-model="bedrijfsnaam" placeholder="bedrijfsnaam" />
-            <input v-model="adress" placeholder="adress" />
-            <input v-model="stad" placeholder="stad" />
+            <input class="info__field" v-model="email" placeholder="*Email:" />
+            <input class="info__field" v-model="gsm" placeholder="*Telefoon:" />
+            <input class="info__field" v-model="bedrijfsnaam" placeholder="*Bedrijfsnaam:" />
+            <input class="info__field" v-model="adress" placeholder="*Adress:" />
+            <input class="info__field" v-model="stad" placeholder="*Stad:" />
+        </div>
+        <div class="payment__logo">
+            <div class="logo__title">
+                <h3 class="title__text">Company logo</h3>
+                <div class="title__checkbox">
+                    <input @click="toggleLogo" class="checkbox__box" type="checkbox" name="check">
+                    <label class="checkbox__text" for="check">This will add your company logo to all the donuts</label>
+                </div>  
+            </div>
+            <div class="logo__content logo__content--hidden">
+                <span class="content__text content__text--semibold">Shape:</span>
+                <div class="content__checkbox">
+                    <span class="checkbox__text">Square</span>
+                    <input class="checkbox__box" type="checkbox" name="square">
+                </div>
+                <div class="content__checkbox content__checkbox--margin">
+                    <span class="checkbox__text">Round</span>
+                    <input class="checkbox__box" type="checkbox" name="round">
+                </div>
+                <span class="content__text content__text--semibold">Logo:</span>
+                <span class="content__error content__error--hidden">Please add a logo file</span>
+                <div class="content__upload">
+                    <input class="upload__btn" type="file" name="logo">
+                    <span class="upload__text">logo.png</span>
+                </div>
+            </div>  
         </div>
         <div class="btn__primary" @click="placeOrder">
-            <p class="btn__text">go to order</p>
+            <p class="btn__text">place order</p>
         </div>
     </div>
 </template>
-
 <style scoped>
-h3 {
-    margin: 0;
-}
 
-input {
-    padding: 0.5em 1em;
-    background-color: #99999b;
-    border: none;
-    color: black;
-    font-weight: 600;
-    border-radius: 3px;
-    transition: all 250ms;
-}
-
-input:focus {
-    outline: none !important;
-    border: 2px solid #ed2970;
-    box-shadow: 0 0 5px #ed2970;
-}
-
-.btn__primary {
-    align-self: flex-end;
-}
-
-strong {
-    color: #ed2970;
-}
-
-p {
-    font-weight: bold;
-}
-
-.payment__container {
-    position: sticky;
-    top: 3em;
+.payment {
     width: 30%;
-    display: flex;
-    flex-direction: column;
-    gap: 3em;
-    background-color: #EBEBEB;
-    border-radius: 5px;
-    padding: 3em 2em;
-    height: fit-content;
 }
 
 .payment__info {
     display: flex;
-    flex-wrap: wrap;
-    gap: 1em;
-    border-radius: 5px;
-    padding: 0 2em;
-    justify-content: space-around;
-    height: fit-content;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 2rem;
 }
 
-.payment__info input {
-    height: fit-content;
+.logo__content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }
+
+.info__field {
+    width: 100%;
+    height: 4rem;
+    border: none;
+    border-bottom: 1px solid #000000;
+    outline: none;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #000000;
+    background: none;
+}
+
+.logo__title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}   
+
+.content__checkbox {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 36%;
+    margin-top: 1rem;  
+}
+
+.content__checkbox--margin {
+    margin-bottom: 1rem;
+
+}
+
+.content__text--semibold {
+    font-weight: 500;
+}
+
+.content__upload {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    margin-top: 1rem;
+    margin-bottom: 3rem;
+}
+
+/* .upload__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 7.8rem;
+    height: 2rem;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #FFFFFF;
+    background-color: #ed2970; 
+    cursor: pointer;
+    border-radius: 0;
+} */
+
+.upload__text {
+    margin-left: 5rem;
+}
+
+.logo__content--hidden {
+    display: none;
+}
+
+.content__error {
+    font-weight: 500;
+    color: #ed2970;
+    margin-top: 1rem;
+}
+
+.content__error--hidden {
+    display: none;
+}
+
 </style>
