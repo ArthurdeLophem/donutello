@@ -40,7 +40,7 @@ const sliceDate = ((date) => {
                 <span class="card__text">Order:</span>
                 <h3 class="card__title">{{ order.contact.name }}</h3>
                 <span class="card__text">Request Date:</span>
-                <span class="card__text card__text--pink">{{ sliceDate(order.contact.orderdate) }}</span>
+                <span class="card__text card__text--pink">{{ sliceDate(order.orderdate) }}</span>
                 <router-link :to="('/details?orderid=' + order._id)" class="card__btn">details</router-link>
             </div>
         </div>
