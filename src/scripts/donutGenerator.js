@@ -29,7 +29,7 @@ export default class Donunq {
             lightPath: "./models/fairway.hdr"
         }
 
-        this.vermiObj;
+        this.toppingObj;
         this.malteserObj;
         this.snickerObj;
         this.twixObj;
@@ -50,12 +50,6 @@ export default class Donunq {
         this.renderer.setSize(this.viewport.offsetWidth, this.viewport.offsetHeight);
         this.viewport.appendChild(this.renderer.domElement);
         this.renderer.setClearColor(0x000000, 0);
-
-        this.render();
-        this.createOrbitctrl()
-        this.lights();
-        this.createDonunq();
-        this.animate();
     }
 
     createDonunq() {
@@ -70,7 +64,7 @@ export default class Donunq {
                 this.snickerObj = this.model.children[0].children[3],
                 this.twixObj = this.model.children[0].children[4],
                 this.leoObj = this.model.children[0].children[5],
-                this.vermiObj = this.model.children[0].children[1],
+                this.toppingObj = this.model.children[0].children[1],
                 this.glazeObj = this.model.children[0].children[6],
                 this.baseObj = this.model.children[0].children[2]
             )
@@ -79,7 +73,7 @@ export default class Donunq {
                 const el = this.customizables[i];
                 el.position.set(0, this.donunqData.extraPosY, 0)
             }
-            this.vermiObj.position.set(0, this.donunqData.vermiPosY, 0)
+            this.toppingObj.position.set(0, this.donunqData.vermiPosY, 0)
             this.glazeObj.position.set(0, this.donunqData.glazePosY, 0)
 
             this.customizables.forEach(el => {
@@ -89,20 +83,24 @@ export default class Donunq {
             this.snickerObj.visible = this.twixObj.visible = this.leoObj.visible = false;
             this.scene.add(gltf.scene);
         })
+        this.render();
+        this.createOrbitctrl();
+        this.lights();
+        this.animate();
     }
 
-    configureVermi(extra) {
+    configureTopping(topping) {
         console.log(this.model)
-        this.vermiObj.material = new THREE.MeshStandardMaterial({
-            color: extra,
+        this.toppingObj.material = new THREE.MeshStandardMaterial({
+            color: topping,
             roughness: this.donunqData.roughness,
             metalness: this.donunqData.metalness
         })
     }
 
-    configureTopping(topping) {
+    configureGlaze(glaze) {
         this.glazeObj.material = new THREE.MeshStandardMaterial({
-            color: topping,
+            color: glaze,
             roughness: this.donunqData.roughness,
             metalness: this.donunqData.metalness
         })

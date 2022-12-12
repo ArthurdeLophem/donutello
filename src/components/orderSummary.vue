@@ -1,22 +1,49 @@
 <script setup>
 import { ref } from 'vue';
+import { extrasData, glazesData, toppingsData } from '../configs/donuttelloData';
+import router from './../router';
+import $mitt from '../scripts/mitt';
 
 let donuts = JSON.parse(window.localStorage.getItem('donuts')),
-    donutBlock = ref();
+    donutBlock = ref(),
+    modal = ref(),
+    extraObj, glazeObj, toppingObj, donutData
 
 const deleteDonut = (index) => {
-    donutBlock.value[index].style.transform = "translateX(-1000px)";
+    donutBlock.value[index].style.transform = "translateX(-50vw)";
+    modal.value.classList.add('active')
+    modal.value.innerHTML = "removing donut n°" + (index + 1) + " ...";
     setTimeout(() => {
         donutBlock.value[index].style.display = "none";
         donuts.splice(index, 1);
         donutBlock.value.splice(index, 1);
-        window.localStorage.removeItem('donuts')
-        window.localStorage.setItem('donuts', JSON.stringify(donuts))
-    }, 700)
+        window.localStorage.removeItem('donuts');
+        window.localStorage.setItem('donuts', JSON.stringify(donuts));
+        modal.value.classList.remove('active');
+    }, 700);
+}
+
+const editDonut = (index) => {
+    donutBlock.value[index].style.transform = "translateX(-50vw)";
+    window.localStorage.removeItem("editing")
+    modal.value.classList.add('active');
+    modal.value.innerHTML = "configuring editor...";
+    extraObj = extrasData.find(el => el.eName == donuts[index].extra);
+    glazeObj = glazesData.find(el => el.eName == donuts[index].glaze);
+    toppingObj = toppingsData.find(el => el.eName == donuts[index].topping);
+    donutData = { extraObj, glazeObj, toppingObj }
+    window.localStorage.setItem("editor", JSON.stringify(donutData))
+    setTimeout(() => {
+        donuts.splice(index, 1);
+        window.localStorage.removeItem('donuts');
+        window.localStorage.setItem('donuts', JSON.stringify(donuts));
+        router.push({ name: 'Generator' })
+    }, 1000);
 }
 </script>
 
 <template>
+    <div class="modal__alert" ref="modal">base alert modal</div>
     <div class="summary__container" ref="extra__container">
         <div class="summary__list">
             <div class="donut__block" v-for="(donut, index) in donuts" ref="donutBlock">
@@ -44,7 +71,10 @@ const deleteDonut = (index) => {
                             <p><strong>{{ donut.quantity }}</strong></p>
                         </div>
                     </div>
-                    <div class="button__rounded" @click="deleteDonut(index)">
+                    <div class="button__rounded edit" @click="editDonut(index)">
+                        <img src="../../assets/edit__btn.svg" alt="edit donut button">
+                    </div>
+                    <div class="button__rounded delete" @click="deleteDonut(index)">
                         <img src="../../assets/delete__btn.svg" alt="delete donut button">
                     </div>
                 </div>
@@ -54,6 +84,25 @@ const deleteDonut = (index) => {
 </template>
 
 <style scoped>
+.modal__alert {
+    position: absolute;
+    top: 2em;
+    height: 3em;
+    width: 30em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ed2970;
+    color: white;
+    font-weight: 600;
+    border-radius: 2px;
+    display: none;
+}
+
+.active {
+    display: flex;
+}
+
 strong {
     color: #ed2970;
 }
@@ -75,8 +124,13 @@ p {
     transform: translateX(230px) translateY(90px);
 }
 
-.button__rounded img {
+.delete img {
     transform: translateX(-2px);
+}
+
+.edit {
+    background-color: #1c1c1c;
+    transform: translateX(230px) translateY(-40px);
 }
 
 .summary__container {
@@ -86,7 +140,7 @@ p {
 .summary__list {
     display: flex;
     flex-direction: column;
-    gap: 2em;
+    gap: 4em;
 }
 
 .summary__Headline {

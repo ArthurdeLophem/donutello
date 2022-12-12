@@ -4,6 +4,7 @@ import $mitt from '../scripts/mitt';
 
 const submitDonut = (e) => {
     e.preventDefault();
+    window.localStorage.removeItem("editing")
     $mitt.emit('saveToStorage');
 }
 </script>
