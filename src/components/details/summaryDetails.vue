@@ -1,11 +1,10 @@
 <script setup>
 import { ref, watch } from 'vue';
-import { extrasData, glazesData, toppingsData } from '../../configs/donuttelloData';
 import router from '../../router';
 let detailData,
     donutBlock = ref(),
     modal = ref(),
-    donuts = [];
+    donuts = []
 
 const orderProps = defineProps({
     order: {
@@ -23,7 +22,8 @@ watch(orderProps, () => {
 });
 
 const preview = (index) => {
-
+    console.log(donuts[index]._id)
+    router.push({ path: '/previewer', query: { orderId: detailData._id, donutId: donuts[index]._id } })
 }
 </script>
 
