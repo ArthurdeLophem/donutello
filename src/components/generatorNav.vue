@@ -1,13 +1,20 @@
 <script setup>
-import { onBeforeUnmount, onMounted } from 'vue';
+import { onBeforeUnmount, onMounted, ref } from 'vue';
 import $mitt from '../scripts/mitt';
+let campaign__container = ref()
 
-const openCampaign = (e) => { }
+const openCampaign = (e) => {
+    campaign__container.value.classList.add("activePanel")
+}
 
 const submitDonut = (e) => {
     e.preventDefault();
     window.localStorage.removeItem("editing")
     $mitt.emit('saveToStorage');
+}
+
+const closePanel = (e) => {
+    campaign__container.value.classList.remove("activePanel")
 }
 </script>
 
@@ -32,10 +39,10 @@ const submitDonut = (e) => {
             <div class="btn__primary" @click="openCampaign">
                 <p class="btn__text">go to order</p>
             </div>
-            <div class="campaign__container">
+            <div class="campaign__container" ref="campaign__container">
                 <div class="campaign__header">
                     <h3><strong>campaign</strong> size:</h3>
-                    <p>X</p>
+                    <p @click="closePanel">X</p>
                 </div>
                 <div class="campaign__interactive">
                     <input type="number" step="5" name="campaign" inputmode="numeric" min="20" value="20" max="150"
@@ -59,11 +66,16 @@ strong {
     width: 400px;
     position: fixed;
     background-color: #EBEBEB;
-    transform: translatex(-1em) translateY(-3em);
+    transform: translatex(50em) translateY(-3em);
     display: flex;
     flex-direction: column;
     border-radius: 5px;
     justify-content: space-around;
+    transition: all 250ms;
+}
+
+.activePanel {
+    transform: translatex(-1em) translateY(-3em);
 }
 
 .campaign__header {
