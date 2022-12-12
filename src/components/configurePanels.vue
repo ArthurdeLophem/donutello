@@ -106,13 +106,13 @@ const defaultActive = () => {
         console.log(targetObj)
     }
     selector.value.forEach(el => {
-        if (el.children[1].innerHTML == targetObj.extra) {
+        if (el.children[1].innerHTML == targetObj.extra && el.getAttribute("id") == "extra__selector") {
             el.children[1].classList.add("active")
         }
-        if (el.children[1].innerHTML == targetObj.glaze) {
+        if (el.children[1].innerHTML == targetObj.glaze && el.getAttribute("id") == "glaze__selector") {
             el.children[1].classList.add("active")
         }
-        if (el.children[1].innerHTML == targetObj.topping) {
+        if (el.children[1].innerHTML == targetObj.topping && el.getAttribute("id") == "topping__selector") {
             el.children[1].classList.add("active")
         }
     })
@@ -129,7 +129,7 @@ onMounted(() => {
             <div class="close" @click="closePanel">X</div>
             <h3 class="choose__Headline">choose your extras</h3>
             <div class="select__container">
-                <div class="select__block" v-for="extra in extrasData" ref="selector">
+                <div class="select__block" v-for="extra in extrasData" ref="selector" id="extra__selector">
                     <div class="select__color" @click="emitDonunq" v-bind:style="{ backgroundColor: extra.color }">
                     </div>
                     <div class="select__name" ref="extra__name">{{ extra.eName }}</div>
@@ -140,7 +140,7 @@ onMounted(() => {
             <div class="close" @click="closePanel">X</div>
             <h3 class="choose__Headline">choose your glaze</h3>
             <div class="select__container">
-                <div class="select__block" v-for="glaze in glazesData" ref="selector">
+                <div class="select__block" v-for="glaze in glazesData" ref="selector" id="glaze__selector">
                     <div class="select__color" v-on:click="emitDonunq" v-bind:style="{ backgroundColor: glaze.color }">
                     </div>
                     <div class="select__name" ref="glaze__name">{{ glaze.eName }}</div>
@@ -151,7 +151,7 @@ onMounted(() => {
             <div class="close" @click="closePanel">X</div>
             <h3 class="choose__Headline">choose your sprinkles</h3>
             <div class="select__container">
-                <div class="select__block" v-for="topping in toppingsData" ref="selector">
+                <div class="select__block" v-for="topping in toppingsData" ref="selector" id="topping__selector">
                     <div class="select__color" @click="emitDonunq" v-bind:style="{ backgroundColor: topping.color }">
                     </div>
                     <div class="select__name" ref="topping__name">{{ topping.eName }}</div>
