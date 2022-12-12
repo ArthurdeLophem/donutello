@@ -1,11 +1,27 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { extrasData, glazesData, toppingsData } from '../../configs/donuttelloData';
 import router from '../../router';
-
-let donuts = JSON.parse(window.localStorage.getItem('donuts')),
+let detailData,
     donutBlock = ref(),
-    modal = ref()
+    modal = ref(),
+    donuts = [];
+
+const orderProps = defineProps({
+    order: {
+        type: Object,
+        required: true
+    }
+});
+
+watch(orderProps, () => {
+    detailData = orderProps.order;
+    detailData.donuts.forEach(el => {
+        donuts.push(el)
+    });
+    console.log(donuts)
+});
+
 const preview = (index) => {
 
 }

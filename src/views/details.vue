@@ -47,7 +47,7 @@ fetch(baseDonutUrl + "/" + donutId, {
 <template>
     <Dheader />
     <div class="content__container">
-        <summaryDetails />
+        <summaryDetails :order="order.data" />
         <orderDetails :order="order.data" />
     </div>
 </template>
