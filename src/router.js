@@ -7,6 +7,7 @@ import Login from './views/login.vue'
 import Dashboard from './views/dashboard.vue'
 import ChangePassword from './views/changePassword.vue'
 import Details from './views/details.vue'
+import Overview from './views/overview.vue'
 
 const routes = [
     { path: "/", name: "Home", component: Home },
@@ -17,6 +18,7 @@ const routes = [
     { path: "/dashboard", name: "Dashboard", component: Dashboard },
     { path: "/change-password", name: "ChangePassword", component: ChangePassword },
     { path: "/details", name: "Details", component: Details },
+    { path: "/overview", name: "Overview", component: Overview }
 
 ]
 
