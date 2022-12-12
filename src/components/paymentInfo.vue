@@ -55,6 +55,7 @@ const placeOrder = () => {
                         "name": businessData.value.name,
                         "address": businessData.value.address,
                         "city": businessData.value.city,
+                        "orderstatus": "pending"
                     },   
                     "donuts": JSON.parse(window.localStorage.getItem('donuts')),
                     "card": {
@@ -71,12 +72,13 @@ const placeOrder = () => {
                     },
                     body: JSON.stringify(formData) 
                 }).then(res => {
-                        if (res.status == 200) {
-                            console.log(res)
-                        }
-                    }).catch(error => {
-                        console.log(error)
-                    });
+                        res.json().then(data => {
+                            console.log(data)
+                        })
+                        .catch(error => {
+                            console.log(error)
+                        });
+                    })
 
 
 
@@ -91,7 +93,11 @@ const placeOrder = () => {
         "contact":
             businessData.value
         ,
-        "donuts": JSON.parse(window.localStorage.getItem('donuts'))
+        "donuts": JSON.parse(window.localStorage.getItem('donuts')),   
+        "card": {
+                 "shape": "",
+                 "url": ""
+                }
     }
     console.log(JSON.stringify(formData))
 
