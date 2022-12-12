@@ -1,5 +1,6 @@
 <script setup>
 import { ref, reactive, onMounted, watch } from 'vue';
+import { baseDonutUrl } from '../../../config.js';
 
 let detailData = reactive({});
 
@@ -11,11 +12,7 @@ let address = ref("");
 let city = ref("");
 let url = ref("");
 
-let status = ref("");
-
-const test = () => {
-    console.log(status.value);
-}
+let statusCheck = ref("");
 
 const detailProps = defineProps({
     order: {
@@ -25,7 +22,6 @@ const detailProps = defineProps({
 });
 
 watch(detailProps, () => {
-    console.log("updated");
     detailData = detailProps.order;
     orderdate.value = detailData.orderdate;
     phone.value = detailData.contact.phone;
@@ -34,8 +30,41 @@ watch(detailProps, () => {
     address.value = detailData.contact.address;
     city.value = detailData.contact.city;
     url.value = detailData.card.url;
-
+    statusCheck.value = detailData.contact.orderstatus;
+    console.log(detailData);
+    console.log(statusCheck.value);
 });
+
+const updateOrder = () => {
+    let orderId = detailData._id;
+
+    fetch(`${baseDonutUrl}/${orderId}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + localStorage.getItem('token')
+        },
+        body: JSON.stringify({
+            status: statusCheck.value
+        })
+    })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    
+
+}
+
+const updateStatus = (i) => {
+
+    statusCheck.value = i;
+
+
+}
 
 
 </script>
@@ -56,19 +85,19 @@ watch(detailProps, () => {
         </div>
         <div class="container__status">
             <div class="status__checkbox">
-                <input v-model="status" class="status__box" type="radio" name="statusCheck" checked="true" value="0">
+                <input class="status__box" type="radio" id="pending" name="statusCheck" :checked="statusCheck === 'pending'" @click="updateStatus('pending')">
                 <label class="status__text">pending</label>
             </div>
             <div class="status__checkbox">
-                <input v-model="status" class="status__box" type="radio" name="statusCheck" value="1">
+                <input class="status__box" type="radio" id="inProgress" name="statusCheck" :checked="statusCheck === 'in progress'" @click="updateStatus('in progress')">
                 <label class="status__text">in progress</label>
             </div>
             <div class="status__checkbox">
-                <input v-model="status" class="status__box" type="radio" name="statusCheck" value="2">
+                <input class="status__box" type="radio" id="completed" name="statusCheck" :checked="statusCheck === 'completed'" @click="updateStatus('completed')">
                 <label class="status__text">completed</label>
             </div>
         </div>
-        <button @click="test" class="container__btn">save</button>
+        <button @click="updateOrder" class="container__btn">save</button>
     </div>
 </template>
 <style scoped>
