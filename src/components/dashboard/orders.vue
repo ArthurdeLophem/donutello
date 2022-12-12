@@ -40,7 +40,7 @@ const sliceDate = ((date) => {
                 <span class="card__text">Order:</span>
                 <h3 class="card__title">{{ order.contact.name }}</h3>
                 <span class="card__text">Request Date:</span>
-                <span class="card__text card__text--pink">{{ sliceDate(order.contact.orderdate) }}</span>
+                <span class="card__text card__text--pink">{{ sliceDate(order.orderdate) }}</span>
                 <router-link :to="('/details?orderid=' + order._id)" class="card__btn">details</router-link>
             </div>
         </div>
@@ -50,7 +50,7 @@ const sliceDate = ((date) => {
 .dashboard {
     width: 100%;
     height: 100vh;
-    background-image: url('https://donuttello.com/photos/shares/donuts/sinterklaas/sint_2022.jpg');
+    background-image: url('https://res.cloudinary.com/dgypufy9k/image/upload/v1670855818/donunq/sint_donuttello_no9qwp.webp');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;

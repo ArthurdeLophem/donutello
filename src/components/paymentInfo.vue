@@ -23,7 +23,7 @@ const unsignedUploadPreset = cloudPreset;
         logo.classList.add('logo__content--hidden');
     }
  }
-const businessData = ref({ mail: email, phone: gsm, name: bedrijfsnaam, address: adress, city: stad });
+const businessData = ref({ mail: email, phone: gsm, name: bedrijfsnaam, address: adress, city: stad, orderstatus : "pending" });
 const placeOrder = () => {
 
     let logo = document.querySelector('.logo__content');
@@ -54,7 +54,8 @@ const placeOrder = () => {
                         "phone": businessData.value.phone,
                         "name": businessData.value.name,
                         "address": businessData.value.address,
-                        "city": businessData.value.city
+                        "city": businessData.value.city,
+                        "orderstatus": "pending"
                     },   
                     "donuts": JSON.parse(window.localStorage.getItem('donuts')),
                     "card": {
@@ -71,12 +72,13 @@ const placeOrder = () => {
                     },
                     body: JSON.stringify(formData) 
                 }).then(res => {
-                        if (res.status == 200) {
-                            console.log("success")
-                        }
-                    }).catch(error => {
-                        console.log(error)
-                    });
+                        res.json().then(data => {
+                            console.log(data)
+                        })
+                        .catch(error => {
+                            console.log(error)
+                        });
+                    })
 
 
 
@@ -91,7 +93,11 @@ const placeOrder = () => {
         "contact":
             businessData.value
         ,
-        "donuts": JSON.parse(window.localStorage.getItem('donuts'))
+        "donuts": JSON.parse(window.localStorage.getItem('donuts')),   
+        "card": {
+                 "shape": "",
+                 "url": ""
+                }
     }
     console.log(JSON.stringify(formData))
 
@@ -102,12 +108,12 @@ const placeOrder = () => {
         },
         body: JSON.stringify(formData)
     }).then(res => {
-        if (res.status == 200) {
-            console.log("success")
-        }
+        res.json().then(data => {
+            console.log(data)
+        })
     }).catch(error => {
         console.log(error)
-    }); 
+    });
     }
 
    
@@ -145,7 +151,6 @@ const placeOrder = () => {
                 <span class="content__error content__error--hidden">Please add a logo file</span>
                 <div class="content__upload">
                     <input class="upload__btn" type="file" name="logo">
-                    <span class="upload__text">logo.png</span>
                 </div>
             </div>  
         </div>
