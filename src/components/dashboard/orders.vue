@@ -30,12 +30,6 @@ const sliceDate = ((date) => {
 <template>
     <div class="dashboard">
         <div class="dashboard__orders">
-            <div class="dashboard__filter">
-                <div class="filter__btn">
-                    <span class="btn__text">sorty by</span>
-                    <img class="btn__img" src="assets/filter.png" alt="down">
-                </div>
-            </div>
             <div class="orders__card" v-for="order in orders.data">
                 <span class="card__text">Order:</span>
                 <h3 class="card__title">{{ order.contact.name }}</h3>

@@ -3,7 +3,7 @@ import { ref, reactive, onMounted } from 'vue';
 import Dheader from '../components/dashboard/header.vue'
 import summaryDetails from '../components/details/summaryDetails.vue'
 import orderDetails from '../components/details/orderDetails.vue'
-import { baseDonutUrl } from '../../../config';
+import { baseDonutUrl } from '../../config';
 
 let order = reactive({ data: [] });
 const donutId = window.location.href.split('?')[1].split('=')[1];

@@ -4,7 +4,7 @@ import oDonuts from '../components/overview/overviewDonuts.vue'
 import oDetails from '../components/overview/overviewDetails.vue'
 import lHeader from '../components/landingHeader.vue'
 import router from '../router';
-import { baseDonutUrl } from '../../../config';
+import { baseDonutUrl } from '../../config';
 
 let order = reactive({ data: [] });
 
