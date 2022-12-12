@@ -4,6 +4,7 @@ import Donunq from "../scripts/donutGenerator.js";
 import { baseDonutUrl } from '../../config';
 import router from './../router';
 import $mitt from '../scripts/mitt.js';
+import { extrasData, glazesData, toppingsData } from '../configs/donuttelloData';
 
 const donutViewport = ref(""),
     donunq = new Donunq(),
@@ -16,49 +17,40 @@ let donut = {}
 const generateCanvas = async () => {
     donunq.createScene(donutViewport.value);
     donunq.createDonunq();
-    return true;
-}
-
-const editor = async () => {
-    let res = await generateCanvas();
-    if (res == true && editDonut) {
-        setTimeout(() => {
-            donunq.configureExtras(editDonut.extraObj.eName);
-            donunq.configureGlaze(editDonut.glazeObj.color);
-            donunq.configureTopping(editDonut.toppingObj.color);
-        }, 1000);
-    }
 }
 
 const bakeDonut = () => {
-
+    console.log(donut)
+    let topping = toppingsData.find(el => el.eName == donut.topping)
+    let glaze = glazesData.find(el => el.eName == donut.glaze)
+    setTimeout(() => {
+        donunq.configureExtras(donut.extra);
+        donunq.configureGlaze(glaze.color);
+        donunq.configureTopping(topping.color);
+    }, 500)
 }
 
-const getDonut = () => {
-    fetch(baseDonutUrl + "/" + orderId + "/" + donutId, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            "Authorization": "Bearer " + localStorage.getItem('token')
-        }
-    }).then(response =>
-        response.json()
-    ).then(data => {
-        donut = data.data
-        bakeDonut();
-    }).catch(
-        error => console.log(error)
-    )
-}
-
+fetch(baseDonutUrl + "/" + orderId + "/" + donutId, {
+    method: 'GET',
+    headers: {
+        'Content-Type': 'application/json',
+        "Authorization": "Bearer " + localStorage.getItem('token')
+    }
+}).then(response =>
+    response.json()
+).then(data => {
+    donut = data.data
+    bakeDonut();
+}).catch(
+    error => console.log(error)
+)
 
 const previousTab = () => {
     router.go(-1)
 }
 
 onMounted(() => {
-    editor()
-    getDonut()
+    generateCanvas()
 })
 </script>
 
