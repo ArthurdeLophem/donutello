@@ -10,7 +10,7 @@ let donuts = JSON.parse(window.localStorage.getItem('donuts')),
     extraObj, glazeObj, toppingObj, donutData
 
 const deleteDonut = (index) => {
-    donutBlock.value[index].style.transform = "translateX(-1000px)";
+    donutBlock.value[index].style.transform = "translateX(-50vw)";
     modal.value.classList.add('active')
     modal.value.innerHTML = "removing donut n°" + (index + 1) + " ...";
     setTimeout(() => {
@@ -24,6 +24,7 @@ const deleteDonut = (index) => {
 }
 
 const editDonut = (index) => {
+    donutBlock.value[index].style.transform = "translateX(-50vw)";
     window.localStorage.removeItem("editing")
     modal.value.classList.add('active');
     modal.value.innerHTML = "configuring editor...";
