@@ -53,7 +53,7 @@ const emitDonunq = (e) => {
         case "topping":
             targetObj = toppingsData.find(el => el.eName == e.target.nextElementSibling.innerText);
             $mitt.emit('emitToppings', { 'toppingColor': targetObj.color });
-            donutData.glaze = targetObj.eName;
+            donutData.topping = targetObj.eName;
             break;
     }
 }
@@ -102,7 +102,7 @@ const defaultActive = () => {
         console.log(targetObj)
     }
     else {
-        targetObj = { extra: editorData.extraObj.eName, glaze: editorData.glazeObj.eName, topping: editorData.toppingObj.eName }
+        targetObj = donutData = { extra: editorData.extraObj.eName, glaze: editorData.glazeObj.eName, topping: editorData.toppingObj.eName }
         console.log(targetObj)
     }
     selector.value.forEach(el => {
