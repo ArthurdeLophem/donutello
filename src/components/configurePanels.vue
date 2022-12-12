@@ -76,14 +76,14 @@ $mitt.on('emitToppingPanel', () => {
     extra__container.value.style.transform = "translateX(1000px)";
     activePanel = "topping";
 })
-$mitt.on('saveToStorage', () => {
+$mitt.on('saveToStorage', (e) => {
     const donuts = []
     if (window.localStorage.getItem('donuts')) {
         let donutArr = (JSON.parse(window.localStorage.getItem('donuts')))
         donutArr.forEach(el => donuts.push(el))
     }
+    donutData.quantity = e.campaignSize
     donuts.push(donutData)
-    donuts.forEach(el => el.quantity = 50)
     window.localStorage.setItem('donuts', JSON.stringify(donuts))
     console.log(donuts)
     setTimeout(() => {

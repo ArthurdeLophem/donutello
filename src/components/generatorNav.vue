@@ -1,7 +1,8 @@
 <script setup>
 import { onBeforeUnmount, onMounted, ref } from 'vue';
 import $mitt from '../scripts/mitt';
-let campaign__container = ref()
+let campaign__container = ref(),
+    campaign__size = ref()
 
 const openCampaign = (e) => {
     campaign__container.value.classList.add("activePanel")
@@ -10,7 +11,7 @@ const openCampaign = (e) => {
 const submitDonut = (e) => {
     e.preventDefault();
     window.localStorage.removeItem("editing")
-    $mitt.emit('saveToStorage');
+    $mitt.emit('saveToStorage', { 'campaignSize': parseInt(campaign__size.value.value) });
 }
 
 const closePanel = (e) => {
@@ -45,8 +46,8 @@ const closePanel = (e) => {
                     <p @click="closePanel">X</p>
                 </div>
                 <div class="campaign__interactive">
-                    <input type="number" step="5" name="campaign" inputmode="numeric" min="20" value="20" max="150"
-                        id="" required>
+                    <input ref="campaign__size" type="number" step="5" name="campaign" inputmode="numeric" min="20"
+                        value="20" max="150" id="" required>
                     <div class="btn__primary" @click="submitDonut">
                         <p class="btn__text">go to order</p>
                     </div>
