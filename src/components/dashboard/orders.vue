@@ -50,7 +50,7 @@ const sliceDate = ((date) => {
 .dashboard {
     width: 100%;
     height: 100vh;
-    background-image: url('https://donuttello.com/photos/shares/donuts/sinterklaas/sint_2022.jpg');
+    background-image: url('https://res.cloudinary.com/dgypufy9k/image/upload/v1670855818/donunq/sint_donuttello_no9qwp.webp');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
