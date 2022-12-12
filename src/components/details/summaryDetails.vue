@@ -68,7 +68,6 @@ const preview = (index) => {
 <style scoped>
 .modal__alert {
     position: absolute;
-    top: 2em;
     height: 3em;
     width: 30em;
     display: flex;

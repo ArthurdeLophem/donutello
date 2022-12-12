@@ -55,7 +55,7 @@ const updateOrder = () => {
         .catch(err => {
             console.log(err);
         });
-    
+
 
 }
 
@@ -85,15 +85,18 @@ const updateStatus = (i) => {
         </div>
         <div class="container__status">
             <div class="status__checkbox">
-                <input class="status__box" type="radio" id="pending" name="statusCheck" :checked="statusCheck === 'pending'" @click="updateStatus('pending')">
+                <input class="status__box" type="radio" id="pending" name="statusCheck"
+                    :checked="statusCheck === 'pending'" @click="updateStatus('pending')">
                 <label class="status__text">pending</label>
             </div>
             <div class="status__checkbox">
-                <input class="status__box" type="radio" id="inProgress" name="statusCheck" :checked="statusCheck === 'in progress'" @click="updateStatus('in progress')">
+                <input class="status__box" type="radio" id="inProgress" name="statusCheck"
+                    :checked="statusCheck === 'in progress'" @click="updateStatus('in progress')">
                 <label class="status__text">in progress</label>
             </div>
             <div class="status__checkbox">
-                <input class="status__box" type="radio" id="completed" name="statusCheck" :checked="statusCheck === 'completed'" @click="updateStatus('completed')">
+                <input class="status__box" type="radio" id="completed" name="statusCheck"
+                    :checked="statusCheck === 'completed'" @click="updateStatus('completed')">
                 <label class="status__text">completed</label>
             </div>
         </div>
@@ -102,9 +105,11 @@ const updateStatus = (i) => {
 </template>
 <style scoped>
 .details__container {
+    position: sticky;
+    top: 2em;
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: fit-content;
     width: 35%;
 }
 
@@ -181,5 +186,4 @@ const updateStatus = (i) => {
     margin-top: 1rem;
     margin-bottom: 1rem;
 }
-
 </style>
