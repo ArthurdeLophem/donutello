@@ -39,8 +39,8 @@ watch(isCompleted, () => {
         logoUrl.value = orderData.value.donut.card.url;
         orderId.value = orderData.value.donut._id;
 
-        editLink.value = `${mainUrl}overview/?orderId=${orderId.value}&token=${orderToken.value}`;
-        previewLink.value = `${mainUrl}previewer/?orderId=${orderId.value}&`;
+        editLink.value = `${mainUrl}overview?orderId=${orderId.value}&token=${orderToken.value}`;
+        previewLink.value = `${mainUrl}previewer?orderId=${orderId.value}&donutId=`;
 
         let logoDiv = document.querySelector(".order__logo");
         if (logoUrl.value === "") {
