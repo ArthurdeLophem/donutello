@@ -6,10 +6,13 @@ import lHeader from '../components/landingHeader.vue'
 import router from '../router';
 import { baseDonutUrl } from '../../config';
 
-let order = reactive({ data: [] });
+let order = reactive({ data: [] }),
+    tokenProp = reactive({ token: "" });
 
 onMounted(() => {
     let token = window.location.href.split('?')[1].split('=')[1].split('&')[1];
+    tokenProp.token = token
+    console.log(tokenProp)
 
     fetch(baseDonutUrl + "/auth", {
         method: 'POST',
@@ -46,7 +49,7 @@ fetch(baseDonutUrl + "/" + donutId, {
 <template>
     <lHeader />
     <div class="content__container">
-        <oDonuts :order="order.data" />
+        <oDonuts :order="order.data" :token="tokenProp" />
         <oDetails :order="order.data" />
     </div>
 </template>
@@ -55,11 +58,10 @@ fetch(baseDonutUrl + "/" + donutId, {
 .content__container {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-start;
+    justify-content: center;
     width: 100%;
-    height: 100%;
-    padding: 0 2rem;
-    margin-top: 3rem;
+    height: fit-content;
+    margin-top: 5rem;
+    gap: 10rem;
 }
 </style>

@@ -4,10 +4,15 @@ import router from '../../router';
 let detailData,
     donutBlock = ref(),
     modal = ref(),
-    donuts = []
+    donuts = [],
+    token;
 
 const orderProps = defineProps({
     order: {
+        type: Object,
+        required: true
+    },
+    token: {
         type: Object,
         required: true
     }
@@ -15,16 +20,22 @@ const orderProps = defineProps({
 
 watch(orderProps, () => {
     detailData = orderProps.order;
+    token = JSON.stringify(orderProps.token.token).replace(/['"]+/g, '');
     detailData.donuts.forEach(el => {
-        donuts.push(el)
+        donuts.push(el);
     });
-    console.log(donuts)
 });
 
-watch(orderProps, () => {
-    console.log(orderProps)
-});
+const editDonut = (index) => {
+    donutBlock.value[index].style.transform = "translateX(-50vw)";
+    modal.value.classList.add('active');
+    modal.value.innerHTML = "configuring editor...";
+    setTimeout(() => {
+        router.push({ path: '/generator', query: { orderId: detailData._id, donutId: donuts[index]._id, token: token } })
+    }, 1000);
+}
 </script>
+
 <template>
     <div class="modal__alert" ref="modal">base alert modal</div>
     <div class="summary__container" ref="extra__container">
@@ -71,7 +82,6 @@ watch(orderProps, () => {
     position: absolute;
     height: 3em;
     width: 30em;
-    display: flex;
     justify-content: center;
     align-items: center;
     background-color: #ed2970;
@@ -79,6 +89,7 @@ watch(orderProps, () => {
     font-weight: 600;
     border-radius: 2px;
     display: none;
+    top: 2em;
 }
 
 .active {

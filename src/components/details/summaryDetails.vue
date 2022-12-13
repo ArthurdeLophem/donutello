@@ -70,7 +70,6 @@ const preview = (index) => {
     position: absolute;
     height: 3em;
     width: 30em;
-    display: flex;
     justify-content: center;
     align-items: center;
     background-color: #ed2970;
@@ -78,6 +77,7 @@ const preview = (index) => {
     font-weight: 600;
     border-radius: 2px;
     display: none;
+    top: 2em;
 }
 
 .active {
