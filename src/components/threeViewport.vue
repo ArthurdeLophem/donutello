@@ -5,7 +5,7 @@ import $mitt from '../scripts/mitt.js';
 
 const donutViewport = ref(""),
     donunq = new Donunq(),
-    editDonut = JSON.parse(window.localStorage.getItem("editor"));
+    editDonut = JSON.parse(window.localStorage.getItem("editor"))
 
 const generateCanvas = async () => {
     donunq.createScene(donutViewport.value);
