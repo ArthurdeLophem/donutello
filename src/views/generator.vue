@@ -31,7 +31,7 @@ if (donutId && orderId && token) {
 </script>
 
 <template>
-    <donutViewport />
+    <donutViewport :donutData="donutData" />
     <donutConfigurator />
     <configPanels :donutData="donutData" />
 </template>

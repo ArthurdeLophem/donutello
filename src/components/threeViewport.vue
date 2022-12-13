@@ -1,25 +1,48 @@
 <script setup>
-import { ref, onMounted, onBeforeMount } from 'vue';
+import { ref, onMounted, onBeforeMount, watch, reactive } from 'vue';
 import Donunq from "../scripts/donutGenerator.js";
 import $mitt from '../scripts/mitt.js';
+import { extrasData, glazesData, toppingsData } from '../configs/donuttelloData';
 
 const donutViewport = ref(""),
     donunq = new Donunq(),
-    editDonut = JSON.parse(window.localStorage.getItem("editor"))
+    editDonut = JSON.parse(window.localStorage.getItem("editor"));
+let fetchData,
+    data;
 
-const generateCanvas = async () => {
+const donutProps = defineProps({
+    donutData: {
+        type: Object,
+        required: true
+    }
+});
+
+watch(donutProps, () => {
+    fetchData = donutProps.donutData.data
+    data = { id: fetchData._id, extra: fetchData.extra, glaze: fetchData.glaze, topping: fetchData.topping }
+    editor()
+});
+
+const generateCanvas = () => {
     donunq.createScene(donutViewport.value);
     donunq.createDonunq();
-    return true;
 }
 
-const editor = async () => {
-    let res = await generateCanvas();
-    if (res == true && editDonut) {
+const editor = () => {
+    generateCanvas()
+    if (editDonut) {
         setTimeout(() => {
             donunq.configureExtras(editDonut.extraObj.eName);
             donunq.configureGlaze(editDonut.glazeObj.color);
             donunq.configureTopping(editDonut.toppingObj.color);
+        }, 1000);
+    } else {
+        setTimeout(() => {
+            let topping = toppingsData.find(el => el.eName == data.topping)
+            let glaze = glazesData.find(el => el.eName == data.glaze)
+            donunq.configureExtras(data.extra.eName);
+            donunq.configureGlaze(glaze.color);
+            donunq.configureTopping(topping.color);
         }, 1000);
     }
 }
@@ -51,7 +74,6 @@ $mitt.on('emitExtras', e => {
 })
 
 onMounted(() => {
-    editor()
 })
 </script>
 

@@ -12,7 +12,8 @@ let selector = ref([]),
     glaze__name = ref(),
     extra__name = ref(),
     targetObj, activePanel, donutData = { extra: "maltesers", glaze: "choco", topping: "choco" },
-    editorData = JSON.parse(window.localStorage.getItem("editor"));
+    editorData = JSON.parse(window.localStorage.getItem("editor")),
+    fetchData;
 
 const donutProps = defineProps({
     donutData: {
@@ -22,7 +23,7 @@ const donutProps = defineProps({
 });
 
 watch(donutProps, () => {
-    let data = donutProps.donutData.data
+    fetchData = donutProps.donutData.data
     defaultActive()
 });
 
@@ -97,7 +98,6 @@ $mitt.on('saveToStorage', (e) => {
     donutData.quantity = e.campaignSize
     donuts.push(donutData)
     window.localStorage.setItem('donuts', JSON.stringify(donuts))
-    console.log(donuts)
     setTimeout(() => {
         $mitt.all.clear();
         router.push({ name: 'Order' })
@@ -111,11 +111,9 @@ const closePanel = (e) => {
 const defaultActive = () => {
     if (!editorData) {
         targetObj = { extra: "maltesers", glaze: "choco", topping: "choco" }
-        console.log(targetObj)
     }
     else {
         targetObj = donutData = { extra: editorData.extraObj.eName, glaze: editorData.glazeObj.eName, topping: editorData.toppingObj.eName }
-        console.log(targetObj)
     }
     selector.value.forEach(el => {
         if (el.children[1].innerHTML == targetObj.extra && el.getAttribute("id") == "extra__selector") {
