@@ -50,9 +50,9 @@ const submit = () => {
         <div class="login__image"></div>
         <div class="login__section">
             <div class="section__container">
-                <h2 class="container__brand container__brand--padding">
+                <router-link to="/" class="container__brand container__brand--padding">
                     Donutello.ai
-                </h2>
+                </router-link>
                 <h1 class="container__title container__title--padding">
                     Welcome <span class="title__pink">back</span>
                 </h1>
@@ -132,6 +132,10 @@ const submit = () => {
 .container__brand {
     margin: 0;
     margin-block-end: 0;
+}
+
+.container__brand:hover {
+    color:#000000;
 }
 
 .form__button {
