@@ -2,17 +2,32 @@
 import { ref } from 'vue';
 import { cloud, cloudPreset, baseDonutUrl } from '../../config';
 
-const email = ref(),
-    gsm = ref(),
-    bedrijfsnaam = ref(),
-    adress = ref(),
-    stad = ref();
+const email = ref(""),
+    gsm = ref(""),
+    bedrijfsnaam = ref(""),
+    adress = ref(""),
+    stad = ref("");
 let donuts,
     business;
+
+let shapeRef = ref();    
 
 const apiUrl = cloud;
 const unsignedUploadPreset = cloudPreset;     
 
+const checkForm = () => {
+    if(email.value == "" || gsm.value == "" || bedrijfsnaam.value == "" || adress.value == "" || stad.value == "") {
+        let inputfields = document.querySelectorAll('.info__field');
+        let inputError = document.querySelector('.info__error');
+        inputfields.forEach(inputfield => {
+            if (inputfield.value == "") {
+                inputfield.classList.add('info__field--error');
+            }
+        })
+        inputError.classList.remove('info__error--hidden');
+        return false;
+    }
+}
 
  const toggleLogo = () => {
     let logo = document.querySelector('.logo__content');
@@ -25,7 +40,10 @@ const unsignedUploadPreset = cloudPreset;
  }
 const businessData = ref({ mail: email, phone: gsm, name: bedrijfsnaam, address: adress, city: stad, orderstatus : "pending" });
 const placeOrder = () => {
-
+    let x = checkForm();
+    if (x == false) {
+        return;
+    }
     let logo = document.querySelector('.logo__content');
     if (logo.classList.contains('logo__content--hidden') == false) {
         if (document.querySelector("[type=file]").files.length == 0) {
@@ -47,6 +65,13 @@ const placeOrder = () => {
             .then(response => response.json())
             .then(data => {
                 let url = data.secure_url;
+                let shape;
+                if (shapeRef.value == 0) {
+                    shape = "square";
+                }
+                else if(shapeRef.value == 1) {
+                    shape = "round";
+                }
                 
                 const formData = {
                     "contact": {
@@ -59,7 +84,7 @@ const placeOrder = () => {
                     },   
                     "donuts": JSON.parse(window.localStorage.getItem('donuts')),
                     "card": {
-                            "shape": "square",
+                            "shape": shape,
                             "url": url
                     }
                 }
@@ -74,6 +99,8 @@ const placeOrder = () => {
                 }).then(res => {
                         res.json().then(data => {
                             console.log(data)
+                            emit('isCompleted', true);
+                            emit('data', data.data);
                         })
                         .catch(error => {
                             console.log(error)
@@ -109,7 +136,8 @@ const placeOrder = () => {
         body: JSON.stringify(formData)
     }).then(res => {
         res.json().then(data => {
-            console.log(data)
+            emit('isCompleted', true);
+            emit('data', data.data);
         })
     }).catch(error => {
         console.log(error)
@@ -119,15 +147,10 @@ const placeOrder = () => {
    
 }
 
-const props = defineProps({
-    isCompleted: Boolean
-})
-
-const emit = defineEmits(['isCompleted']);
-
-const setIsCompleted = () => {
-    emit('isCompleted', true);
-}
+const emit = defineEmits([
+    'isCompleted',
+    'data'
+]);
 
 </script>
 <template>
@@ -139,6 +162,7 @@ const setIsCompleted = () => {
             <input class="info__field" v-model="bedrijfsnaam" placeholder="*Bedrijfsnaam:" />
             <input class="info__field" v-model="adress" placeholder="*Adress:" />
             <input class="info__field" v-model="stad" placeholder="*Stad:" />
+            <span class="info__error info__error--hidden">You must fill in the required * fields</span>
         </div>
         <div class="payment__logo">
             <div class="logo__title">
@@ -152,11 +176,11 @@ const setIsCompleted = () => {
                 <span class="content__text content__text--semibold">Shape:</span>
                 <div class="content__checkbox">
                     <span class="checkbox__text">Square</span>
-                    <input class="checkbox__box" type="checkbox" name="square">
+                    <input v-model="shapeRef" class="checkbox__box" type="radio" name="shape" value="0">
                 </div>
                 <div class="content__checkbox content__checkbox--margin">
                     <span class="checkbox__text">Round</span>
-                    <input class="checkbox__box" type="checkbox" name="round">
+                    <input v-model="shapeRef" class="checkbox__box" type="radio" name="shape" value="1">
                 </div>
                 <span class="content__text content__text--semibold">Logo:</span>
                 <span class="content__error content__error--hidden">Please add a logo file</span>
@@ -168,7 +192,6 @@ const setIsCompleted = () => {
         <div class="btn__primary" @click="placeOrder">
             <p class="btn__text">place order</p>
         </div>
-        <p @click="setIsCompleted(true)">test emit</p>
     </div>
 </template>
 <style scoped>
@@ -183,6 +206,7 @@ const setIsCompleted = () => {
     width: 100%;
     margin-top: 2rem;
 }
+
 
 .logo__content {
     display: flex;
@@ -200,6 +224,25 @@ const setIsCompleted = () => {
     font-weight: 500;
     color: #000000;
     background: none;
+}
+
+.info__error {
+    color: #FF0000;
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-top: 0.5rem;
+}
+
+.info__error--hidden {
+    display: none;
+}
+
+.info__field--error {
+    border-bottom: 1px solid #FF0000;
+}
+
+.info__field--error::placeholder {
+    color:#FF0000;
 }
 
 .logo__title {
