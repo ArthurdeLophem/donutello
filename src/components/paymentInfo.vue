@@ -10,6 +10,8 @@ const email = ref(),
 let donuts,
     business;
 
+let shapeRef = ref();    
+
 const apiUrl = cloud;
 const unsignedUploadPreset = cloudPreset;     
 
@@ -47,6 +49,13 @@ const placeOrder = () => {
             .then(response => response.json())
             .then(data => {
                 let url = data.secure_url;
+                let shape;
+                if (shapeRef.value == 0) {
+                    shape = "square";
+                }
+                else if(shapeRef.value == 1) {
+                    shape = "round";
+                }
                 
                 const formData = {
                     "contact": {
@@ -59,7 +68,7 @@ const placeOrder = () => {
                     },   
                     "donuts": JSON.parse(window.localStorage.getItem('donuts')),
                     "card": {
-                            "shape": "square",
+                            "shape": shape,
                             "url": url
                     }
                 }
@@ -152,11 +161,11 @@ const setIsCompleted = () => {
                 <span class="content__text content__text--semibold">Shape:</span>
                 <div class="content__checkbox">
                     <span class="checkbox__text">Square</span>
-                    <input class="checkbox__box" type="checkbox" name="square">
+                    <input v-model="shapeRef" class="checkbox__box" type="radio" name="shape" value="0">
                 </div>
                 <div class="content__checkbox content__checkbox--margin">
                     <span class="checkbox__text">Round</span>
-                    <input class="checkbox__box" type="checkbox" name="round">
+                    <input v-model="shapeRef" class="checkbox__box" type="radio" name="shape" value="1">
                 </div>
                 <span class="content__text content__text--semibold">Logo:</span>
                 <span class="content__error content__error--hidden">Please add a logo file</span>
@@ -168,7 +177,6 @@ const setIsCompleted = () => {
         <div class="btn__primary" @click="placeOrder">
             <p class="btn__text">place order</p>
         </div>
-        <p @click="setIsCompleted(true)">test emit</p>
     </div>
 </template>
 <style scoped>
