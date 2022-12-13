@@ -50,6 +50,10 @@ const submit = () => {
                     then(data => {
                         if (data.status === "success") {
                             form__success.value.classList.remove('form__success--hidden');
+                            setTimeout(() => {
+                                console.log("redirecting");
+                                router.push({ name: 'Dashboard' })
+                            }, 2000);
                             if (!form__error.value.classList.contains('form__error--hidden')) {
                                 form__error.value.classList.add('form__error--hidden');
                             }
@@ -96,9 +100,9 @@ const submit = () => {
         <div class="login__image"></div>
         <div class="login__section">
             <div class="section__container">
-                <h2 class="container__brand container__brand--padding">
+                <router-link to="/" class="container__brand container__brand--padding">
                     Donutello.ai
-                </h2>
+                </router-link>
                 <h1 class="container__title container__title--padding">
                     Change <span class="title__pink">password</span>
                 </h1>
@@ -139,14 +143,14 @@ const submit = () => {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 100%;
     width: 100vw;
     background-color: #F5F5F5;
 }
 
 .login__image {
     width: 60vw;
-    height: 100vh;
+    height: 100%;
     background-image: url('https://donuttello.com/photos/shares/donuts/sinterklaas/sint_2022.jpg');
     background-repeat: no-repeat;
     background-size: cover;
@@ -154,7 +158,7 @@ const submit = () => {
 
 .login__section {
     width: 40vw;
-    height: 100vh;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -189,6 +193,10 @@ const submit = () => {
 .container__brand {
     margin: 0;
     margin-block-end: 0;
+}
+
+.container__brand:hover {
+    color: black;
 }
 
 .form__button {
