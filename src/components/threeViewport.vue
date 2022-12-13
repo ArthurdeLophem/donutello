@@ -5,21 +5,46 @@ import $mitt from '../scripts/mitt.js';
 import { extrasData, glazesData, toppingsData } from '../configs/donuttelloData';
 
 const donutViewport = ref(""),
-    donunq = new Donunq(),
-    editDonut = JSON.parse(window.localStorage.getItem("editor"));
+    donunq = new Donunq();
 let fetchData,
-    data;
+    donutType,
+    donut,
+    topping,
+    glaze
 
 const donutProps = defineProps({
     donutData: {
+        type: Object,
+        required: true
+    },
+    donutType: {
         type: Object,
         required: true
     }
 });
 
 watch(donutProps, () => {
-    fetchData = donutProps.donutData.data
-    data = { id: fetchData._id, extra: fetchData.extra, glaze: fetchData.glaze, topping: fetchData.topping }
+    fetchData = donutProps.donutData.data;
+    donutType = donutProps.donutType;
+    console.log(fetchData)
+    switch (donutType.type) {
+        case "fetch":
+            topping = toppingsData.find(el => el.eName == fetchData.topping)
+            glaze = glazesData.find(el => el.eName == fetchData.glaze)
+            donut = { id: fetchData._id, extra: fetchData.extra, glaze: glaze.color, topping: topping.color }
+            console.log(donut)
+            break;
+        case "editor":
+            topping = toppingsData.find(el => el.eName == fetchData.topping)
+            glaze = glazesData.find(el => el.eName == fetchData.glaze)
+            donut = { extra: fetchData.extra, glaze: glaze.color, topping: topping.color }
+            console.log(donut)
+            break;
+        case "fresh":
+            donut = { extra: fetchData.extra, glaze: "#6c3b1e", topping: "#6c3b1e", }
+            console.log(donut)
+            break;
+    }
     editor()
 });
 
@@ -30,21 +55,11 @@ const generateCanvas = () => {
 
 const editor = () => {
     generateCanvas()
-    if (editDonut) {
-        setTimeout(() => {
-            donunq.configureExtras(editDonut.extraObj.eName);
-            donunq.configureGlaze(editDonut.glazeObj.color);
-            donunq.configureTopping(editDonut.toppingObj.color);
-        }, 1000);
-    } else {
-        setTimeout(() => {
-            let topping = toppingsData.find(el => el.eName == data.topping)
-            let glaze = glazesData.find(el => el.eName == data.glaze)
-            donunq.configureExtras(data.extra.eName);
-            donunq.configureGlaze(glaze.color);
-            donunq.configureTopping(topping.color);
-        }, 1000);
-    }
+    setTimeout(() => {
+        donunq.configureExtras(donut.extra);
+        donunq.configureGlaze(donut.glaze);
+        donunq.configureTopping(donut.topping);
+    }, 1000);
 }
 
 const checkIntersects = (e) => {

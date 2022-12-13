@@ -8,8 +8,10 @@ import { reactive } from 'vue';
 const urlParams = new URLSearchParams(window.location.search),
     orderId = urlParams.get('orderId'),
     token = urlParams.get('token'),
-    donutId = urlParams.get('donutId'),
-    donutData = reactive({ data: [] })
+    donutId = urlParams.get('donutId');
+let donutData = reactive({ data: [] }),
+    editDonut = JSON.parse(window.localStorage.getItem("editor")),
+    donutType = reactive({ type: "" });
 
 if (donutId && orderId && token) {
     fetch(baseDonutUrl + "/" + orderId + "/" + donutId, {
@@ -21,17 +23,29 @@ if (donutId && orderId && token) {
         response.json()
     ).then(data => {
         donutData.data = data.data
-        console.log(donutData)
-
+        donutType.type = "fetch"
     }).catch(
         error => console.log(error)
     )
-}
+    console.log(donutData)
+} else {
+    setTimeout(() => {
+        if (editDonut) {
 
+            donutData.data = editDonut
+            donutType.type = "editor"
+        }
+        else {
+            donutData.data = { extra: "maltesers", glaze: "choco", topping: "choco" }
+            donutType.type = "fresh"
+        }
+    }, 100);
+
+}
 </script>
 
 <template>
-    <donutViewport :donutData="donutData" />
+    <donutViewport :donutData="donutData" :donutType="donutType" />
     <donutConfigurator />
-    <configPanels :donutData="donutData" />
+    <configPanels :donutData="donutData" :donutType="donutType" />
 </template>
