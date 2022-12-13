@@ -1,6 +1,7 @@
 <script setup>
 import { ref, reactive, onMounted, watch } from 'vue';
 import { baseDonutUrl } from '../../../config.js';
+import router from '../../router';
 
 let detailData = reactive({});
 
@@ -11,6 +12,7 @@ let name = ref("");
 let address = ref("");
 let city = ref("");
 let url = ref("");
+
 
 let statusCheck = ref("");
 
@@ -31,8 +33,12 @@ watch(detailProps, () => {
     city.value = detailData.contact.city;
     url.value = detailData.card.url;
     statusCheck.value = detailData.contact.orderstatus;
-    console.log(detailData);
-    console.log(statusCheck.value);
+
+    let deleteBtn = document.querySelector(".container__btn--delete");
+    if (statusCheck.value === "pending" || statusCheck.value === "completed") {
+    deleteBtn.classList.remove("container__btn--hidden");
+}
+
 });
 
 const updateOrder = () => {
@@ -50,10 +56,13 @@ const updateOrder = () => {
     })
         .then(res => res.json())
         .then(data => {
-            console.log(data);
+            let successMsg = document.querySelector(".container__text--success");
+            successMsg.classList.remove("container__text--hidden");
         })
         .catch(err => {
             console.log(err);
+            let errorMsg = document.querySelector(".container__text--error");
+            errorMsg.classList.remove("container__text--hidden");
         });
 
 
@@ -66,6 +75,22 @@ const updateStatus = (i) => {
 
 }
 
+const deleteOrder = () => {
+    fetch(`${baseDonutUrl}/${detailData._id}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + localStorage.getItem('token')
+        }
+    }).then(res => res.json())
+        .then(data => {
+            console.log(data);
+            router.push("/dashboard?order=deleted");
+        })
+        .catch(err => {
+            console.log(err);
+        });
+}
 
 </script>
 <template>
@@ -100,7 +125,10 @@ const updateStatus = (i) => {
                 <label class="status__text">completed</label>
             </div>
         </div>
+        <span class="container__text container__text--success container__text--hidden">Order status succesfully updated</span>
+        <span class="container__text container__text--error container__text--hidden">Internal Server Error</span>
         <button @click="updateOrder" class="container__btn">save</button>
+        <button @click="deleteOrder" class="container__btn container__btn--delete container__btn--hidden">delete order</button>
     </div>
 </template>
 <style scoped>
@@ -139,21 +167,8 @@ const updateStatus = (i) => {
     margin-top: 1rem;
     margin-bottom: 1rem;
 }
-
-.download__btn {
-    margin-left: 3rem;
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 0;
-    background-color: #ed2970;
-    color: white;
-    font-size: 1rem;
-    font-weight: 500;
-    cursor: pointer;
-}
-
 .container__btn {
-    margin-top: 3rem;
+    margin-top: 1rem;
     padding: 0.5rem 1rem;
     border: none;
     border-radius: 0;
@@ -164,6 +179,34 @@ const updateStatus = (i) => {
     width: 10rem;
     height: 3rem;
     cursor: pointer;
+}
+
+.container__btn--delete {
+    background-color: #000000;
+}
+
+.container__btn--hidden {
+    display: none;
+}
+
+.container__btn--delete:hover {
+    color: #ed2970;
+}
+
+.container__text {
+    font-size: 1rem;
+    font-weight: 600;
+}
+.container__text--success {
+    color: green;
+}
+
+.container__text--error {
+    color: red;
+}
+
+.container__text--hidden {
+    display: none;
 }
 
 .container__status {

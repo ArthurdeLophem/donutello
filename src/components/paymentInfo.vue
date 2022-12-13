@@ -118,6 +118,17 @@ const placeOrder = () => {
 
    
 }
+
+const props = defineProps({
+    isCompleted: Boolean
+})
+
+const emit = defineEmits(['isCompleted']);
+
+const setIsCompleted = () => {
+    emit('isCompleted', true);
+}
+
 </script>
 <template>
     <div class="payment">
@@ -157,6 +168,7 @@ const placeOrder = () => {
         <div class="btn__primary" @click="placeOrder">
             <p class="btn__text">place order</p>
         </div>
+        <p @click="setIsCompleted(true)">test emit</p>
     </div>
 </template>
 <style scoped>

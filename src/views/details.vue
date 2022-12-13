@@ -3,13 +3,12 @@ import { ref, reactive, onMounted } from 'vue';
 import Dheader from '../components/dashboard/header.vue'
 import summaryDetails from '../components/details/summaryDetails.vue'
 import orderDetails from '../components/details/orderDetails.vue'
-import { baseDonutUrl } from '../../config';
+import { baseDonutUrl, authUrl } from '../../config';
 
 let order = reactive({ data: [] });
 const donutId = window.location.href.split('?')[1].split('=')[1];
 
 onMounted(() => {
-    const authUrl = 'http://localhost:3000/api/v1/users/auth'
     fetch(authUrl, {
         method: 'POST',
         headers: {
@@ -58,7 +57,7 @@ fetch(baseDonutUrl + "/" + donutId, {
     justify-content: center;
     width: 100%;
     height: fit-content;
-    margin-top: 5rem;
+    margin-top: 3rem;
     gap: 10rem;
 }
 </style>

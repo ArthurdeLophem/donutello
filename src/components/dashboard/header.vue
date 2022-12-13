@@ -40,6 +40,7 @@ const logout = () => {
 }
 
 .button__logout {
+    cursor: pointer;
     background-color: black;
     display: flex;
     justify-content: center;

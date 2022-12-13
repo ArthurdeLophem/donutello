@@ -57,7 +57,7 @@ const preview = (index) => {
                         </div>
                     </div>
                     <div class="button__rounded edit" @click="preview(index)">
-                        <img src="../../../assets/view__btn.svg" alt="edit donut button">
+                        <img src="../../../public/assets/view__btn.svg" alt="edit donut button">
                     </div>
                 </div>
             </div>

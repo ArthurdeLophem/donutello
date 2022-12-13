@@ -55,6 +55,7 @@ const logout = () => {
 }
 
 .button__login {
+    cursor: pointer;
     background-color: black;
     display: flex;
     justify-content: center;
@@ -72,6 +73,7 @@ const logout = () => {
 }
 
 .button__logout {
+    cursor: pointer;
     background-color: black;
     display: flex;
     justify-content: center;
@@ -81,6 +83,7 @@ const logout = () => {
 }
 
 .logout__btn  {
+    cursor: pointer;
     color: white;
     font-weight: 600;
 }
