@@ -56,10 +56,13 @@ const updateOrder = () => {
     })
         .then(res => res.json())
         .then(data => {
-            console.log(data);
+            let successMsg = document.querySelector(".container__text--success");
+            successMsg.classList.remove("container__text--hidden");
         })
         .catch(err => {
             console.log(err);
+            let errorMsg = document.querySelector(".container__text--error");
+            errorMsg.classList.remove("container__text--hidden");
         });
 
 
@@ -122,6 +125,8 @@ const deleteOrder = () => {
                 <label class="status__text">completed</label>
             </div>
         </div>
+        <span class="container__text container__text--success container__text--hidden">Order status succesfully updated</span>
+        <span class="container__text container__text--error container__text--hidden">Internal Server Error</span>
         <button @click="updateOrder" class="container__btn">save</button>
         <button @click="deleteOrder" class="container__btn container__btn--delete container__btn--hidden">delete order</button>
     </div>
@@ -162,19 +167,6 @@ const deleteOrder = () => {
     margin-top: 1rem;
     margin-bottom: 1rem;
 }
-
-.download__btn {
-    margin-left: 3rem;
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 0;
-    background-color: #ed2970;
-    color: white;
-    font-size: 1rem;
-    font-weight: 500;
-    cursor: pointer;
-}
-
 .container__btn {
     margin-top: 1rem;
     padding: 0.5rem 1rem;
@@ -199,6 +191,22 @@ const deleteOrder = () => {
 
 .container__btn--delete:hover {
     color: #ed2970;
+}
+
+.container__text {
+    font-size: 1rem;
+    font-weight: 600;
+}
+.container__text--success {
+    color: green;
+}
+
+.container__text--error {
+    color: red;
+}
+
+.container__text--hidden {
+    display: none;
 }
 
 .container__status {
