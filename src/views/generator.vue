@@ -43,6 +43,6 @@ if (donutId && orderId && token) {
 
 <template>
     <donutViewport :donutData="donutData" :donutType="donutType" />
-    <donutConfigurator />
+    <donutConfigurator :donutType="donutType" />
     <configPanels :donutData="donutData" :donutType="donutType" />
 </template>

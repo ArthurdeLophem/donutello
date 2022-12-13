@@ -1,16 +1,39 @@
 <script setup>
-import { onBeforeUnmount, onMounted, ref } from 'vue';
+import { onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import $mitt from '../scripts/mitt';
 let campaign__container = ref(),
-    campaign__size = ref()
+    campaign__size = ref(),
+    donutType,
+    sButton = ref(),
+    cButton = ref()
 
 const openCampaign = (e) => {
     campaign__container.value.classList.add("activePanel")
 }
 
+const donutProps = defineProps({
+    donutType: {
+        type: Object,
+        required: true
+    }
+});
+
+watch(donutProps, () => {
+    donutType = JSON.stringify(donutProps.donutType.type).replace(/['"]+/g, '');
+    if (donutType == "fetch") {
+        cButton.value.innerHTML = sButton.value.innerHTML = "update order"
+    }
+    if (donutType == "editor") {
+        cButton.value.innerHTML = sButton.value.innerHTML = "save to order"
+    }
+    if (donutType == "fresh") {
+        cButton.value.innerHTML = sButton.value.innerHTML = "save to order"
+    }
+});
+
 const submitDonut = (e) => {
     e.preventDefault();
-    window.localStorage.removeItem("editing")
+    window.localStorage.removeItem("editor")
     $mitt.emit('saveToStorage', { 'campaignSize': parseInt(campaign__size.value.value) });
 }
 
@@ -38,7 +61,7 @@ const closePanel = (e) => {
                 <p class="price__quantity">/donut</p>
             </div>
             <div class="btn__primary" @click="openCampaign">
-                <p class="btn__text">go to order</p>
+                <p class="btn__text" ref="sButton"></p>
             </div>
             <div class="campaign__container" ref="campaign__container">
                 <div class="campaign__header">
@@ -49,7 +72,7 @@ const closePanel = (e) => {
                     <input ref="campaign__size" type="number" step="5" name="campaign" inputmode="numeric" min="20"
                         value="20" max="150" id="" required>
                     <div class="btn__primary" @click="submitDonut">
-                        <p class="btn__text">go to order</p>
+                        <p class="btn__text" ref="cButton"></p>
                     </div>
                 </div>
             </div>
