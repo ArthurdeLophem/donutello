@@ -27,11 +27,9 @@ if (donutId && orderId && token) {
     }).catch(
         error => console.log(error)
     )
-    console.log(donutData)
 } else {
     setTimeout(() => {
         if (editDonut) {
-
             donutData.data = editDonut
             donutType.type = "editor"
         }
@@ -40,7 +38,6 @@ if (donutId && orderId && token) {
             donutType.type = "fresh"
         }
     }, 100);
-
 }
 </script>
 

@@ -19,12 +19,15 @@ const donutProps = defineProps({
     donutData: {
         type: Object,
         required: true
+    },
+    donutType: {
+        type: Object,
+        required: true
     }
 });
 
 watch(donutProps, () => {
-    fetchData = donutProps.donutData.data
-    defaultActive()
+    donutData = fetchData = donutProps.donutData.data
 });
 
 const showActiveSelect = (e) => {

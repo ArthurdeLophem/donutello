@@ -10,7 +10,8 @@ let fetchData,
     donutType,
     donut,
     topping,
-    glaze
+    glaze,
+    initial = true
 
 const donutProps = defineProps({
     donutData: {
@@ -26,26 +27,25 @@ const donutProps = defineProps({
 watch(donutProps, () => {
     fetchData = donutProps.donutData.data;
     donutType = donutProps.donutType;
-    console.log(fetchData)
     switch (donutType.type) {
         case "fetch":
             topping = toppingsData.find(el => el.eName == fetchData.topping)
             glaze = glazesData.find(el => el.eName == fetchData.glaze)
             donut = { id: fetchData._id, extra: fetchData.extra, glaze: glaze.color, topping: topping.color }
-            console.log(donut)
             break;
         case "editor":
             topping = toppingsData.find(el => el.eName == fetchData.topping)
             glaze = glazesData.find(el => el.eName == fetchData.glaze)
             donut = { extra: fetchData.extra, glaze: glaze.color, topping: topping.color }
-            console.log(donut)
             break;
         case "fresh":
             donut = { extra: fetchData.extra, glaze: "#6c3b1e", topping: "#6c3b1e", }
             console.log(donut)
             break;
     }
-    editor()
+    if (initial == true) {
+        editor()
+    }
 });
 
 const generateCanvas = () => {
@@ -54,11 +54,11 @@ const generateCanvas = () => {
 }
 
 const editor = () => {
-    generateCanvas()
     setTimeout(() => {
         donunq.configureExtras(donut.extra);
         donunq.configureGlaze(donut.glaze);
         donunq.configureTopping(donut.topping);
+        initial = false;
     }, 1000);
 }
 
@@ -89,6 +89,7 @@ $mitt.on('emitExtras', e => {
 })
 
 onMounted(() => {
+    generateCanvas()
 })
 </script>
 
