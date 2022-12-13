@@ -10,9 +10,7 @@
         <div class="content__enticing">
             <div class="enticing__interaction">
                 <p>create your business donut marketing online and get it shipped and delivered at your door</p>
-                <div class="btn__primary">
-                    <router-link to="/generator">start yours now</router-link>
-                </div>
+                <router-link to="/generator" class="btn__primary">start yours now</router-link>
                 <div class="enticing__assets">
                     <img src="/assets/shopping_bag.png" alt="3d shopping bag">
                     <img src="/assets/parcel_box.png" alt="3d parcel box">
