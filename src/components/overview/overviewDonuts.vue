@@ -39,34 +39,6 @@ const editDonut = (index) => {
         router.push({ path: '/generator', query: { orderId: detailData._id, donutId: donuts[index]._id, token: token } })
     }, 1000);
 }
-
-const deleteDonut = (index) => {
-    donutBlock.value[index].style.transform = "translateX(-50vw)";
-    modal.value.classList.add('active');
-    modal.value.innerHTML = "deleting donut n°" + index;
-    let donutId = detailData.donuts[index]._id
-    fetch(baseDonutUrl + "/" + orderId + "/" + donutId, {
-        method: 'DELETE',
-        headers: {
-            'Content-Type': 'application/json',
-            "Authorization": "Bearer " + token
-        },
-    }).then(res => {
-        res.json().then(data => {
-            console.log(data)
-        })
-            .catch(error => {
-                console.log(error)
-            });
-    })
-
-    setTimeout(() => {
-        donutBlock.value[index].style.display = "none";
-        donuts.splice(index, 1);
-        donutBlock.value.splice(index, 1);
-        modal.value.classList.remove('active');
-    }, 700);
-}
 </script>
 
 <template>
@@ -100,9 +72,6 @@ const deleteDonut = (index) => {
                     </div>
                     <div class="button__rounded edit" @click="editDonut(index)">
                         <img src="../../../public/assets/edit__btn.svg" alt="edit donut button">
-                    </div>
-                    <div class="button__rounded delete" @click="deleteDonut(index)">
-                        <img src="../../../public/assets/delete__btn.svg" alt="delete donut button">
                     </div>
                 </div>
             </div>
