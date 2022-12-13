@@ -1,8 +1,14 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount, watch } from 'vue';
 import { extrasData, glazesData, toppingsData } from '../configs/donuttelloData';
+import { baseDonutUrl } from '../../config';
 import router from './../router';
 import $mitt from '../scripts/mitt.js';
+
+const urlParams = new URLSearchParams(window.location.search),
+    orderId = urlParams.get('orderId'),
+    token = urlParams.get('token'),
+    donutId = urlParams.get('donutId');
 
 let selector = ref([]),
     topping__container = ref(),
@@ -29,7 +35,7 @@ const donutProps = defineProps({
 
 watch(donutProps, () => {
     donutData = fetchData = donutProps.donutData.data;
-    donutType = donutProps.donutType;
+    donutType = JSON.stringify(donutProps.donutType.type).replace(/['"]+/g, '');
 });
 
 const showActiveSelect = (e) => {
@@ -95,26 +101,47 @@ $mitt.on('emitToppingPanel', () => {
     activePanel = "topping";
 })
 $mitt.on('saveToStorage', (e) => {
-    const donuts = []
-    if (window.localStorage.getItem('donuts')) {
-        let donutArr = (JSON.parse(window.localStorage.getItem('donuts')))
-        donutArr.forEach(el => donuts.push(el))
-    }
-    let topping = toppingsData.find(el => el.color == fetchData.topping),
-        glaze = glazesData.find(el => el.color == fetchData.glaze);
-    console.log(donutData)
-    if (donutType === "editor") {
-        donutData.glaze = glaze.eName
-        donutData.topping = topping.eName
-    }
-    donutData.quantity = e.campaignSize
+    if (donutType !== "fetch") {
+        const donuts = []
+        if (window.localStorage.getItem('donuts')) {
+            let donutArr = (JSON.parse(window.localStorage.getItem('donuts')))
+            donutArr.forEach(el => donuts.push(el))
+        }
+        let topping = toppingsData.find(el => el.color == fetchData.topping),
+            glaze = glazesData.find(el => el.color == fetchData.glaze);
+        console.log(donutData)
+        if (donutType === "editor") {
+            donutData.glaze = glaze.eName
+            donutData.topping = topping.eName
+        }
+        donutData.quantity = e.campaignSize
 
-    donuts.push(donutData)
-    window.localStorage.setItem('donuts', JSON.stringify(donuts))
-    setTimeout(() => {
-        $mitt.all.clear();
-        router.push({ name: 'Order' })
-    }, 1000)
+        donuts.push(donutData)
+        window.localStorage.setItem('donuts', JSON.stringify(donuts))
+    } else {
+        donutData.quantity = e.campaignSize
+        console.log(donutData)
+
+        fetch(baseDonutUrl + "/" + orderId + "/" + donutId, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                "Authorization": "Bearer " + token,
+            },
+            body: JSON.stringify(donutData)
+        }).then(res => {
+            res.json().then(data => {
+                console.log(data)
+            })
+                .catch(error => {
+                    console.log(error)
+                });
+        })
+    }
+    // setTimeout(() => {
+    //     $mitt.all.clear();
+    //     router.push({ name: 'Order' })
+    // }, 1000)
 })
 
 const closePanel = (e) => {
