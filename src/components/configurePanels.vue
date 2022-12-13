@@ -13,7 +13,8 @@ let selector = ref([]),
     extra__name = ref(),
     targetObj, activePanel, donutData = { extra: "maltesers", glaze: "choco", topping: "choco" },
     editorData = JSON.parse(window.localStorage.getItem("editor")),
-    fetchData;
+    fetchData,
+    donutType;
 
 const donutProps = defineProps({
     donutData: {
@@ -27,7 +28,8 @@ const donutProps = defineProps({
 });
 
 watch(donutProps, () => {
-    donutData = fetchData = donutProps.donutData.data
+    donutData = fetchData = donutProps.donutData.data;
+    donutType = donutProps.donutType;
 });
 
 const showActiveSelect = (e) => {
@@ -98,7 +100,15 @@ $mitt.on('saveToStorage', (e) => {
         let donutArr = (JSON.parse(window.localStorage.getItem('donuts')))
         donutArr.forEach(el => donuts.push(el))
     }
+    let topping = toppingsData.find(el => el.color == fetchData.topping),
+        glaze = glazesData.find(el => el.color == fetchData.glaze);
+    console.log(donutData)
+    if (donutType === "editor") {
+        donutData.glaze = glaze.eName
+        donutData.topping = topping.eName
+    }
     donutData.quantity = e.campaignSize
+
     donuts.push(donutData)
     window.localStorage.setItem('donuts', JSON.stringify(donuts))
     setTimeout(() => {
@@ -116,7 +126,7 @@ const defaultActive = () => {
         targetObj = { extra: "maltesers", glaze: "choco", topping: "choco" }
     }
     else {
-        targetObj = donutData = { extra: editorData.extraObj.eName, glaze: editorData.glazeObj.eName, topping: editorData.toppingObj.eName }
+        targetObj = donutData = { extra: editorData.extra, glaze: editorData.glaze, topping: editorData.topping }
     }
     selector.value.forEach(el => {
         if (el.children[1].innerHTML == targetObj.extra && el.getAttribute("id") == "extra__selector") {

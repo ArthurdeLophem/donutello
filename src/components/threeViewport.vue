@@ -34,9 +34,7 @@ watch(donutProps, () => {
             donut = { id: fetchData._id, extra: fetchData.extra, glaze: glaze.color, topping: topping.color }
             break;
         case "editor":
-            topping = toppingsData.find(el => el.eName == fetchData.topping)
-            glaze = glazesData.find(el => el.eName == fetchData.glaze)
-            donut = { extra: fetchData.extra, glaze: glaze.color, topping: topping.color }
+            donut = { extra: fetchData.extra, glaze: fetchData.glaze, topping: fetchData.topping }
             break;
         case "fresh":
             donut = { extra: fetchData.extra, glaze: "#6c3b1e", topping: "#6c3b1e", }

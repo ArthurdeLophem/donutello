@@ -9,6 +9,7 @@ let donuts = JSON.parse(window.localStorage.getItem('donuts')),
     extraObj, glazeObj, toppingObj, donutData
 
 const addDonut = () => {
+    window.localStorage.removeItem("editor")
     router.push({ name: 'Generator' })
 }
 
@@ -28,13 +29,13 @@ const deleteDonut = (index) => {
 
 const editDonut = (index) => {
     donutBlock.value[index].style.transform = "translateX(-50vw)";
-    window.localStorage.removeItem("editing")
+    window.localStorage.removeItem("editor")
     modal.value.classList.add('active');
     modal.value.innerHTML = "configuring editor...";
     extraObj = extrasData.find(el => el.eName == donuts[index].extra);
     glazeObj = glazesData.find(el => el.eName == donuts[index].glaze);
     toppingObj = toppingsData.find(el => el.eName == donuts[index].topping);
-    donutData = { extraObj, glazeObj, toppingObj }
+    donutData = { extra: extraObj.eName, glaze: glazeObj.color, topping: toppingObj.color }
     window.localStorage.setItem("editor", JSON.stringify(donutData))
     setTimeout(() => {
         donuts.splice(index, 1);
