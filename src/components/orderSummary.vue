@@ -2,12 +2,15 @@
 import { ref } from 'vue';
 import { extrasData, glazesData, toppingsData } from '../configs/donuttelloData';
 import router from './../router';
-import $mitt from '../scripts/mitt';
 
 let donuts = JSON.parse(window.localStorage.getItem('donuts')),
     donutBlock = ref(),
     modal = ref(),
     extraObj, glazeObj, toppingObj, donutData
+
+const addDonut = () => {
+    router.push({ name: 'Generator' })
+}
 
 const deleteDonut = (index) => {
     donutBlock.value[index].style.transform = "translateX(-50vw)";
@@ -80,6 +83,7 @@ const editDonut = (index) => {
                 </div>
             </div>
         </div>
+        <div class="btn__primary btn__text" @click="addDonut">add donuts</div>
     </div>
 </template>
 
@@ -135,6 +139,9 @@ p {
 
 .summary__container {
     width: 45%;
+    display: flex;
+    flex-direction: column;
+    gap: 3em;
 }
 
 .summary__list {
