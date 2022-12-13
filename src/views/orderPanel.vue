@@ -8,7 +8,7 @@ import { cloudPreset, mainUrl } from '../../config';
 
 const isCompleted = ref(false);
 
-const orderData = ref({ data : [] });
+const orderData = ref({ data: [] });
 
 let orderdate = ref("");
 let phone = ref("");
@@ -25,7 +25,7 @@ let logoUrl = ref("");
 
 watch(isCompleted, () => {
     console.log("updated");
-    if(isCompleted.value) {
+    if (isCompleted.value) {
         document.querySelector('.content__container').classList.add('content__container--hidden');
         document.querySelector('.completed').classList.remove('completed--hidden');
         orderdate.value = orderData.value.donut.orderdate;
@@ -39,11 +39,11 @@ watch(isCompleted, () => {
         logoUrl.value = orderData.value.donut.card.url;
         orderId.value = orderData.value.donut._id;
 
-        editLink.value = `${mainUrl}overview/?orderid=${orderId.value}&token=${orderToken.value}`;
-        previewLink.value = `${mainUrl}previewer/?orderid=${orderId.value}&`;
+        editLink.value = `${mainUrl}overview/?orderId=${orderId.value}&token=${orderToken.value}`;
+        previewLink.value = `${mainUrl}previewer/?orderId=${orderId.value}&`;
 
         let logoDiv = document.querySelector(".order__logo");
-        if(logoUrl.value === "") {
+        if (logoUrl.value === "") {
             logoDiv.classList.add("order__logo--hidden");
         }
 
@@ -72,7 +72,7 @@ const copyPreviewLink = (donutId) => {
     <lHeader class="header" />
     <div class="content__container">
         <oSummary />
-        <pInfo @isCompleted="updateIsComplete" @data="getData"/>
+        <pInfo @isCompleted="updateIsComplete" @data="getData" />
     </div>
     <div class="completed completed--hidden">
         <div class="completed__order">
@@ -86,15 +86,15 @@ const copyPreviewLink = (donutId) => {
             <span class="order__text">{{ city }}</span>
             <h3 class="order__subtitle">Order summary</h3>
             <ul class="order__donuts">
-                <li v-for="donut, index in donuts.data" class="donuts__item">    
-                    <span class="item__name">Donut {{index+1}}</span>
+                <li v-for="donut, index in donuts.data" class="donuts__item">
+                    <span class="item__name">Donut {{ index + 1 }}</span>
                     <div class="item__specs">
                         <span class="specs__text specs__text--bold">Sprinkles:</span>
                         <span class="specs__text">{{ donut.topping }}</span>
                     </div>
                     <div class="item__specs">
                         <span class="specs__text specs__text--bold">Glaze:</span>
-                        <span class="specs__text">{{ donut.glaze }}</span>    
+                        <span class="specs__text">{{ donut.glaze }}</span>
                     </div>
                     <div class="item__specs">
                         <span class="specs__text specs__text--bold">Extra:</span>
@@ -112,22 +112,22 @@ const copyPreviewLink = (donutId) => {
             </div>
             <h3 class="order__subtitle">Order links</h3>
             <p class="order__disclaimer">DISCLAIMER<br>
-            Once you leave this page you will forever lose these links!<br>
-            Make sure to copy them somewhere for once you lose the link you will not be able to retrieve it</p>
+                Once you leave this page you will forever lose these links!<br>
+                Make sure to copy them somewhere for once you lose the link you will not be able to retrieve it</p>
             <span class="order__text">Edit link:</span>
             <span class="order__text order__text--link" @click="copyLink">CopyEditLink</span>
             <span class="order__text">Share links:</span>
             <ul class="order__share">
                 <li class="share__link" v-for="donut, index in donuts.data">
-                    <span class="order__text order__text--link" @click="copyPreviewLink(donut._id)">CopyDonutPreviewLink{{index+1}}</span>
+                    <span class="order__text order__text--link"
+                        @click="copyPreviewLink(donut._id)">CopyDonutPreviewLink{{ index + 1 }}</span>
                 </li>
             </ul>
-        </div>            
+        </div>
     </div>
 </template>
 
 <style scoped>
-
 .content__container {
     display: flex;
     flex-direction: row;
@@ -179,7 +179,7 @@ const copyPreviewLink = (donutId) => {
 
 .order__text--link {
     padding: .2rem 0;
-    font-weight: 400!important;
+    font-weight: 400 !important;
 }
 
 .order__text--link:hover {
@@ -233,17 +233,20 @@ const copyPreviewLink = (donutId) => {
     width: 25%;
     text-align: center;
 }
+
 .item__name {
     font-weight: 600;
     font-size: 1.2rem;
 }
+
 .specs__text {
- color:#ed2970;
- font-weight: 500;
+    color: #ed2970;
+    font-weight: 500;
 }
+
 .specs__text--bold {
     font-weight: 600;
-    color:#000000;
+    color: #000000;
 }
 
 .order__text {
@@ -255,5 +258,4 @@ const copyPreviewLink = (donutId) => {
 .logo__img {
     width: 20rem;
 }
-
 </style>
