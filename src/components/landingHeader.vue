@@ -21,9 +21,7 @@ const logout = () => {
 </script>
 <template>
     <div class="header">
-        <div class="header__logo">
-            <h3>donutello.ai</h3>
-        </div>
+        <router-link class="header__logo" to="/">donutello.ai</router-link>
         <div class="header__interaction">
             <div class="button__dashboard button__dashboard--hidden">
                 <router-link to="/dashboard">dashboard</router-link>
@@ -40,11 +38,13 @@ const logout = () => {
 
 <style scoped>
 .header {
-    margin: 0 2em;
+    padding: .7em 2em;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    height: 70px;
+    align-items: center;
+    background-color: white;
+    height: 6vh;
 }
 
 .header__interaction {
@@ -52,6 +52,16 @@ const logout = () => {
     flex-direction: row;
     align-items: center;
     gap: 3em;
+}
+
+.header__logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: black;
+    cursor: pointer;
 }
 
 .button__login {

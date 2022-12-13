@@ -38,6 +38,10 @@ body {
   height: 100vh;
 }
 
+body::-webkit-scrollbar {
+  display: none;
+} 
+
 h1 {
   margin: 0;
   font-size: 5em;
