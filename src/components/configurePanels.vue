@@ -118,6 +118,10 @@ $mitt.on('saveToStorage', (e) => {
 
         donuts.push(donutData)
         window.localStorage.setItem('donuts', JSON.stringify(donuts))
+        setTimeout(() => {
+            $mitt.all.clear();
+            router.push({ name: 'Order' })
+        }, 1000)
     } else {
         donutData.quantity = e.campaignSize
         console.log(donutData)
@@ -132,16 +136,16 @@ $mitt.on('saveToStorage', (e) => {
         }).then(res => {
             res.json().then(data => {
                 console.log(data)
+                setTimeout(() => {
+                    $mitt.all.clear();
+                    router.push({ name: 'Overview', query: { orderId: orderId, token: token } })
+                }, 1000)
             })
                 .catch(error => {
                     console.log(error)
                 });
         })
     }
-    // setTimeout(() => {
-    //     $mitt.all.clear();
-    //     router.push({ name: 'Order' })
-    // }, 1000)
 })
 
 const closePanel = (e) => {

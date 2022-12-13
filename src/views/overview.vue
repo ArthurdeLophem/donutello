@@ -8,12 +8,13 @@ import { baseDonutUrl } from '../../config';
 
 let order = reactive({ data: [] }),
     tokenProp = reactive({ token: "" });
+const urlParams = new URLSearchParams(window.location.search),
+    orderId = urlParams.get('orderId'),
+    token = urlParams.get('token');
 
 onMounted(() => {
-    let token = window.location.href.split('?')[1].split('=')[1].split('&')[1];
+    // let token = window.location.href.split('?')[1].split('=')[1].split('&')[1];
     tokenProp.token = token
-    console.log(tokenProp)
-
     fetch(baseDonutUrl + "/auth", {
         method: 'POST',
         headers: {
@@ -28,9 +29,8 @@ onMounted(() => {
     });
 });
 
-const donutId = window.location.href.split('?')[1].split('=')[1].split('&')[0];
-console.log(donutId);
-fetch(baseDonutUrl + "/" + donutId, {
+// const donutId = window.location.href.split('?')[1].split('=')[1].split('&')[0];
+fetch(baseDonutUrl + "/" + orderId, {
     method: 'GET',
     headers: {
         'Content-Type': 'application/json'
