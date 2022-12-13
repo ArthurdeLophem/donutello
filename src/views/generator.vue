@@ -8,8 +8,8 @@ import { reactive } from 'vue';
 const urlParams = new URLSearchParams(window.location.search),
     orderId = urlParams.get('orderId'),
     token = urlParams.get('token'),
-    donutId = urlParams.get('donutId')
-let donutData
+    donutId = urlParams.get('donutId'),
+    donutData = reactive({ data: [] })
 
 if (donutId && orderId && token) {
     fetch(baseDonutUrl + "/" + orderId + "/" + donutId, {
@@ -20,9 +20,9 @@ if (donutId && orderId && token) {
     }).then(response =>
         response.json()
     ).then(data => {
-        donutData = data.data
+        donutData.data = data.data
         console.log(donutData)
-        // bakeDonut();
+
     }).catch(
         error => console.log(error)
     )
@@ -33,5 +33,5 @@ if (donutId && orderId && token) {
 <template>
     <donutViewport />
     <donutConfigurator />
-    <configPanels />
+    <configPanels :donutData="donutData" />
 </template>

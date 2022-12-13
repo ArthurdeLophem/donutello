@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue';
+import { ref, onMounted, onBeforeUnmount, watch } from 'vue';
 import { extrasData, glazesData, toppingsData } from '../configs/donuttelloData';
 import router from './../router';
 import $mitt from '../scripts/mitt.js';
@@ -13,6 +13,18 @@ let selector = ref([]),
     extra__name = ref(),
     targetObj, activePanel, donutData = { extra: "maltesers", glaze: "choco", topping: "choco" },
     editorData = JSON.parse(window.localStorage.getItem("editor"));
+
+const donutProps = defineProps({
+    donutData: {
+        type: Object,
+        required: true
+    }
+});
+
+watch(donutProps, () => {
+    let data = donutProps.donutData.data
+    defaultActive()
+});
 
 const showActiveSelect = (e) => {
     switch (activePanel) {
