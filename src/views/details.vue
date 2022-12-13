@@ -57,7 +57,7 @@ fetch(baseDonutUrl + "/" + donutId, {
     justify-content: center;
     width: 100%;
     height: fit-content;
-    margin-top: 5rem;
+    margin-top: 3rem;
     gap: 10rem;
 }
 </style>
