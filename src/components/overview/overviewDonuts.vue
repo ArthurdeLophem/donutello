@@ -1,4 +1,29 @@
 <script setup>
+import { ref, watch } from 'vue';
+import router from '../../router';
+let detailData,
+    donutBlock = ref(),
+    modal = ref(),
+    donuts = []
+
+const orderProps = defineProps({
+    order: {
+        type: Object,
+        required: true
+    }
+});
+
+watch(orderProps, () => {
+    detailData = orderProps.order;
+    detailData.donuts.forEach(el => {
+        donuts.push(el)
+    });
+    console.log(donuts)
+});
+
+watch(orderProps, () => {
+    console.log(orderProps)
+});
 </script>
 <template>
     <div class="modal__alert" ref="modal">base alert modal</div>
@@ -29,8 +54,11 @@
                             <p><strong>{{ donut.quantity }}</strong></p>
                         </div>
                     </div>
-                    <div class="button__rounded edit" @click="preview(index)">
-                        <img src="../../../assets/view__btn.svg" alt="edit donut button">
+                    <div class="button__rounded edit" @click="editDonut(index)">
+                        <img src="../../../public/assets/edit__btn.svg" alt="edit donut button">
+                    </div>
+                    <div class="button__rounded delete" @click="deleteDonut(index)">
+                        <img src="../../../public/assets/delete__btn.svg" alt="delete donut button">
                     </div>
                 </div>
             </div>
