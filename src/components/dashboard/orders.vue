@@ -93,6 +93,7 @@ const sliceDate = ((date) => {
     overflow-y: auto;
     scrollbar-width: none;
     padding: 0 2rem 3vh 2rem;
+    padding-bottom: 10rem;
 }
 
 .dashboard__orders::-webkit-scrollbar {
