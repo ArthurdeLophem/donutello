@@ -75,8 +75,14 @@ button {
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  color: #eef741;
   transition: all 100ms;
+  color: white;
+
+}
+
+.btn__primary:hover {
+  color: #eef741;
+
 }
 
 .btn__text {

@@ -16,7 +16,7 @@ onMounted(() => {
     ).then(data => {
         // console.log(data)
         orders.data = data.data
-        // console.log(orders.data);
+        console.log(orders.data);
     }).catch(
         error => console.log(error)
     )
@@ -30,12 +30,36 @@ const sliceDate = ((date) => {
 <template>
     <div class="dashboard">
         <div class="dashboard__orders">
-            <div class="orders__card" v-for="order in orders.data">
-                <span class="card__text">Order:</span>
-                <h3 class="card__title">{{ order.contact.name }}</h3>
-                <span class="card__text">Request Date:</span>
-                <span class="card__text card__text--pink">{{ sliceDate(order.orderdate) }}</span>
-                <router-link :to="('/details?orderid=' + order._id)" class="card__btn">details</router-link>
+            <div class="card__container" v-for="order in orders.data">
+                <div class="enticing__example">
+                    <div class="example__card">
+                        <img class="example__img" src="/assets/shopping_bag.png" alt="3d shopping bag">
+                        <div class="example__info">
+                            <div class="company__info">
+                                <div class="company__logo"></div>
+                                <h3>{{ order.contact.name }}</h3>
+                            </div>
+                            <div class="donut__flav--cont">
+                                <div class="flav__type">
+                                    <p class="">extra</p>
+                                    <p class="">glaze</p>
+                                    <p class="">topping</p>
+                                </div>
+                                <div class="donut__flavs">
+                                    <p>{{ order.donuts[0].extra }}</p>
+                                    <p>{{ order.donuts[0].glaze }}</p>
+                                    <p>{{ order.donuts[0].topping }}</p>
+                                </div>
+                            </div>
+                            <div class="donut__data">
+                                <p><strong>{{ sliceDate(order.contact.orderstatus) }}</strong></p>
+                                <p><strong>{{ sliceDate(order.orderdate) }}</strong></p>
+                            </div>
+                        </div>
+                        <router-link :to="('/details?orderid=' + order._id)" class="btn__primary">details</router-link>
+                    </div>
+                </div>
+                <div class="background__texture--circle"></div>
             </div>
         </div>
     </div>
@@ -44,13 +68,39 @@ const sliceDate = ((date) => {
 .dashboard {
     width: 100%;
     height: 100vh;
-    background-image: url('https://res.cloudinary.com/dgypufy9k/image/upload/v1670855818/donunq/sint_donuttello_no9qwp.webp');
-    background-repeat: no-repeat;
+    /* background-image: url('https://res.cloudinary.com/dgypufy9k/image/upload/v1670855818/donunq/sint_donuttello_no9qwp.webp'); */
+    /* background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    background-attachment: fixed;
+    background-attachment: fixed; */
     overflow-y: hidden;
+}
 
+.btn__primary {
+    align-self: center;
+    margin: 2em 0;
+}
+
+.donut__flav--cont {
+    display: grid;
+    grid-template-columns: 8.75em 8.75em;
+    font-weight: 600;
+    color: grey;
+}
+
+.donut__flavs {
+    place-self: end;
+    text-align: end;
+}
+
+.flav__type {
+    place-self: center;
+    opacity: 0.4;
+}
+
+.donut__flav--column p {
+    padding: 0;
+    margin: 0;
 }
 
 .dashboard__filter {
@@ -61,6 +111,57 @@ const sliceDate = ((date) => {
     align-items: center;
     margin-top: 3vh;
 
+}
+
+.example__card {
+    height: fit-content;
+    width: 320px;
+    background-color: black;
+    color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+.background__texture--circle {
+    z-index: -2;
+    position: absolute;
+    width: 260px;
+    height: 260px;
+    border-radius: 100%;
+    background-color: #ed2970;
+    opacity: 36%;
+    transform: translateX(160px) translateY(-240px);
+}
+
+.example__img {
+    height: 80px;
+    margin: 2em auto;
+}
+
+.company__info {
+    margin: 0em 2em;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1em;
+}
+
+.company__logo {
+    width: 25px;
+    height: 25px;
+    background-color: white;
+    border-radius: 100%;
+}
+
+.company__info h3 {
+    font-weight: 800;
+}
+
+.donut__data {
+    margin: 0em 2em;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .filter__btn {
@@ -97,38 +198,6 @@ const sliceDate = ((date) => {
 
 .dashboard__orders::-webkit-scrollbar {
     display: none;
-}
-
-.orders__card {
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    width: 12.5%;
-    height: fit-content;
-    padding: 2rem 2rem;
-    border-radius: 20px;
-    box-shadow: 0px 5px 7px -2px rgba(0, 0, 0, 0.5);
-    box-sizing: border-box;
-
-}
-
-
-.card__text {
-    font-size: 1.2rem;
-    font-weight: 600;
-    margin: 0.5rem 0;
-}
-
-.card__text--pink {
-    color: #ed2970;
-    margin-bottom: 1rem;
-}
-
-.card__title {
-    font-size: 1.75rem;
-    font-weight: 600;
-    margin: 0.5rem 0;
-    word-wrap: break-word;
 }
 
 .card__btn {

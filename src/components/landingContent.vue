@@ -69,10 +69,6 @@ a {
     margin-left: 2em;
 }
 
-.btn__primary:hover {
-    color: black;
-}
-
 .enticing__interaction p {
     width: 340px;
     font-weight: 600;
@@ -147,9 +143,5 @@ a {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-}
-
-.donut__data p {
-    color: #F46767;
 }
 </style>
