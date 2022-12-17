@@ -1,11 +1,16 @@
 <script setup>
 import { ref, watch } from 'vue';
 import router from '../../router';
+import { baseDonutUrl } from '../../../config';
+
 let detailData,
     donutBlock = ref(),
     modal = ref(),
     donuts = [],
     token;
+
+const urlParams = new URLSearchParams(window.location.search),
+    orderId = urlParams.get('orderId');
 
 const orderProps = defineProps({
     order: {
@@ -67,9 +72,6 @@ const editDonut = (index) => {
                     </div>
                     <div class="button__rounded edit" @click="editDonut(index)">
                         <img src="../../../public/assets/edit__btn.svg" alt="edit donut button">
-                    </div>
-                    <div class="button__rounded delete" @click="deleteDonut(index)">
-                        <img src="../../../public/assets/delete__btn.svg" alt="delete donut button">
                     </div>
                 </div>
             </div>

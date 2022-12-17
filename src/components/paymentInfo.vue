@@ -100,7 +100,7 @@ const placeOrder = () => {
                     body: JSON.stringify(formData)
                 }).then(res => {
                     res.json().then(data => {
-                        console.log(data)
+                        localStorage.removeItem('donuts');
                         emit('isCompleted', true);
                         emit('data', data.data);
                     })
@@ -134,6 +134,7 @@ const placeOrder = () => {
             body: JSON.stringify(formData)
         }).then(res => {
             res.json().then(data => {
+                localStorage.removeItem('donuts');
                 emit('isCompleted', true);
                 emit('data', data.data);
             })
