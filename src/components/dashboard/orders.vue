@@ -85,17 +85,23 @@ const sliceDate = ((date) => {
     display: grid;
     grid-template-columns: 8.75em 8.75em;
     font-weight: 600;
-    color: grey;
+    margin: 0.5em 0;
 }
 
 .donut__flavs {
     place-self: end;
     text-align: end;
+    color: #ed2970;
 }
 
 .flav__type {
+    opacity: 0.8;
     place-self: center;
-    opacity: 0.4;
+}
+
+.donut__flavs p,
+.flav__type p {
+    margin: 0.5em 0;
 }
 
 .donut__flav--column p {
@@ -110,7 +116,6 @@ const sliceDate = ((date) => {
     justify-content: flex-start;
     align-items: center;
     margin-top: 3vh;
-
 }
 
 .example__card {
@@ -139,7 +144,7 @@ const sliceDate = ((date) => {
 }
 
 .company__info {
-    margin: 0em 2em;
+    margin: 0em 1.5em;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -158,7 +163,7 @@ const sliceDate = ((date) => {
 }
 
 .donut__data {
-    margin: 0em 2em;
+    margin: 0em 1.5em;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
