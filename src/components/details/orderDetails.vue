@@ -103,20 +103,23 @@ const deleteOrder = () => {
             <img class="logo__img" :src="url" alt="logo">
         </div>
         <div class="container__status">
-            <div class="status__checkbox">
-                <input class="status__box" type="radio" id="pending" name="statusCheck"
-                    :checked="statusCheck === 'pending'" @click="updateStatus('pending')">
-                <label class="status__text">pending</label>
-            </div>
-            <div class="status__checkbox">
-                <input class="status__box" type="radio" id="inProgress" name="statusCheck"
-                    :checked="statusCheck === 'in progress'" @click="updateStatus('in progress')">
-                <label class="status__text">in progress</label>
-            </div>
-            <div class="status__checkbox">
-                <input class="status__box" type="radio" id="completed" name="statusCheck"
-                    :checked="statusCheck === 'completed'" @click="updateStatus('completed')">
-                <label class="status__text">completed</label>
+            <p>status:</p>
+            <div>
+                <div class="status__checkbox">
+                    <input class="status__box" type="radio" id="pending" name="statusCheck"
+                        :checked="statusCheck === 'pending'" @click="updateStatus('pending')">
+                    <label class="status__text">pending</label>
+                </div>
+                <div class="status__checkbox">
+                    <input class="status__box" type="radio" id="inProgress" name="statusCheck"
+                        :checked="statusCheck === 'in progress'" @click="updateStatus('in progress')">
+                    <label class="status__text">in progress</label>
+                </div>
+                <div class="status__checkbox">
+                    <input class="status__box" type="radio" id="completed" name="statusCheck"
+                        :checked="statusCheck === 'completed'" @click="updateStatus('completed')">
+                    <label class="status__text">completed</label>
+                </div>
             </div>
         </div>
         <span class="container__text container__text--success container__text--hidden">Order status succesfully
@@ -142,7 +145,6 @@ const deleteOrder = () => {
 .container__info {
     display: flex;
     flex-direction: column;
-    margin-right: 5rem;
 }
 
 .info__text {
@@ -197,12 +199,14 @@ const deleteOrder = () => {
 
 .container__status {
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    width: 70%;
-    margin-top: 1rem;
+    flex-direction: column;
+}
+
+.container__status div {
+    display: flex;
+    justify-content: space-evenly;
     margin-bottom: 1rem;
+    gap: 0.3em;
 }
 
 .status__checkbox {
