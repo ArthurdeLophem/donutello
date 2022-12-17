@@ -3,6 +3,7 @@ import lHeader from '../components/landingHeader.vue'
 import lContent from '../components/landingContent.vue'
 import lTestimonial from '../components/landingTestimonial.vue'
 import lBrands from '../components/landingBrands.vue'
+import lFooter from '../components/landingFooter.vue'
 </script>
 
 <template>
@@ -10,4 +11,5 @@ import lBrands from '../components/landingBrands.vue'
     <lContent />
     <lTestimonial />
     <lBrands />
+    <lFooter />
 </template>

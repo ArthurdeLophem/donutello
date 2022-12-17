@@ -2,7 +2,7 @@
 import { ref, reactive, onMounted } from 'vue';
 
 onMounted(() => {
-    if(localStorage.getItem('token')) {
+    if (localStorage.getItem('token')) {
         let logout = document.querySelector('.button__logout');
         logout.classList.remove('button__logout--hidden');
         let login = document.querySelector('.button__login');
@@ -21,7 +21,11 @@ const logout = () => {
 </script>
 <template>
     <div class="header">
-        <router-link class="header__logo" to="/">donutello.ai</router-link>
+        <router-link class="header__logo" to="/">
+            <img class="header__logo--img" src="../../assets/donuttello-logo.png" alt="">
+            <p>x</p>
+            <p>donuttello.ai</p>
+        </router-link>
         <div class="header__interaction">
             <div class="button__dashboard button__dashboard--hidden">
                 <router-link to="/dashboard">dashboard</router-link>
@@ -37,6 +41,10 @@ const logout = () => {
 </template>
 
 <style scoped>
+strong {
+    color: #ed2970;
+}
+
 .header {
     padding: .7em 2em;
     display: flex;
@@ -44,7 +52,10 @@ const logout = () => {
     justify-content: space-between;
     align-items: center;
     background-color: white;
-    height: 6vh;
+}
+
+.header__logo--img {
+    height: 60px;
 }
 
 .header__interaction {
@@ -62,6 +73,7 @@ const logout = () => {
     font-weight: 700;
     color: black;
     cursor: pointer;
+    gap: 0.5em;
 }
 
 .button__login {
@@ -92,7 +104,7 @@ const logout = () => {
     width: 5rem;
 }
 
-.logout__btn  {
+.logout__btn {
     cursor: pointer;
     color: white;
     font-weight: 600;
@@ -113,5 +125,4 @@ const logout = () => {
 .button__dashboard--hidden {
     display: none;
 }
-
 </style>
