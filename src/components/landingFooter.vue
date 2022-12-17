@@ -14,6 +14,7 @@ const donuttelloRedirect = () => {
 
 <style scoped>
 footer {
+    font-family: 'Dosis', sans-serif;
     display: flex;
     justify-content: space-evenly;
     align-items: center;

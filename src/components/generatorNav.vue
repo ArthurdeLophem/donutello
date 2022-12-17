@@ -117,7 +117,6 @@ strong {
 }
 
 .campaign__header p {
-    font-weight: 800;
     cursor: pointer;
 }
 

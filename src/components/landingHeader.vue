@@ -66,11 +66,12 @@ strong {
 }
 
 .header__logo {
+    font-family: 'Dosis', sans-serif;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 1.25rem;
-    font-weight: 700;
+    font-weight: 800;
     color: black;
     cursor: pointer;
     gap: 0.5em;
