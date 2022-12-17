@@ -9,7 +9,11 @@ const logout = () => {
 
 <template>
     <div class="header">
-        <router-link to="/" class="header__logo">donutello.ai</router-link>
+        <router-link class="header__logo" to="/">
+            <img class="header__logo--img" src="../../../assets/donuttello-logo.png" alt="">
+            <p>x</p>
+            <p>donuttello.ai</p>
+        </router-link>
         <div class="header__interaction">
             <div class="button__password">
                 <router-link to="/change-password">change password</router-link>
@@ -23,13 +27,29 @@ const logout = () => {
 
 <style scoped>
 .header {
-    padding: 0 2em;
+    padding: .7em 2em;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    height: 6vh;
+    align-items: center;
     background-color: white;
-    z-index: 1;
+    z-index: 10;
+}
+
+.header__logo--img {
+    height: 60px;
+}
+
+.header__logo {
+    font-family: 'Dosis', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: black;
+    cursor: pointer;
+    gap: 0.5em;
 }
 
 .header__interaction {
