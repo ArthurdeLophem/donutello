@@ -17,7 +17,7 @@ let selector = ref([]),
     topping__name = ref(),
     glaze__name = ref(),
     extra__name = ref(),
-    targetObj, activePanel, donutData = { extra: "maltesers", glaze: "choco", topping: "choco" },
+    targetObj, activePanel, donutData = { extra: "maltesers", glaze: "#6c3b1e", topping: "#6c3b1e" },
     editorData = JSON.parse(window.localStorage.getItem("editor")),
     fetchData,
     donutType;
@@ -72,12 +72,12 @@ const emitDonunq = (e) => {
         case "glaze":
             targetObj = glazesData.find(el => el.eName == e.target.nextElementSibling.innerText);
             $mitt.emit('emitGlazes', { 'glazeColor': targetObj.color });
-            donutData.glaze = targetObj.eName;
+            donutData.glaze = targetObj.color;
             break;
         case "topping":
             targetObj = toppingsData.find(el => el.eName == e.target.nextElementSibling.innerText);
             $mitt.emit('emitToppings', { 'toppingColor': targetObj.color });
-            donutData.topping = targetObj.eName;
+            donutData.topping = targetObj.color;
             break;
     }
 }
@@ -109,13 +109,11 @@ $mitt.on('saveToStorage', (e) => {
         }
         let topping = toppingsData.find(el => el.color == fetchData.topping),
             glaze = glazesData.find(el => el.color == fetchData.glaze);
-        console.log(donutData)
         if (donutType === "editor") {
             donutData.glaze = glaze.eName
             donutData.topping = topping.eName
         }
         donutData.quantity = e.campaignSize
-
         donuts.push(donutData)
         window.localStorage.setItem('donuts', JSON.stringify(donuts))
         setTimeout(() => {

@@ -58,7 +58,6 @@ export default class Donunq {
         loader.load(this.donunqData.path, (gltf) => {
             this.model = gltf.scene
             gltf.scene.scale.set(this.donunqData.scaleX, this.donunqData.scaleY, this.donunqData.scaleZ);
-            console.log(this.model)
             this.customizables.push(
                 this.malteserObj = this.model.children[0].children[0],
                 this.snickerObj = this.model.children[0].children[3],
@@ -90,7 +89,6 @@ export default class Donunq {
     }
 
     configureTopping(topping) {
-        console.log(this.model)
         this.toppingObj.material = new THREE.MeshStandardMaterial({
             color: topping,
             roughness: this.donunqData.roughness,
@@ -158,7 +156,6 @@ export default class Donunq {
         const intersects = raycaster.intersectObjects(this.scene.children);
         const targetObj = intersects[0].object.name;
         if (targetObj !== null) {
-            console.log(targetObj);
             return targetObj
         }
     }

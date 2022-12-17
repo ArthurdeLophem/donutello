@@ -149,6 +149,7 @@ p {
     display: flex;
     flex-direction: column;
     gap: 4em;
+    padding-top: 2em;
 }
 
 .summary__Headline {
