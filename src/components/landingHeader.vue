@@ -52,6 +52,7 @@ strong {
     justify-content: space-between;
     align-items: center;
     background-color: white;
+    z-index: 10;
 }
 
 .header__logo--img {
@@ -89,9 +90,10 @@ strong {
 
 .button__login a {
     color: white;
+    transition: all 100ms;
 }
 
-.button__login a:hover {
+.button__login:hover a {
     color: #ed2970;
 }
 

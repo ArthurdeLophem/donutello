@@ -52,8 +52,11 @@ span {
     color: #ed2970;
 }
 
+strong {
+    color: #ed2970;
+}
+
 a {
-    color: white;
     margin: 2em 2em;
     font-weight: 800;
 }
@@ -64,6 +67,10 @@ a {
 
 .btn__primary {
     margin-left: 2em;
+}
+
+.btn__primary:hover {
+    color: black;
 }
 
 .enticing__interaction p {

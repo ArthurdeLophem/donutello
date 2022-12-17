@@ -20,6 +20,10 @@
   overflow-x: hidden;
 }
 
+input{
+  font-family: 'Dosis', sans-serif;
+}
+
 a {
   font-weight: 600;
   color: black;
@@ -59,6 +63,7 @@ button {
   background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
+  transition: all 100ms;
 }
 
 .btn__primary {
@@ -70,6 +75,8 @@ button {
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  color: #eef741;
+  transition: all 100ms;
 }
 
 .btn__text {

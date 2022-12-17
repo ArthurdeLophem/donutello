@@ -50,9 +50,6 @@ const submit = () => {
         <div class="login__image"></div>
         <div class="login__section">
             <div class="section__container">
-                <router-link to="/" class="container__brand container__brand--padding">
-                    Donutello.ai
-                </router-link>
                 <h1 class="container__title container__title--padding">
                     Welcome <span class="title__pink">back</span>
                 </h1>
@@ -68,8 +65,8 @@ const submit = () => {
                     <div class="form__error form__error--hidden" ref="form__error">
                         <p class="error__text">Invalid username or password</p>
                     </div>
-                    <div class="form__button" @click="submit">
-                        <span class="button__login">log in</span>
+                    <div class="btn__primary" @click="submit">
+                        <span class="btn__text">log in</span>
                     </div>
                 </form>
             </div>
@@ -82,7 +79,7 @@ const submit = () => {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 80vh;
     width: 100vw;
     background-color: #F5F5F5;
 }
@@ -105,6 +102,10 @@ const submit = () => {
     background-color: white;
 }
 
+.btn__primary {
+    margin-top: 2em;
+}
+
 .section__container {
     width: 70%;
 }
@@ -123,8 +124,8 @@ const submit = () => {
     border: none;
     border-bottom: 1px solid #000000;
     outline: none;
-    font-size: 1.2rem;
-    font-weight: 500;
+    font-size: 1.3rem;
+    font-weight: 700;
     color: #000000;
     background: none;
 }
@@ -135,23 +136,7 @@ const submit = () => {
 }
 
 .container__brand:hover {
-    color:#000000;
-}
-
-.form__button {
-    background-color: #ed2970;
-    width: 7rem;
-    height: 2.5rem;
-    font-size: 1.5em;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 2rem;
-    cursor: pointer;
-}
-
-.button__login {
-    color: white;
+    color: #000000;
 }
 
 .container__form--padding,
@@ -174,7 +159,7 @@ const submit = () => {
 
 .container__title {
     font-size: clamp(3rem, 10vw, 4rem);
-    font-weight: 600;
+    font-weight: 800;
 }
 
 .form__error {
