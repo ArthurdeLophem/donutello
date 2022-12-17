@@ -36,9 +36,8 @@ watch(detailProps, () => {
 
     let deleteBtn = document.querySelector(".container__btn--delete");
     if (statusCheck.value === "pending" || statusCheck.value === "completed") {
-    deleteBtn.classList.remove("container__btn--hidden");
-}
-
+        deleteBtn.classList.remove("container__btn--hidden");
+    }
 });
 
 const updateOrder = () => {
@@ -64,15 +63,10 @@ const updateOrder = () => {
             let errorMsg = document.querySelector(".container__text--error");
             errorMsg.classList.remove("container__text--hidden");
         });
-
-
 }
 
 const updateStatus = (i) => {
-
     statusCheck.value = i;
-
-
 }
 
 const deleteOrder = () => {
@@ -125,10 +119,14 @@ const deleteOrder = () => {
                 <label class="status__text">completed</label>
             </div>
         </div>
-        <span class="container__text container__text--success container__text--hidden">Order status succesfully updated</span>
+        <span class="container__text container__text--success container__text--hidden">Order status succesfully
+            updated</span>
         <span class="container__text container__text--error container__text--hidden">Internal Server Error</span>
-        <button @click="updateOrder" class="container__btn">save</button>
-        <button @click="deleteOrder" class="container__btn container__btn--delete container__btn--hidden">delete order</button>
+        <div class="button__container">
+            <div @click="updateOrder" class="btn__primary">save</div>
+            <div @click="deleteOrder" class="btn__primary container__btn--delete container__btn--hidden">
+                delete order</div>
+        </div>
     </div>
 </template>
 <style scoped>
@@ -167,19 +165,6 @@ const deleteOrder = () => {
     margin-top: 1rem;
     margin-bottom: 1rem;
 }
-.container__btn {
-    margin-top: 1rem;
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 0;
-    background-color: #ed2970;
-    color: white;
-    font-size: 1.2rem;
-    font-weight: 600;
-    width: 10rem;
-    height: 3rem;
-    cursor: pointer;
-}
 
 .container__btn--delete {
     background-color: #000000;
@@ -197,6 +182,7 @@ const deleteOrder = () => {
     font-size: 1rem;
     font-weight: 600;
 }
+
 .container__text--success {
     color: green;
 }
@@ -224,9 +210,18 @@ const deleteOrder = () => {
     align-items: center;
 }
 
+.button__container {
+    display: flex;
+    gap: 8em;
+    margin-bottom: 2em;
+    align-items: center;
+}
+
 .logo__img {
     width: 20rem;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+}
+
+.btn__primary {
+    font-weight: 600;
 }
 </style>
