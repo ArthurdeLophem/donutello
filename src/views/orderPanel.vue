@@ -132,6 +132,7 @@ const copyPreviewLink = (donutId) => {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    margin-top: 2em;
 }
 
 .content__container--hidden {

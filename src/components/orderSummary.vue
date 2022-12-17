@@ -49,6 +49,7 @@ const editDonut = (index) => {
 <template>
     <div class="modal__alert" ref="modal">base alert modal</div>
     <div class="summary__container" ref="extra__container">
+        <h2 class="payment__title">order summary</h2>
         <div class="summary__list">
             <div class="donut__block" v-for="(donut, index) in donuts" ref="donutBlock">
                 <div class="donut__position">
@@ -149,7 +150,6 @@ p {
     display: flex;
     flex-direction: column;
     gap: 4em;
-    padding-top: 2em;
 }
 
 .summary__Headline {
