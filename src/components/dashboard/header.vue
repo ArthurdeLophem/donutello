@@ -69,15 +69,6 @@ const logout = () => {
     width: 5rem;
 }
 
-.header__logo {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: black;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
 .logout__btn {
     color: white;
     font-weight: 600;

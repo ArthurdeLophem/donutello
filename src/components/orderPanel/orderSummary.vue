@@ -77,10 +77,10 @@ const editDonut = (index) => {
                         </div>
                     </div>
                     <div class="button__rounded edit" @click="editDonut(index)">
-                        <img src="../../public/assets/edit__btn.svg" alt="edit donut button">
+                        <img src="../../../assets/edit__btn.svg" alt="edit donut button">
                     </div>
                     <div class="button__rounded delete" @click="deleteDonut(index)">
-                        <img src="../../public/assets/delete__btn.svg" alt="delete donut button">
+                        <img src="../../../assets/delete__btn.svg" alt="delete donut button">
                     </div>
                 </div>
             </div>

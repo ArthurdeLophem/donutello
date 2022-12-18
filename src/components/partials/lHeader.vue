@@ -22,7 +22,7 @@ const logout = () => {
 <template>
     <div class="header">
         <router-link class="header__logo" to="/">
-            <img class="header__logo--img" src="../../assets/donuttello-logo.png" alt="">
+            <img class="header__logo--img" src="../../../assets/donuttello-logo.png" alt="">
             <p>x</p>
             <p>donuttello.ai</p>
         </router-link>
