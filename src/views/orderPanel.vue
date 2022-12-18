@@ -64,8 +64,8 @@ const copyPreviewLink = (donutId) => {
     let link = previewLink.value + donutId;
     navigator.clipboard.writeText(link);
 }
-
 </script>
+
 <template>
     <lHeader class="header" />
     <div class="content__container">
@@ -73,54 +73,68 @@ const copyPreviewLink = (donutId) => {
         <pInfo @isCompleted="updateIsComplete" @data="getData" />
     </div>
     <div class="completed completed--hidden">
+        <h2 class="order__title">Order Placed</h2>
         <div class="completed__order">
-            <h2 class="order__title">Order Placed</h2>
-            <h3 class="order__subtitle">Thank you for placing your order!</h3>
-            <span class="order__text">{{ new Date(orderdate).toLocaleDateString("en-GB") }}</span>
-            <span class="order__text">{{ name }}</span>
-            <span class="order__text">{{ mail }}</span>
-            <span class="order__text">{{ phone }}</span>
-            <span class="order__text">{{ address }}</span>
-            <span class="order__text">{{ city }}</span>
-            <h3 class="order__subtitle">Order summary</h3>
-            <ul class="order__donuts">
-                <li v-for="donut, index in donuts.data" class="donuts__item">
-                    <span class="item__name">Donut {{ index + 1 }}</span>
-                    <div class="item__specs">
-                        <span class="specs__text specs__text--bold">Sprinkles:</span>
-                        <span class="specs__text">{{ donut.topping }}</span>
+            <div class="order">
+                <div class="details__card">
+                    <h3 class="order__subtitle">Thank you for placing your order!</h3>
+                    <div>
+                        <span class="order__text">{{ new Date(orderdate).toLocaleDateString("en-GB") }}</span>
+                        <span class="order__text">{{ name }}</span>
                     </div>
-                    <div class="item__specs">
-                        <span class="specs__text specs__text--bold">Glaze:</span>
-                        <span class="specs__text">{{ donut.glaze }}</span>
+                    <!-- <span class="order__text">{{ mail }}</span>
+                    <span class="order__text">{{ phone }}</span>
+                    <span class="order__text">{{ address }}</span>
+                    <span class="order__text">{{ city }}</span> -->
+                </div>
+                <div class="donuts__summary">
+                    <h3 class="order__subtitle">Order summary</h3>
+                    <ul class="order__donuts">
+                        <li v-for="donut, index in donuts.data" class="donuts__item">
+                            <span class="item__name">Donut {{ index + 1 }}</span>
+                            <div class="item__specs">
+                                <span class="specs__text specs__text--bold">Sprinkles:</span>
+                                <span class="specs__text">{{ donut.topping }}</span>
+                            </div>
+                            <div class="item__specs">
+                                <span class="specs__text specs__text--bold">Glaze:</span>
+                                <span class="specs__text">{{ donut.glaze }}</span>
+                            </div>
+                            <div class="item__specs">
+                                <span class="specs__text specs__text--bold">Extra:</span>
+                                <span class="specs__text">{{ donut.extra }}</span>
+                            </div>
+                            <div class="item__specs">
+                                <span class="specs__text specs__text--bold">Campaign size:</span>
+                                <span class="specs__text">{{ donut.quantity }}</span>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="order__logo">
+                        <h3 class="logo__text">Company logo</h3>
+                        <img class="logo__img" :src="logoUrl" alt="logo">
                     </div>
-                    <div class="item__specs">
-                        <span class="specs__text specs__text--bold">Extra:</span>
-                        <span class="specs__text">{{ donut.extra }}</span>
-                    </div>
-                    <div class="item__specs">
-                        <span class="specs__text specs__text--bold">Campaign size:</span>
-                        <span class="specs__text">{{ donut.quantity }}</span>
-                    </div>
-                </li>
-            </ul>
-            <div class="order__logo">
-                <h3 class="logo__text">Company logo</h3>
-                <img class="logo__img" :src="logoUrl" alt="logo">
+                </div>
             </div>
-            <h3 class="order__subtitle">Order links</h3>
-            <p class="order__disclaimer">DISCLAIMER<br>
-                Once you leave this page you will forever lose these links!<br>
-                Make sure to copy them somewhere for once you lose the link you will not be able to retrieve it</p>
-            <span class="order__text">Edit link:</span>
-            <span class="order__text order__text--link" @click="copyLink">CopyEditLink</span>
-            <span class="order__text">Share links:</span>
-            <ul class="order__share">
-                <li class="share__link" v-for="donut, index in donuts.data">
-                    <span class="order__text order__text--link"
-                        @click="copyPreviewLink(donut._id)">CopyDonutPreviewLink{{ index + 1 }}</span>
-                </li>
-            </ul>
+            <div class="order__links">
+                <h3 class="order__subtitle">your <strong>unique</strong> donut codes</h3>
+                <p class="order__disclaimer">DISCLAIMER<br>
+                    Once you leave this page you will forever lose these links! Make sure to copy them somewhere
+                </p>
+                <div class="link__spams">
+                    <span class="order__text">Edit link:</span>
+                    <span class="order__text order__text--link" @click="copyLink">CopyEditLink</span>
+                </div>
+                <div class="link__spams">
+                    <span class="order__text">Share links:</span>
+                    <ul class="order__share">
+                        <li class="share__link" v-for="donut, index in donuts.data">
+                            <span class="order__text order__text--link"
+                                @click="copyPreviewLink(donut._id)">CopyDonutPreviewLink{{ index + 1 }}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -133,8 +147,43 @@ const copyPreviewLink = (donutId) => {
     margin-top: 2em;
 }
 
+.order {
+    display: flex;
+    flex-direction: column;
+}
+
 .content__container--hidden {
     display: none;
+}
+
+.details__card {
+    background-color: #000000;
+    color: white;
+    padding: 1em 2em;
+}
+
+.details__card div {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.donuts__summary {
+    background-color: #EBEBEB;
+    padding: 1em 2em;
+}
+
+.order__links {
+    background-color: #EBEBEB;
+    padding: 1em 2em;
+    border-radius: 5px;
+}
+
+.link__spams {
+    display: flex;
+    margin-bottom: 1em;
+    gap: 1.3em;
+    align-items: flex-end;
 }
 
 .completed {
@@ -143,12 +192,8 @@ const copyPreviewLink = (donutId) => {
     align-items: center;
     justify-content: flex-start;
     height: 100%;
-    background-image: url('https://res.cloudinary.com/dgypufy9k/image/upload/v1670855818/donunq/sint_donuttello_no9qwp.webp');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
     overflow-y: hidden;
+    gap: 3em;
 }
 
 .completed--hidden {
@@ -156,12 +201,13 @@ const copyPreviewLink = (donutId) => {
 }
 
 .completed__order {
+    width: 100%;
     background-color: white;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 50%;
-    padding-bottom: 1rem;
+    flex-direction: row;
+    justify-content: center;
+    gap: 3em;
+    align-items: flex-end;
     overflow-y: auto;
     scrollbar-width: none;
 }
@@ -178,11 +224,17 @@ const copyPreviewLink = (donutId) => {
 
 .order__text--link {
     padding: .2rem 0;
-    font-weight: 400 !important;
+    font-size: 1.4em !important;
+    opacity: 1 !important;
+
 }
 
 .order__text--link:hover {
     cursor: pointer;
+    color: #ed2970;
+}
+
+strong {
     color: #ed2970;
 }
 
@@ -194,12 +246,11 @@ const copyPreviewLink = (donutId) => {
 }
 
 .order__disclaimer {
-    font-size: .8rem;
-    font-weight: 400;
-    margin-top: 1rem;
+    font-size: .9rem;
+    font-weight: 500;
+    margin: 3em 0em 2em 0;
     color: red;
     text-align: center;
-    width: 40%;
 }
 
 .donuts__item {
@@ -222,14 +273,13 @@ const copyPreviewLink = (donutId) => {
 
 .item__specs {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: space-between;
     width: 100%;
 }
 
 .order__donuts {
-    width: 25%;
     text-align: center;
 }
 
@@ -239,7 +289,6 @@ const copyPreviewLink = (donutId) => {
 }
 
 .specs__text {
-    color: #ed2970;
     font-weight: 500;
 }
 
@@ -249,8 +298,8 @@ const copyPreviewLink = (donutId) => {
 }
 
 .order__text {
-    font-weight: 500;
-    font-size: 1.2rem;
+    font-weight: 700;
+    font-size: 1em;
     padding: .2rem 0;
 }
 

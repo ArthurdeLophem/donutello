@@ -118,6 +118,7 @@ strong {
 
 .campaign__header p {
     cursor: pointer;
+    font-weight: 800;
 }
 
 
@@ -130,11 +131,12 @@ strong {
 }
 
 input {
+    font-family: 'Montserrat', sans-serif;
     padding: 0.5em 1em;
     background-color: #99999b;
     border: none;
     color: black;
-    font-weight: 600;
+    font-weight: 800;
     font-size: 1.5em;
     border-radius: 3px;
     transition: all 250ms;
