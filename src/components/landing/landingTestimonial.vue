@@ -7,7 +7,7 @@
         <div class="testimonial__content">
             <div>
                 <div class="background__texture--circle"></div>
-                <img class="testimonial__portrait" src="/assets/obama.svg" alt="obama portrait">
+                <div class="testimonial__portrait"></div>
             </div>
             <div class="testimonial__quote">I made my campaign in 5 minutes and they were
                 already in production 10 minutes after I finished my donuts.
@@ -39,7 +39,13 @@
 }
 
 .testimonial__portrait {
+    background-image: url(../../../assets/person.jpg);
+    background-position: top;
+    background-size: cover;
+    background-repeat: no-repeat;
     width: 300px;
+    height: 350px;
+    border-radius: 1em;
 }
 
 .testimonial__quote {
