@@ -1,5 +1,4 @@
-export const extrasData = [
-    {
+export const extrasData = [{
         color: "#c51d34",
         eName: "maltesers"
     },
@@ -17,8 +16,7 @@ export const extrasData = [
     }
 ]
 
-export const glazesData = [
-    {
+export const glazesData = [{
         color: "#6c3b1e",
         eName: "choco"
     },
@@ -47,7 +45,7 @@ export const glazesData = [
         eName: "strawberry"
     },
     {
-        color: "#6c3b1e",
+        color: "#6c3b2e",
         eName: "nuttella"
     },
     {
@@ -64,9 +62,8 @@ export const glazesData = [
     }
 ]
 
-export const toppingsData = [
-    {
-        color: "#d2691e",
+export const toppingsData = [{
+        color: "#6c3b1e",
         eName: "choco"
     },
     {
@@ -78,7 +75,7 @@ export const toppingsData = [
         eName: "glemon"
     },
     {
-        color: "#6c3b1e",
+        color: "#6c3b2e",
         eName: "nuttella"
     },
     {

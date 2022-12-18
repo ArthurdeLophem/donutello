@@ -107,11 +107,12 @@ $mitt.on('saveToStorage', (e) => {
             let donutArr = (JSON.parse(window.localStorage.getItem('donuts')))
             donutArr.forEach(el => donuts.push(el))
         }
-        let topping = toppingsData.find(el => el.color == fetchData.topping),
-            glaze = glazesData.find(el => el.color == fetchData.glaze);
-        if (donutType === "editor") {
+        if (donutType == "editor" || donutType == "fresh") {
+            let topping = toppingsData.find(el => el.color == fetchData.topping),
+                glaze = glazesData.find(el => el.color == fetchData.glaze);
             donutData.glaze = glaze.eName
             donutData.topping = topping.eName
+            console.log(donutData)
         }
         donutData.quantity = e.campaignSize
         donuts.push(donutData)

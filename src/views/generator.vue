@@ -34,7 +34,7 @@ if (donutId && orderId && token) {
             donutType.type = "editor"
         }
         else {
-            donutData.data = { extra: "maltesers", glaze: "choco", topping: "choco" }
+            donutData.data = { extra: "maltesers", glaze: "#6c3b1e", topping: "#6c3b1e" }
             donutType.type = "fresh"
         }
     }, 100);
