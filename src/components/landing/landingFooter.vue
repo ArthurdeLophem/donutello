@@ -6,7 +6,7 @@ const donuttelloRedirect = () => {
 
 <template>
     <footer @click="donuttelloRedirect">
-        <img class="footer__logo--img" src="../../assets/donuttello-logo.png" alt="">
+        <img class="footer__logo--img" src="../../../assets/donuttello-logo.png" alt="">
         <h3>x</h3>
         <h3>donutello.ai</h3>
     </footer>
