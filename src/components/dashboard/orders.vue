@@ -73,7 +73,7 @@ const sliceDate = ((date) => {
     background-size: cover;
     background-position: center;
     background-attachment: fixed; */
-    overflow-y: hidden;
+    overflow: hidden;
 }
 
 .btn__primary {
@@ -104,6 +104,10 @@ const sliceDate = ((date) => {
     margin: 0.5em 0;
 }
 
+.card__container {
+    height: 550px;
+}
+
 .donut__flav--column p {
     padding: 0;
     margin: 0;
@@ -129,7 +133,7 @@ const sliceDate = ((date) => {
 
 .background__texture--circle {
     z-index: -2;
-    position: absolute;
+    position: relative;
     width: 260px;
     height: 260px;
     border-radius: 100%;
@@ -187,19 +191,16 @@ const sliceDate = ((date) => {
 }
 
 .dashboard__orders {
-    margin-top: 5rem;
-    width: 100%;
     height: 100%;
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: repeat(4, auto);
     justify-content: space-evenly;
-    flex-wrap: wrap;
     box-sizing: border-box;
     gap: 3rem;
-    overflow-y: auto;
+    max-width: 100%;
+    overflow-x: hidden;
     scrollbar-width: none;
     padding: 0 2rem 3vh 2rem;
-    padding-bottom: 10rem;
 }
 
 .dashboard__orders::-webkit-scrollbar {
