@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue';
-import { extrasData, glazesData, toppingsData } from '../configs/donuttelloData';
-import router from './../router';
+import { extrasData, glazesData, toppingsData } from '../../configs/donuttelloData';
+import router from '../../router';
 
 let donuts = JSON.parse(window.localStorage.getItem('donuts')),
     donutBlock = ref(),

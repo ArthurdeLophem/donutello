@@ -2,7 +2,7 @@
 import { ref, computed, reactive, onMounted } from 'vue'
 import oDonuts from '../components/overview/overviewDonuts.vue'
 import oDetails from '../components/overview/overviewDetails.vue'
-import lHeader from '../components/landingHeader.vue'
+import lHeader from '../components/partials/lHeader.vue'
 import router from '../router';
 import { baseDonutUrl } from '../../config';
 

@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, reactive, watch } from 'vue'
+import { ref, reactive, watch } from 'vue'
 
 let detailData = reactive({});
 

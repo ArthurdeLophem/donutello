@@ -1,9 +1,9 @@
 <script setup>
-import { ref, onMounted, onBeforeUnmount, watch } from 'vue';
-import { extrasData, glazesData, toppingsData } from '../configs/donuttelloData';
-import { baseDonutUrl } from '../../config';
-import router from './../router';
-import $mitt from '../scripts/mitt.js';
+import { ref, onMounted, watch } from 'vue';
+import { extrasData, glazesData, toppingsData } from '../../configs/donuttelloData';
+import { baseDonutUrl } from '../../../config';
+import router from '../../router';
+import $mitt from '../../scripts/mitt.js';
 
 const urlParams = new URLSearchParams(window.location.search),
     orderId = urlParams.get('orderId'),

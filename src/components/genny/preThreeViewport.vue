@@ -1,10 +1,9 @@
 <script setup>
-import { ref, onMounted, onBeforeMount } from 'vue';
-import Donunq from "../scripts/donutGenerator.js";
-import { baseDonutUrl } from '../../config';
-import router from './../router';
-import $mitt from '../scripts/mitt.js';
-import { extrasData, glazesData, toppingsData } from '../configs/donuttelloData';
+import { ref, onMounted } from 'vue';
+import Donunq from "../../scripts/donutGenerator.js";
+import { baseDonutUrl } from '../../../config';
+import router from '../../router';
+import { glazesData, toppingsData } from '../../configs/donuttelloData';
 
 const donutViewport = ref(""),
     donunq = new Donunq(),

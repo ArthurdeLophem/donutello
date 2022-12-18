@@ -1,7 +1,6 @@
 <script setup>
 import { ref, watch } from 'vue';
 import router from '../../router';
-import { baseDonutUrl } from '../../../config';
 
 let detailData,
     donutBlock = ref(),

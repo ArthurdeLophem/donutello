@@ -1,8 +1,8 @@
 <script setup>
 import resetform from '../components/changepassword/resetform.vue'
-import lHeader from '../components/landingHeader.vue'
+import lHeader from '../components/partials/lHeader.vue'
 </script>
 <template>
-<lHeader />
-<resetform />
+    <lHeader />
+    <resetform />
 </template>

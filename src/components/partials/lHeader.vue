@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive, onMounted } from 'vue';
+import { onMounted } from 'vue';
 
 onMounted(() => {
     if (localStorage.getItem('token')) {

@@ -1,6 +1,6 @@
 <script setup>
 import lForm from '../components/login/loginForm.vue'
-import lHeader from '../components/landingHeader.vue'
+import lHeader from '../components/partials/lHeader.vue'
 
 </script>
 <template class="lbody">

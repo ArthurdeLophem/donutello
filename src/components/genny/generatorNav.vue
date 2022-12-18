@@ -1,6 +1,6 @@
 <script setup>
-import { onBeforeUnmount, onMounted, ref, watch } from 'vue';
-import $mitt from '../scripts/mitt';
+import { ref, watch } from 'vue';
+import $mitt from '../../scripts/mitt';
 let campaign__container = ref(),
     campaign__size = ref(),
     donutType,

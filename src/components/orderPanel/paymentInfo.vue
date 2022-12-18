@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-import { cloud, cloudPreset, baseDonutUrl } from '../../config';
+import { cloud, cloudPreset, baseDonutUrl } from '../../../config';
 
 const email = ref(""),
     gsm = ref(""),

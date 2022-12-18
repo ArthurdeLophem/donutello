@@ -1,13 +1,11 @@
 <script setup>
-import oSummary from '../components/orderSummary.vue'
-import pInfo from '../components/paymentInfo.vue'
-import lHeader from '../components/landingHeader.vue'
+import oSummary from '../components/orderPanel/orderSummary.vue'
+import pInfo from '../components/orderPanel/paymentInfo.vue'
+import lHeader from '../components/partials/lHeader.vue'
 import { watch, ref, reactive } from 'vue';
 import { cloudPreset, mainUrl } from '../../config';
 
-
 const isCompleted = ref(false);
-
 const orderData = ref({ data: [] });
 
 let orderdate = ref("");

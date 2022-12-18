@@ -1,7 +1,7 @@
 <script setup>
-import donutConfigurator from '../components/generatorNav.vue';
-import donutViewport from '../components/threeViewport.vue';
-import configPanels from '../components/configurePanels.vue';
+import donutConfigurator from '../components/genny/generatorNav.vue';
+import donutViewport from '../components/genny/threeViewport.vue';
+import configPanels from '../components/genny/configurePanels.vue';
 import { baseDonutUrl } from '../../config';
 import { reactive } from 'vue';
 

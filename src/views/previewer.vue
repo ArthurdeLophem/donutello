@@ -1,5 +1,5 @@
 <script setup>
-import donutViewport from '../components/preThreeViewport.vue';
+import donutViewport from '../components/genny/preThreeViewport.vue';
 </script>
 
 <template>
