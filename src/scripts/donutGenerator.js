@@ -1,7 +1,13 @@
 import * as THREE from "three";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
-import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import {
+    GLTFLoader
+} from "three/examples/jsm/loaders/GLTFLoader.js";
+import {
+    RGBELoader
+} from "three/examples/jsm/loaders/RGBELoader.js";
+import {
+    OrbitControls
+} from "three/examples/jsm/controls/OrbitControls.js";
 
 export default class Donunq {
     constructor() {
@@ -37,6 +43,12 @@ export default class Donunq {
         this.glazeObj;
         this.baseObj;
         this.customizables = []
+
+        this.ending = 1;
+        this.targetPositions = {
+            glaze: 0.005,
+            toppers: 0.008
+        };
     }
 
     createScene(viewport) {
@@ -131,7 +143,7 @@ export default class Donunq {
         const defHex = 0x000000;
         let intersectObject = [];
         pointer.x = (e.clientX / this.viewport.offsetWidth) * 2 - 1;
-        pointer.y = - (e.clientY / this.viewport.offsetHeight) * 2 + 1;
+        pointer.y = -(e.clientY / this.viewport.offsetHeight) * 2 + 1;
         raycaster.setFromCamera(pointer, this.camera);
         const intersects = raycaster.intersectObjects(this.scene.children, true);
 
@@ -147,11 +159,19 @@ export default class Donunq {
         }
     }
 
+    ender() {
+        this.ending = true;
+    }
+
+    unEnder() {
+        this.ending = false;
+    }
+
     intersectObj(e) {
         const raycaster = new THREE.Raycaster();
         const pointer = new THREE.Vector2();
         pointer.x = (e.clientX / this.viewport.offsetWidth) * 2 - 1;
-        pointer.y = - (e.clientY / this.viewport.offsetHeight) * 2 + 1;
+        pointer.y = -(e.clientY / this.viewport.offsetHeight) * 2 + 1;
         raycaster.setFromCamera(pointer, this.camera);
         const intersects = raycaster.intersectObjects(this.scene.children);
         const targetObj = intersects[0].object.name;
@@ -179,6 +199,38 @@ export default class Donunq {
         // function to let the orbitctrl and others to animate
         requestAnimationFrame(this.animate);
         this.controls.update();
+        if (typeof (this.ending) != "number") {
+            console.log(this.ending)
+            if (this.ending == true) {
+                if (this.glazeObj.position.y > this.targetPositions.glaze) {
+                    this.glazeObj.position.y -= 0.0007
+                }
+                if (this.toppingObj.position.y > this.targetPositions.toppers) {
+                    this.toppingObj.position.y -= 0.0009
+                }
+                if (this.customizables[1].position.y > this.targetPositions.toppers) {
+                    for (let i = 0; i <= this.customizables.length - 4; i++) {
+                        const el = this.customizables[i];
+                        el.position.y -= 0.001
+                    }
+                }
+            }
+            if (this.ending == false) {
+                if (this.glazeObj.position.y < this.donunqData.glazePosY) {
+                    this.glazeObj.position.y += 0.0007
+                }
+                if (this.toppingObj.position.y < this.donunqData.vermiPosY) {
+                    this.toppingObj.position.y += 0.0009
+                }
+                if (this.customizables[1].position.y < this.donunqData.extraPosY) {
+                    for (let i = 0; i <= this.customizables.length - 4; i++) {
+                        const el = this.customizables[i];
+                        el.position.y += 0.001
+                    }
+                }
+            }
+        }
+
         this.render()
     }
 

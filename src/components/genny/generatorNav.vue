@@ -9,6 +9,7 @@ let campaign__container = ref(),
 
 const openCampaign = (e) => {
     campaign__container.value.classList.add("activePanel")
+    $mitt.emit('closeModel');
 }
 
 const donutProps = defineProps({
@@ -38,7 +39,8 @@ const submitDonut = (e) => {
 }
 
 const closePanel = (e) => {
-    campaign__container.value.classList.remove("activePanel")
+    campaign__container.value.classList.remove("activePanel");
+    $mitt.emit('repositionModel');
 }
 </script>
 
