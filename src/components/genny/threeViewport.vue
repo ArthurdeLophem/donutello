@@ -85,6 +85,12 @@ $mitt.on('emitGlazes', e => {
 $mitt.on('emitExtras', e => {
     donunq.configureExtras(e.extraType);
 })
+$mitt.on('closeModel', (e) => {
+    donunq.ender();
+})
+$mitt.on('repositionModel', (e) => {
+    donunq.unEnder();
+})
 
 onMounted(() => {
     generateCanvas()
