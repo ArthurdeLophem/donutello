@@ -207,7 +207,7 @@ const copyPreviewLink = (donutId) => {
     flex-direction: row;
     justify-content: center;
     gap: 3em;
-    align-items: flex-end;
+    align-items: flex-start;
     overflow-y: auto;
     scrollbar-width: none;
 }
