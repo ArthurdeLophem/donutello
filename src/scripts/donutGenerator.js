@@ -200,7 +200,6 @@ export default class Donunq {
         requestAnimationFrame(this.animate);
         this.controls.update();
         if (typeof (this.ending) != "number") {
-            console.log(this.ending)
             if (this.ending == true) {
                 if (this.glazeObj.position.y > this.targetPositions.glaze) {
                     this.glazeObj.position.y -= 0.0007
@@ -230,7 +229,6 @@ export default class Donunq {
                 }
             }
         }
-
         this.render()
     }
 
