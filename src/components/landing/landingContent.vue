@@ -12,14 +12,14 @@
                 <p>create your business donut marketing online and get it shipped and delivered at your door</p>
                 <router-link to="/generator" class="btn__primary">start yours now</router-link>
                 <div class="enticing__assets">
-                    <img src="/assets/shopping_bag.png" alt="3d shopping bag">
-                    <img src="/assets/parcel_box.png" alt="3d parcel box">
+                    <img src="../../../public/assets/shopping_bag.png" alt="3d shopping bag">
+                    <img src="../../../public/assets/parcel_box.png" alt="3d parcel box">
                 </div>
             </div>
             <div class="card__container">
                 <div class="enticing__example">
                     <div class="example__card">
-                        <img class="example__img" src="/assets/shopping_bag.png" alt="3d shopping bag">
+                        <img class="example__img" src="../../../public/assets/shopping_bag.png" alt="3d shopping bag">
                         <div class="example__info">
                             <div class="company__info">
                                 <div class="company__logo"></div>

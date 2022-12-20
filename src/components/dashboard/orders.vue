@@ -33,7 +33,7 @@ const sliceDate = ((date) => {
             <div class="card__container" v-for="order in orders.data">
                 <div class="enticing__example">
                     <div class="example__card">
-                        <img class="example__img" src="/assets/shopping_bag.png" alt="3d shopping bag">
+                        <img class="example__img" src="../../../public/assets/shopping_bag.png" alt="3d shopping bag">
                         <div class="example__info">
                             <div class="company__info">
                                 <div class="company__logo"></div>

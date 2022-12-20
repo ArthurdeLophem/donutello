@@ -39,7 +39,7 @@
 }
 
 .testimonial__portrait {
-    background-image: url(../../../assets/person.jpg);
+    background-image: url(../../../public/assets/person.jpg);
     background-position: top;
     background-size: cover;
     background-repeat: no-repeat;

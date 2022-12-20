@@ -6,16 +6,16 @@
         <h2>trusting brands</h2>
         <div class="card__container">
             <div class="brand__card">
-                <img class="brand__logo" src="/assets/brands/nike.png" alt="nike logo">
+                <img class="brand__logo" src="../../../public/assets/brands/nike.png" alt="nike logo">
             </div>
             <div class="brand__card">
-                <img class="brand__logo" src="/assets/brands/levis.png" alt="levis logo">
+                <img class="brand__logo" src="../../../public/assets/brands/levis.png" alt="levis logo">
             </div>
             <div class="brand__card">
-                <img class="brand__logo" src="/assets/brands/bol.png" alt="bol.com logo">
+                <img class="brand__logo" src="../../../public/assets/brands/bol.png" alt="bol.com logo">
             </div>
             <div class="brand__card">
-                <img class="brand__logo" src="/assets/brands/telenet.png" alt="telenet logo">
+                <img class="brand__logo" src="../../../public/assets/brands/telenet.png" alt="telenet logo">
             </div>
         </div>
     </div>
