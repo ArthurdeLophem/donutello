@@ -66,6 +66,7 @@ const checkIntersects = (e) => {
 
 const checkObject = (e) => {
     const targetObj = donunq.intersectObj(e);
+    console.log(targetObj);
     if (targetObj === "donutLayer_1") {
         $mitt.emit('emitToppingPanel', { 'targetObj': "topping" });
     }

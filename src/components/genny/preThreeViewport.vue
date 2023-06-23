@@ -29,20 +29,20 @@ const bakeDonut = () => {
     }, 500)
 }
 
-fetch(baseDonutUrl + "/" + orderId + "/" + donutId, {
-    method: 'GET',
-    headers: {
-        'Content-Type': 'application/json',
-        "Authorization": "Bearer " + localStorage.getItem('token')
-    }
-}).then(response =>
-    response.json()
-).then(data => {
-    donut = data.data
-    bakeDonut();
-}).catch(
-    error => console.log(error)
-)
+// fetch(baseDonutUrl + "/" + orderId + "/" + donutId, {
+//     method: 'GET',
+//     headers: {
+//         'Content-Type': 'application/json',
+//         "Authorization": "Bearer " + localStorage.getItem('token')
+//     }
+// }).then(response =>
+//     response.json()
+// ).then(data => {
+//     donut = data.data
+//     bakeDonut();
+// }).catch(
+//     error => console.log(error)
+// )
 
 const previousTab = () => {
     router.go(-1)

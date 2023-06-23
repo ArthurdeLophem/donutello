@@ -32,11 +32,11 @@ watch(donutProps, () => {
     }
 });
 
-const submitDonut = (e) => {
-    e.preventDefault();
-    window.localStorage.removeItem("editor")
-    $mitt.emit('saveToStorage', { 'campaignSize': parseInt(campaign__size.value.value) });
-}
+// const submitDonut = (e) => {
+//     e.preventDefault();
+//     window.localStorage.removeItem("editor")
+//     $mitt.emit('saveToStorage', { 'campaignSize': parseInt(campaign__size.value.value) });
+// }
 
 const closePanel = (e) => {
     campaign__container.value.classList.remove("activePanel");
@@ -73,7 +73,7 @@ const closePanel = (e) => {
                 <div class="campaign__interactive">
                     <input ref="campaign__size" type="number" step="5" name="campaign" inputmode="numeric" min="20"
                         value="20" max="150" id="" required>
-                    <div class="btn__primary" @click="submitDonut">
+                    <div class="btn__primary">
                         <p class="btn__text" ref="cButton"></p>
                     </div>
                 </div>
