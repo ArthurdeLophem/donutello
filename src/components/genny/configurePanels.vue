@@ -1,7 +1,6 @@
 <script setup>
 import { ref, onMounted, watch } from 'vue';
 import { extrasData, glazesData, toppingsData } from '../../configs/donuttelloData';
-import { baseDonutUrl } from '../../../config';
 import router from '../../router';
 import $mitt from '../../scripts/mitt.js';
 
@@ -124,26 +123,6 @@ $mitt.on('saveToStorage', (e) => {
     } else {
         donutData.quantity = e.campaignSize
         console.log(donutData)
-
-        fetch(baseDonutUrl + "/" + orderId + "/" + donutId, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                "Authorization": "Bearer " + token,
-            },
-            body: JSON.stringify(donutData)
-        }).then(res => {
-            res.json().then(data => {
-                console.log(data)
-                setTimeout(() => {
-                    $mitt.all.clear();
-                    router.push({ name: 'Overview', query: { orderId: orderId, token: token } })
-                }, 1000)
-            })
-                .catch(error => {
-                    console.log(error)
-                });
-        })
     }
 })
 
